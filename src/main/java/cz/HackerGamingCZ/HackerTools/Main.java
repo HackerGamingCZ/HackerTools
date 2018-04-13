@@ -1,42 +1,63 @@
 package cz.HackerGamingCZ.HackerTools;
 
-import cz.HackerGamingCZ.HackerTools.managers.ItemManager;
+import cz.HackerGamingCZ.HackerTools.managers.*;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
     private static Main plugin;
-    private static final String allowedNick = "HackerGamingCZ";
-    private static ItemManager itemManager = new ItemManager();
+    private ItemManager itemManager;
+    private DebugManager debugManager;
+    private MinigameManager minigameManager;
+    private EventManager eventManager;
+    private CommandManager commandManager;
+    private PlaceholderManager placeholderManager;
+    private ChatManager chatManager;
+    private PluginDescriptionFile pdf;
 
     @Override
     public void onEnable(){
         plugin = this;
+        itemManager = new ItemManager();
+        debugManager = new DebugManager();
+        minigameManager = new MinigameManager();
+        eventManager = new EventManager();
+        commandManager = new CommandManager();
+        placeholderManager = new PlaceholderManager();
+        chatManager = new ChatManager();
+        pdf = this.getDescription();
         Bukkit.getLogger().warning("HackerTools support enabled!");
     }
 
     @Override
     public void onDisable(){
-
         Bukkit.getLogger().warning("HackerTools support disabled!");
     }
 
     public static Main getPlugin() {
         return plugin;
     }
+    public PluginDescriptionFile getPdf() { return pdf; }
 
-    public static boolean hasPermission(Player player) {
-        return player.getName().equals(allowedNick);
+    public boolean hasPermission(Player player) {
+        return player.hasPermission("ht.*") || player.isOp();
     }
-    public static boolean hasPermission(String player) {
-        return player.equals(allowedNick);
+    public boolean hasPermission(CommandSender sender) {
+        return sender.hasPermission("ht.*") || sender.isOp();
     }
-
 
     //MANAGERS
-    public static ItemManager getItemManager() {
-        return itemManager;
+    public ItemManager getItemManager() { return itemManager; }
+    public DebugManager getDebugManager() { return debugManager; }
+    public EventManager getEventManager() {
+        return eventManager;
     }
+    public MinigameManager getMinigameManager() { return minigameManager; }
+    public CommandManager getCommandManager() { return commandManager; }
+    public PlaceholderManager getPlaceholderManager() { return placeholderManager; }
+    public ChatManager getChatManager() { return chatManager; }
 }

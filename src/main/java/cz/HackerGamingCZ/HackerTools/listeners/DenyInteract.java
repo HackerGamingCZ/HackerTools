@@ -26,7 +26,7 @@ public class DenyInteract implements Listener {
         if(ignoredPlayers.contains(e.getPlayer().getName())){
             return;
         }
-        if(!Main.getItemManager().isItemLegit(new ItemStack(e.getClickedBlock().getType()))){
+        if(!Main.getPlugin().getItemManager().isItemLegit(new ItemStack(e.getClickedBlock().getType()))){
             return;
         }
         Material material = e.getClickedBlock().getType();
