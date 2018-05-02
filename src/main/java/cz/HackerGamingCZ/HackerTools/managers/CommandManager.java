@@ -17,6 +17,14 @@ public class CommandManager {
         return !commands.get(cmd);
     }
 
+    /**
+     * @param command to take from HashMap
+     * @return value from HashMap or false when Hashmap doesn't contains that key
+     **/
+    public boolean isCommandEnabled(Command command){
+        return commands.getOrDefault(command, false);
+    }
+
     public enum Command{
 
         DEBUG(true),

@@ -1,7 +1,7 @@
 package cz.HackerGamingCZ.HackerTools.managers;
 
+import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
-import cz.HackerGamingCZ.HackerTools.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -29,7 +29,7 @@ public class DebugManager {
     }
     public void sendDebug(String message){
         for(Player player : Bukkit.getOnlinePlayers()){
-            if(Main.getPlugin().hasPermission(player)){
+            if(HackerTools.getPlugin().hasSpecialPermission(player)){
                 player.sendMessage(Lang.DEBUG_PREFIX+message);
             }
         }

@@ -25,9 +25,7 @@ public enum GameState {
         this.joinType = joinType;
     }
 
-    public String getMotd() {
-        return motd;
-    }
+    public String getMotd() { return motd; }
     public JoinType getJoinType() {
         return joinType;
     }
@@ -36,8 +34,8 @@ public enum GameState {
 
         PLAYER(""),
         SPECTATOR(""),
-        NOBODY(""),
-        ADMIN("", "adminjoin");
+        NOBODY(null),
+        ADMIN("", "ht.adminjoin");
 
         private String message;
         private String permission;

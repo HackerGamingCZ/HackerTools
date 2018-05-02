@@ -1,4 +1,4 @@
-package cz.HackerGamingCZ.HackerTools.managers;
+package cz.HackerGamingCZ.HackerTools.api;
 
 import cz.HackerGamingCZ.HackerTools.enums.Placeholder;
 import org.bukkit.Bukkit;
@@ -6,10 +6,12 @@ import org.bukkit.Bukkit;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class PlaceholderManager {
+public class PlaceholderAPI {
 
     public void updatePlaceHolders(){
-        Placeholder.ONLINEPLAYERS.setReplacement(String.valueOf(Bukkit.getOnlinePlayers().size()));
+        for(Placeholder placeholder : Placeholder.values()){
+            placeholder.update();
+        }
     }
 
     public String replaceString(String string){
