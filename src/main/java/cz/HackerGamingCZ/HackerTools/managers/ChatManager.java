@@ -49,8 +49,8 @@ public class ChatManager {
             compensated += spaceLength;
         }
         if(placeholder) {
-            message = HackerTools.getPlugin().getPlaceholderApi().replaceString(message);
-            message = HackerTools.getPlugin().getPlaceholderApi().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, player.getName());
+            message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
+            message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, player.getName());
             player.sendMessage(message);
         }else{
             player.sendMessage(message);
@@ -130,36 +130,41 @@ public class ChatManager {
             sb.append(" ");
             compensated += spaceLength;
         }
-        message = HackerTools.getPlugin().getPlaceholderApi().replaceString(message);
-        message = HackerTools.getPlugin().getPlaceholderApi().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, player.getName());
+        message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
+        message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, player.getName());
         player.sendMessage(message);
     }
 
     public void sendPlayerMessage(Player player, String message, boolean placeholder){
         if(placeholder){
-            message = HackerTools.getPlugin().getPlaceholderApi().replaceString(message);
-            message = HackerTools.getPlugin().getPlaceholderApi().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, player.getName());
+            message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
+            message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, player.getName());
             player.sendMessage(message);
         } else{
             player.sendMessage(message);
         }
     }
-    public void sendPlayerMessage(Player player, String message){
-        message = HackerTools.getPlugin().getPlaceholderApi().replaceString(message);
-        message = HackerTools.getPlugin().getPlaceholderApi().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, player.getName());
+
+
+    public void sendPlayerMessage(Player player, String message, String specialPlayer){
+        message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
+        message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, specialPlayer);
         player.sendMessage(message);
     }
 
+
+    public void sendPlayerMessage(Player player, String message){
+        sendPlayerMessage(player, message, true);
+    }
+
     public void sendPlayerMessage(CommandSender sender, String message){
-        message = HackerTools.getPlugin().getPlaceholderApi().replaceString(message);
-        message = HackerTools.getPlugin().getPlaceholderApi().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, sender.getName());
-        sender.sendMessage(message);
+        sendPlayerMessage(sender, message, true);
     }
 
     public void sendPlayerMessage(CommandSender sender, String message, boolean placeholder){
         if(placeholder){
-            message = HackerTools.getPlugin().getPlaceholderApi().replaceString(message);
-            message = HackerTools.getPlugin().getPlaceholderApi().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, sender.getName());
+            message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
+            message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, sender.getName());
             sender.sendMessage(message);
         } else{
             sender.sendMessage(message);

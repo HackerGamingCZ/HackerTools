@@ -2,3 +2,7 @@ main: cz.HackerGamingCZ.HackerTools.HackerTools
 author: HackerGamingCZ
 version: 0.0.1
 name: HackerTools
+commands:
+  hackertools:
+    description: Main command for HackerTools
+    aliases: [ht]

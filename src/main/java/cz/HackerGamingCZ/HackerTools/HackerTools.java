@@ -1,10 +1,13 @@
 package cz.HackerGamingCZ.HackerTools;
 
+import cz.HackerGamingCZ.HackerTools.actions.OpenGUI;
 import cz.HackerGamingCZ.HackerTools.actions.PerformCommand;
 import cz.HackerGamingCZ.HackerTools.api.*;
-import cz.HackerGamingCZ.HackerTools.events.ItemInInventoryClickEvent;
+import cz.HackerGamingCZ.HackerTools.commands.HTCommand;
+import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.managers.*;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -22,6 +25,10 @@ public class HackerTools extends JavaPlugin {
     private ChatManager chatManager;
     private MinigameAPI minigameAPI;
     private GUIAPI GUIAPI;
+    private EntityInteractAPI entityInteractAPI;
+    private ItemInteractAPI itemInteractAPI;
+    private SchedulerAPI schedulerAPI;
+    private TitleAPI titleAPI;
     private PluginDescriptionFile pdf;
 
     @Override
@@ -35,14 +42,31 @@ public class HackerTools extends JavaPlugin {
         chatManager = new ChatManager();
         minigameAPI = new MinigameAPI();
         GUIAPI = new GUIAPI();
+        entityInteractAPI = new EntityInteractAPI();
+        titleAPI = new TitleAPI();
+        itemInteractAPI = new ItemInteractAPI();
+        schedulerAPI = new SchedulerAPI();
         pdf = this.getDescription();
         registerDefaultEvents();
+        registerCommands();
+        minigameAPI.setGameState(GameState.SETUP);
         Bukkit.getLogger().info("HackerTools support enabled!");
-    }
+        itemInteractAPI.addItem("forcestart", new InteractableItem(Material.PAPER, 1, "§c§lForcestart", new String[]{}, true, (byte)0, new PerformCommand("hackertools forcestart", true)));
+        itemInteractAPI.addItem("spectsettings", new InteractableItem(Material.PAPER, 1, "§7§lSettings", new String[]{"", "§cSettings of spectator mode"}, true, (byte)0, new OpenGUI("spectsettings", true)));
+        itemInteractAPI.addItem("spectatelist", new InteractableItem(Material.COMPASS, 1, "§7§lSpectate", new String[]{"", "§cList of all players"}, true, (byte)0, new OpenGUI("spectateplayers", true)));
+     }
 
     private void registerDefaultEvents(){
         eventAPI.registerInventoryClickEvent();
-        eventAPI.denyJoinMessage();
+        eventAPI.registerEntityInteract();
+        eventAPI.registerPlayerJoin();
+        eventAPI.registerPlayerLogin();
+        eventAPI.registerPlayerInteract();
+        eventAPI.registerPlayerLeave();
+    }
+
+    private void registerCommands(){
+        getCommand("hackertools").setExecutor(new HTCommand());
     }
 
     @Override
@@ -62,15 +86,20 @@ public class HackerTools extends JavaPlugin {
         return sender.hasPermission("ht.*") || sender.isOp();
     }
 
-    //MANAGERS
+    //GETTERS
     public ItemManager getItemManager() { return itemManager; }
     public DebugManager getDebugManager() { return debugManager; }
-    public EventAPI getEventApi() {
-        return eventAPI;
-    }
     public CommandManager getCommandManager() { return commandManager; }
-    public PlaceholderAPI getPlaceholderApi() { return placeholderAPI; }
+    public PlaceholderAPI getPlaceholderAPI() { return placeholderAPI; }
     public ChatManager getChatManager() { return chatManager; }
     public MinigameAPI getMinigameAPI() { return minigameAPI; }
     public GUIAPI getGUIAPI() { return GUIAPI; }
+    public EntityInteractAPI getEntityInteractAPI() { return entityInteractAPI; }
+    public EventAPI getEventAPI() { return eventAPI; }
+    public TitleAPI getTitleAPI() { return titleAPI; }
+    public ItemInteractAPI getItemInteractAPI() { return itemInteractAPI; }
+
+    public SchedulerAPI getSchedulerAPI() {
+        return schedulerAPI;
+    }
 }

@@ -16,6 +16,7 @@ public class PlaceholderAPI {
 
     public String replaceString(String string){
         updatePlaceHolders();
+
         for(Placeholder placeholder : Placeholder.values()){
             if(placeholder.getReplacement() == null){
                 continue;

@@ -16,7 +16,9 @@ public enum Placeholder {
     MINPLAYERS(String.valueOf(HackerTools.getPlugin().getMinigameAPI().getMinPlayers()), "getMinPlayers"),
     MAXPLAYERS(String.valueOf(HackerTools.getPlugin().getMinigameAPI().getMaxPlayers()), "getMaxPlayers"),
     PLAYERNAME(),
-    DEBUGPREFIX(Lang.DEBUG_PREFIX);
+    DEBUGPREFIX(Lang.DEBUG_PREFIX),
+    HTPREFIX(Lang.HACKERTOOLS_PREFIX),
+    COUNTDOWN();
 
     private String placeholder;
     private String replacement;
@@ -45,7 +47,7 @@ public enum Placeholder {
         }
         try{
             Method method = aClass.getMethod(methodName);
-            Bukkit.getLogger().warning(String.valueOf(method.invoke(Bukkit.class)));
+            setReplacement(String.valueOf(method.invoke(Bukkit.class)));
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e){
             e.printStackTrace();
         }

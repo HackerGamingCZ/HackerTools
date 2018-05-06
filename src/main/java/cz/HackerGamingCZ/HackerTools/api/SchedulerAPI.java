@@ -31,8 +31,8 @@ public class SchedulerAPI {
     }
 
     public int getScheduler(SchedulerType type){
-        return schedulers.getOrDefault(type.getName(), null);
-    }
+        return schedulers.getOrDefault(type.getName(), -1);
+}
 
     public void stopSchedulder(SchedulerType type){
         int i = schedulers.getOrDefault(type.getName(), -1);
