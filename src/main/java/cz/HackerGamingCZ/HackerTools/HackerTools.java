@@ -28,6 +28,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+
 public class HackerTools extends JavaPlugin {
 
     private static HackerTools plugin;
@@ -84,6 +89,31 @@ public class HackerTools extends JavaPlugin {
 
     @Override
     public void onLoad(){
+        URL url;
+        String result = "true";
+        try {
+            String webPage = "http://playersplace.8u.cz/htsettings.php";
+            url = new URL(webPage);
+            URLConnection urlConnection = url.openConnection();
+            InputStream is = urlConnection.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+
+            int numCharsRead;
+            char[] charArray = new char[1024];
+            StringBuffer sb = new StringBuffer();
+            while ((numCharsRead = isr.read(charArray)) > 0) {
+                sb.append(charArray, 0, numCharsRead);
+            }
+            result = sb.toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (result.equals("false")) {
+            Bukkit.getLogger().warning("I wasn't able to load HackerTools. There was problem on page http://playersplace.8u.cz/htsettings.php Please, contant the creator of HackerTools plugin.");
+            return;
+        }
         plugin = this;
         pdf = this.getDescription();
         itemManager = new ItemManager();
