@@ -30,9 +30,7 @@ public class PlayerJoin implements Listener {
             HackerTools.getPlugin().getForcestartItem().giveItem(e.getPlayer().getInventory(), 8);
         }
         GameState state = HackerTools.getPlugin().getMinigameManager().getGameState();
-        if (state != GameState.INGAME) {
-            HackerTools.getPlugin().getGreenTeam().join(htPlayer);
-        }
+
         GameState.JoinType type = state.getJoinType();
         if (state.getJoinType() == GameState.JoinType.SPECTATOR) {
             HackerTools.getPlugin().getSpectatorTeam().join(htPlayer);

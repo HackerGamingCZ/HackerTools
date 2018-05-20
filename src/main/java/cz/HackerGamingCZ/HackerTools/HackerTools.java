@@ -72,8 +72,8 @@ public class HackerTools extends JavaPlugin {
         spectatorSettingsItem.register();
         spectatorPlayerListItem = new InteractableItem(Material.COMPASS, 1, "§7§lSpectate", true, (byte)0, new ItemInInventoryClickEvent(new OpenGUI(spectatorPlayerList)), false, "", "§cList of all players");
         spectatorPlayerListItem.register();
-        minigameManager.setupGame(2,3,GameState.WAITING, null, GameMode.CREATIVE);
-        minigameManager.enableReconnect();
+        //TESTING PART
+        //END OF TESTING PART
         registerDefaultEvents();
         registerCommands();
         for(Player player : Bukkit.getOnlinePlayers()){
