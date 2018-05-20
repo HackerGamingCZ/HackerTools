@@ -19,7 +19,6 @@ import cz.HackerGamingCZ.HackerTools.players.PlayerManager;
 import cz.HackerGamingCZ.HackerTools.teams.Team;
 import cz.HackerGamingCZ.HackerTools.teams.TeamManager;
 import cz.HackerGamingCZ.HackerTools.teams.htteams.SpectatorTeam;
-import cz.HackerGamingCZ.HackerTools.testing.GreenTeam;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -58,7 +57,6 @@ public class HackerTools extends JavaPlugin {
 
     private Team spectatorTeam;
 
-    private Team greenTeam;
 
     @Override
     public void onEnable(){
@@ -67,13 +65,13 @@ public class HackerTools extends JavaPlugin {
         spectatorPlayerList = new SpectatorPlayerlist();
         spectatorPlayerList.register();
         spectatorTeam = new SpectatorTeam();
+        spectatorTeam.register();
         forcestartItem  = new InteractableItem(Material.PAPER, 1, "§c§lForcestart", true, (byte)0, new ItemInInventoryClickEvent(new PerformCommand("hackertools forcestart", true)),false, "", "§cClick to forcestart the start");
         forcestartItem.register();
         spectatorSettingsItem = new InteractableItem(Material.PAPER, 1, "§7§lSettings", true, (byte)0, new ItemInInventoryClickEvent(new OpenGUI(spectatorSettings)), false, "", "§cSettings of spectator mode");
         spectatorSettingsItem.register();
         spectatorPlayerListItem = new InteractableItem(Material.COMPASS, 1, "§7§lSpectate", true, (byte)0, new ItemInInventoryClickEvent(new OpenGUI(spectatorPlayerList)), false, "", "§cList of all players");
         spectatorPlayerListItem.register();
-        greenTeam = new GreenTeam();
         minigameManager.setupGame(2,3,GameState.WAITING, null, GameMode.CREATIVE);
         minigameManager.enableReconnect();
         registerDefaultEvents();
@@ -164,10 +162,6 @@ public class HackerTools extends JavaPlugin {
 
     public Mechanics getMechanics() { return mechanics; }
     public Team getSpectatorTeam() { return spectatorTeam; }
-
-    public Team getGreenTeam() {
-        return greenTeam;
-    }
 
     //Interactable items
     public InteractableItem getForcestartItem() {

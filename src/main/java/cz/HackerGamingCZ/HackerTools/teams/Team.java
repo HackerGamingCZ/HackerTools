@@ -2,12 +2,14 @@ package cz.HackerGamingCZ.HackerTools.teams;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
+import cz.HackerGamingCZ.HackerTools.Permissions;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,24 @@ public interface Team {
         for(HTPlayer player : getPlayers()){
             teleportToSpawn(player.getPlayer());
         }
+    }
+
+    default void register(){
+        HackerTools.getPlugin().getTeamManager().addTeam(this);
+    }
+
+    default boolean canJoin(Player player){
+        if(player.hasPermission(Permissions.TEAMS_FULLJOIN)){
+            return true;
+        }
+        int playersInThisTeam = getPlayers().size();
+        for(Team team : HackerTools.getPlugin().getTeamManager().getTeams()){
+            int players = team.getPlayers().size();
+            if(players < playersInThisTeam){
+                return false;
+            }
+        }
+        return true;
     }
 
     default void join(Player player){
