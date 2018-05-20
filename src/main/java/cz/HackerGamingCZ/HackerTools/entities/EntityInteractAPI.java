@@ -1,7 +1,6 @@
-package cz.HackerGamingCZ.HackerTools.api;
+package cz.HackerGamingCZ.HackerTools.entities;
 
-import cz.HackerGamingCZ.HackerTools.GUI;
-import cz.HackerGamingCZ.HackerTools.InteractableEntity;
+import cz.HackerGamingCZ.HackerTools.entities.InteractableEntity;
 
 import java.util.HashMap;
 
@@ -10,7 +9,7 @@ public class EntityInteractAPI {
     private HashMap<String, InteractableEntity> entities = new HashMap<>();
 
     public void addEntity(InteractableEntity entity){
-        entities.put(entity.getName(), entity);
+        entities.put(entity.getCustomName(), entity);
     }
 
     public InteractableEntity getEntity(String title){

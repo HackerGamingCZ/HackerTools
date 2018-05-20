@@ -2,7 +2,7 @@ package cz.HackerGamingCZ.HackerTools.managers;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.enums.DefaultFontInfo;
-import cz.HackerGamingCZ.HackerTools.enums.Placeholder;
+import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;

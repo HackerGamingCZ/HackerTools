@@ -1,4 +1,4 @@
-package cz.HackerGamingCZ.HackerTools.enums;
+package cz.HackerGamingCZ.HackerTools.placeholders;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import org.bukkit.Bukkit;
@@ -8,16 +8,16 @@ import java.lang.reflect.Method;
 
 public enum Placeholder {
 
-
-    PLUGINAUTHOR(HackerTools.getPlugin().getPdf().getAuthors().get(0)),
-    PLUGINNAME(HackerTools.getPlugin().getPdf().getName()),
-    PLUGINVERSION(HackerTools.getPlugin().getPdf().getVersion()),
     ONLINEPLAYERS(String.valueOf(Bukkit.getOnlinePlayers().size()), "getOnlinePlayerCount"),
-    MINPLAYERS(String.valueOf(HackerTools.getPlugin().getMinigameAPI().getMinPlayers()), "getMinPlayers"),
-    MAXPLAYERS(String.valueOf(HackerTools.getPlugin().getMinigameAPI().getMaxPlayers()), "getMaxPlayers"),
     PLAYERNAME(),
     DEBUGPREFIX(Lang.DEBUG_PREFIX),
     HTPREFIX(Lang.HACKERTOOLS_PREFIX),
+    PLUGINNAME(null, "getPluginName"),
+    PLUGINAUTHOR(null, "getAuthor"),
+    MINPLAYERS(null, "getMinPlayers"),
+    MAXPLAYERS(null, "getMaxPlayers"),
+    PLUGINVERSION(null, "getVersion"),
+    JOINEDTEAM(),
     COUNTDOWN();
 
     private String placeholder;
@@ -76,10 +76,14 @@ public enum Placeholder {
     }
 
     public static int getMinPlayers(){
-        return HackerTools.getPlugin().getMinigameAPI().getMinPlayers();
+        return HackerTools.getPlugin().getMinigameManager().getMinPlayers();
+    }
+    public static int getMaxPlayers(){
+        return HackerTools.getPlugin().getMinigameManager().getMaxPlayers();
     }
 
-    public static int getMaxPlayers(){
-        return HackerTools.getPlugin().getMinigameAPI().getMaxPlayers();
-    }
+
+    public static String getAuthor(){ return HackerTools.getPlugin().getPdf().getAuthors().get(0); }
+    public static String getVersion(){ return HackerTools.getPlugin().getPdf().getVersion(); }
+    public static String getPluginName(){ return HackerTools.getPlugin().getPdf().getName(); }
 }

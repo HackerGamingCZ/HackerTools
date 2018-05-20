@@ -1,10 +1,10 @@
-package cz.HackerGamingCZ.HackerTools.api;
+package cz.HackerGamingCZ.HackerTools.managers;
 
 import org.bukkit.Bukkit;
 
 import java.util.HashMap;
 
-public class SchedulerAPI {
+public class SchedulerManager {
 
     //Name >> Scheduler
     private HashMap<String, Integer> schedulers = new HashMap<>();

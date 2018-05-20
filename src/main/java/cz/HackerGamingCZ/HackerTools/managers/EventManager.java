@@ -1,22 +1,31 @@
-package cz.HackerGamingCZ.HackerTools.api;
+package cz.HackerGamingCZ.HackerTools.managers;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.listeners.*;
+import cz.HackerGamingCZ.HackerTools.listeners.TeamListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.plugin.PluginManager;
 
-public class EventAPI {
+public class EventManager {
 
     private PluginManager pm = Bukkit.getPluginManager();
     private HackerTools plugin = HackerTools.getPlugin();
 
-    public void denyInteract(Material[] materials){
-        pm.registerEvents(new DenyInteract(materials), HackerTools.getPlugin());
+    public void denyInteract(Material... materials){
+        pm.registerEvents(new DenyInteract(materials), plugin);
+    }
+
+    public void enableVoidKills(int lowestY){
+        pm.registerEvents(new VoidDamage(lowestY), plugin);
     }
 
     //TODO
-    public void denyCraft(){
+    public void denyCraft(Material... materials){
+
+    }
+    //TODO
+    public void denyAllCraft(){
 
     }
 
@@ -39,5 +48,13 @@ public class EventAPI {
     public void registerPlayerLeave(){
         pm.registerEvents(new PlayerLeave(), plugin);
     }
-
+    public void registerItemDrop(){
+        pm.registerEvents(new ItemDrop(), plugin);
+    }
+    public void registerTeamListener(){
+        pm.registerEvents(new TeamListener(), plugin);
+    }
+    public void registerEntityDamage(){
+        pm.registerEvents(new EntityDamage(), plugin);
+    }
 }

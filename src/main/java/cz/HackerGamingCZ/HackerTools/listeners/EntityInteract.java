@@ -1,7 +1,7 @@
 package cz.HackerGamingCZ.HackerTools.listeners;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
-import cz.HackerGamingCZ.HackerTools.InteractableEntity;
+import cz.HackerGamingCZ.HackerTools.entities.InteractableEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

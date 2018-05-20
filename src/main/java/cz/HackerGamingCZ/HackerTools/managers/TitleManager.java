@@ -1,4 +1,4 @@
-package cz.HackerGamingCZ.HackerTools.api;
+package cz.HackerGamingCZ.HackerTools.managers;
 
 //TODO
     import net.minecraft.server.v1_12_R1.ChatMessageType;
@@ -12,7 +12,7 @@ import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 
     import java.util.Collection;
 ;
-public class TitleAPI {
+public class TitleManager {
     public void sendTitle(Player player, int fadeIn, int stay, int fadeOut, String title, String subtitle) {
         PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
 

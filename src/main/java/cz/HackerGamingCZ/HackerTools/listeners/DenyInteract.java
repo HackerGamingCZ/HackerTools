@@ -16,7 +16,7 @@ public class DenyInteract implements Listener {
 
     private ArrayList<Material> materials = new ArrayList<>();
 
-    public DenyInteract(Material[] materials) {
+    public DenyInteract(Material... materials) {
         Collections.addAll(this.materials, materials);
     }
 

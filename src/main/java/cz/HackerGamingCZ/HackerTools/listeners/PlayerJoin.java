@@ -3,45 +3,66 @@ package cz.HackerGamingCZ.HackerTools.listeners;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.Permissions;
-import cz.HackerGamingCZ.HackerTools.api.SchedulerAPI;
+import cz.HackerGamingCZ.HackerTools.actions.JoinTeam;
+import cz.HackerGamingCZ.HackerTools.managers.SchedulerManager;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
+import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class PlayerJoin implements Listener{
-
+public class PlayerJoin implements Listener {
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e){
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        HackerTools.getPlugin().getMinigameManager().resetPlayer(e.getPlayer());
         e.setJoinMessage(null);
-        if(HackerTools.getPlugin().getMinigameAPI().isServerInLobby() && e.getPlayer().hasPermission(Permissions.HT_FORCESTART)){
-            HackerTools.getPlugin().getItemInteractAPI().getItemByIdentificator("forcestart").giveItem(e.getPlayer().getInventory(), 8);
+        HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(e.getPlayer());
+        if (htPlayer == null) {
+            HackerTools.getPlugin().getPlayerManager().addPlayer(e.getPlayer());
+            htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(e.getPlayer());
+        } else {
+            htPlayer.setPlayer(e.getPlayer());
         }
-        GameState state = HackerTools.getPlugin().getMinigameAPI().getGameState();
-        if(state != null){
-            if(state.getJoinType() == GameState.JoinType.SPECTATOR){
-                HackerTools.getPlugin().getMinigameAPI().setSpectator(e.getPlayer(), HackerTools.getPlugin().getMinigameAPI().getSpectLocation());
+        if (HackerTools.getPlugin().getMinigameManager().isServerInLobby() && e.getPlayer().hasPermission(Permissions.HT_FORCESTART)) {
+            HackerTools.getPlugin().getForcestartItem().giveItem(e.getPlayer().getInventory(), 8);
+        }
+        GameState state = HackerTools.getPlugin().getMinigameManager().getGameState();
+        if (state != GameState.INGAME) {
+            HackerTools.getPlugin().getGreenTeam().join(htPlayer);
+        }
+        GameState.JoinType type = state.getJoinType();
+        if (state.getJoinType() == GameState.JoinType.SPECTATOR) {
+            HackerTools.getPlugin().getSpectatorTeam().join(htPlayer);
+        } else if(state.getJoinType() == GameState.JoinType.RECONNECT){
+            if(htPlayer.getPreviousTeam() != null && htPlayer.getPreviousTeam() != HackerTools.getPlugin().getSpectatorTeam()){
+                htPlayer.reconnect();
+            } else{
+                HackerTools.getPlugin().getSpectatorTeam().join(htPlayer);
             }
-            if(state.getGlobalMessage() != null){
-                for(Player player : Bukkit.getOnlinePlayers()){
-                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, state.getGlobalMessage(), e.getPlayer().getName());
+        }
+        if(state != GameState.INGAME) {
+            if (type.getGlobalMessage() != null) {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, type.getGlobalMessage(), e.getPlayer().getName());
                 }
             }
-            if(state.getMessageToPlayer() != null){
-                HackerTools.getPlugin().getChatManager().sendPlayerMessage(e.getPlayer(), state.getMessageToPlayer());
+            if (type.getMessageToPlayer() != null) {
+                HackerTools.getPlugin().getChatManager().sendPlayerMessage(e.getPlayer(), type.getMessageToPlayer());
             }
         }
         int playerCount = Bukkit.getOnlinePlayers().size();
-        if(HackerTools.getPlugin().getMinigameAPI().getMaxPlayers() == playerCount && HackerTools.getPlugin().getMinigameAPI().getCountdown() > 15){
-            HackerTools.getPlugin().getMinigameAPI().setCountdown(15);
+        if (HackerTools.getPlugin().getMinigameManager().getMaxPlayers() == playerCount && HackerTools.getPlugin().getMinigameManager().getCountdown() > 15) {
+            HackerTools.getPlugin().getMinigameManager().setCountdown(15);
         }
-        if(playerCount >= HackerTools.getPlugin().getMinigameAPI().getMinPlayers() && HackerTools.getPlugin().getSchedulerAPI().getScheduler(SchedulerAPI.SchedulerType.LOBBY) == -1){
-            HackerTools.getPlugin().getMinigameAPI().startLobbyCountdown();
-        } else{
-            for(Player player : Bukkit.getOnlinePlayers()){
+        if (playerCount == HackerTools.getPlugin().getMinigameManager().getMinPlayers()) {
+            if (HackerTools.getPlugin().getSchedulerManager().getScheduler(SchedulerManager.SchedulerType.LOBBY) == -1) {
+                HackerTools.getPlugin().getMinigameManager().startLobbyCountdown();
+            }
+        } else {
+            for (Player player : Bukkit.getOnlinePlayers()) {
                 HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.MIN_PLAYERS_INFO);
             }
         }

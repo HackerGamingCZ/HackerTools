@@ -1,12 +1,9 @@
-package cz.HackerGamingCZ.HackerTools.api;
-
-import cz.HackerGamingCZ.HackerTools.enums.Placeholder;
-import org.bukkit.Bukkit;
+package cz.HackerGamingCZ.HackerTools.placeholders;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class PlaceholderAPI {
+public class PlaceholderManager {
 
     public void updatePlaceHolders(){
         for(Placeholder placeholder : Placeholder.values()){
@@ -15,8 +12,10 @@ public class PlaceholderAPI {
     }
 
     public String replaceString(String string){
+        if(string == null){
+            return null;
+        }
         updatePlaceHolders();
-
         for(Placeholder placeholder : Placeholder.values()){
             if(placeholder.getReplacement() == null){
                 continue;

@@ -1,15 +1,15 @@
 package cz.HackerGamingCZ.HackerTools.events;
 
-import cz.HackerGamingCZ.HackerTools.api.SchedulerAPI;
+import cz.HackerGamingCZ.HackerTools.managers.SchedulerManager;
 import org.bukkit.event.HandlerList;
 
 public class CountdownStartEvent {
 
-    private final SchedulerAPI.SchedulerType type;
+    private final SchedulerManager.SchedulerType type;
     private final int number;
     private static final HandlerList HANDLERS = new HandlerList();
 
-    public CountdownStartEvent(int number, SchedulerAPI.SchedulerType type) {
+    public CountdownStartEvent(int number, SchedulerManager.SchedulerType type) {
         this.type = type;
         this.number = number;
     }
@@ -18,7 +18,7 @@ public class CountdownStartEvent {
         return number;
     }
 
-    public SchedulerAPI.SchedulerType getType() {
+    public SchedulerManager.SchedulerType getType() {
         return type;
     }
 

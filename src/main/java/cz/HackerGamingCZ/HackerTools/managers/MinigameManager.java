@@ -1,9 +1,9 @@
-package cz.HackerGamingCZ.HackerTools.api;
+package cz.HackerGamingCZ.HackerTools.managers;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
-import cz.HackerGamingCZ.HackerTools.enums.Placeholder;
+import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
 import cz.HackerGamingCZ.HackerTools.events.CountdownEndEvent;
 import cz.HackerGamingCZ.HackerTools.events.CountdownUpdateEvent;
 import net.minecraft.server.v1_12_R1.MinecraftServer;
@@ -16,36 +16,59 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MinigameAPI {
+public class MinigameManager {
 
-    private int maxPlayers;
-    private int minPlayers;
+    private int maxPlayers = 0;
+    private int minPlayers = 0;
     private GameState gameState;
-    private ArrayList<Player> spectators = new ArrayList<>();
     private int defaultCountdown = 60;
     private int countdown = defaultCountdown;
     private int force = 15;
     private Location spectLocation;
+    private GameMode defaultGameMode;
 
-    public void setupGame(int minPlayers, int maxPlayers, GameState state, Location spectLocation){
+    public MinigameManager(){
+        setGameState(GameState.SETUP);
+    }
+
+    public void setupGame(int minPlayers, int maxPlayers, GameState state, Location spectLocation, GameMode defaultGameMode){
         this.maxPlayers = maxPlayers;
         this.minPlayers = minPlayers;
         this.spectLocation = spectLocation;
+        if(defaultGameMode == null){
+            throw new IllegalArgumentException("Default Gamemode cannot be null!");
+        }
+        this.defaultGameMode = defaultGameMode;
         setGameState(state);
     }
 
-    public void setupGame(int minPlayers, int maxPlayers, GameState state, Location spectLocation, int countdownDefault, int force){
-        setupGame(minPlayers, maxPlayers, state, spectLocation);
+    public void setupGame(int minPlayers, int maxPlayers, GameState state, Location spectLocation, GameMode defaultGameMode, int countdownDefault, int force){
         this.countdown = countdownDefault;
         this.defaultCountdown = countdownDefault;
         this.force = force;
+        setupGame(minPlayers, maxPlayers, state, spectLocation, defaultGameMode);
     }
 
     public Location getSpectLocation() {
         return spectLocation;
     }
 
-    public void resetPlayer(Player player, GameMode gameMode, boolean health, boolean food, boolean inventory, boolean armor, ItemStack[] ignoredItems){
+    public void enableReconnect(){
+        GameState.INGAME.setJoinType(GameState.JoinType.RECONNECT);
+    }
+
+    public void disableReconnect(){
+        GameState.INGAME.setJoinType(GameState.JoinType.SPECTATOR);
+    }
+
+    public void resetPlayer(Player player, GameMode gameMode, boolean health, boolean food, boolean inventory, boolean armor, boolean potionEffects, ItemStack... ignoredItems){
+        player.setWalkSpeed(0.2F);
+        player.setFlySpeed(0.1F);
+        if (potionEffects) {
+            for(PotionEffect potionEffect : player.getActivePotionEffects()){
+                player.removePotionEffect(potionEffect.getType());
+            }
+        }
         if(gameMode != null){
             player.setGameMode(gameMode);
         }
@@ -61,34 +84,35 @@ public class MinigameAPI {
         }
         if(inventory){
             for(ItemStack is : player.getInventory()){
-                if(is == null || is.getType() != Material.AIR || ignoreItemsList.contains(is)){
+                if(is == null || is.getType() == Material.AIR || ignoreItemsList.contains(is)){
                     continue;
                 }
                 player.getInventory().removeItem(is);
             }
         }
         if(armor){
-            for(ItemStack is : player.getEquipment().getArmorContents()){
-                if(is == null || is.getType() != Material.AIR || ignoreItemsList.contains(is)){
-                    continue;
-                }
-                player.getInventory().removeItem(is);
-            }
+            player.getEquipment().clear();
         }
     }
 
     public boolean isServerInLobby(){
-        return HackerTools.getPlugin().getMinigameAPI().getGameState() == GameState.WAITING || HackerTools.getPlugin().getMinigameAPI().getGameState() == GameState.STARTING;
+        return HackerTools.getPlugin().getMinigameManager().getGameState() == GameState.WAITING || HackerTools.getPlugin().getMinigameManager().getGameState() == GameState.STARTING;
     }
 
     public void startLobbyCountdown(){
+        if(gameState == GameState.SETUP){
+            return;
+        }
+        if(!isServerInLobby()){
+            return;
+        }
         setGameState(GameState.STARTING);
         for(Player player : Bukkit.getOnlinePlayers()) {
             HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.COUNTDOWN_START_INFO);
         }
-        HackerTools.getPlugin().getSchedulerAPI().addScheduler(SchedulerAPI.SchedulerType.LOBBY, Bukkit.getScheduler().scheduleSyncRepeatingTask(HackerTools.getPlugin(), ()->{
+        HackerTools.getPlugin().getSchedulerManager().addScheduler(SchedulerManager.SchedulerType.LOBBY, Bukkit.getScheduler().scheduleSyncRepeatingTask(HackerTools.getPlugin(), ()->{
             if(countdown == 0){
-                HackerTools.getPlugin().getTitleAPI().sendTitle(Bukkit.getOnlinePlayers(), 5, 40, 5, "§aStart!", "§c");
+                HackerTools.getPlugin().getTitleManager().sendTitle(Bukkit.getOnlinePlayers(), 5, 40, 5, "§aStart!", "§c");
                 for(Player player : Bukkit.getOnlinePlayers()) {
                     HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.GAME_START_INFO);
                 }
@@ -104,17 +128,17 @@ public class MinigameAPI {
                 }
             }
             if(countdown <= 5){
-                HackerTools.getPlugin().getTitleAPI().sendTitle(Bukkit.getOnlinePlayers(), 3, 15, 3, "§c", "§c"+String.valueOf(countdown));
+                HackerTools.getPlugin().getTitleManager().sendTitle(Bukkit.getOnlinePlayers(), 3, 15, 3, "§c", "§c"+String.valueOf(countdown));
             }
             countdown--;
-            CountdownUpdateEvent event = new CountdownUpdateEvent(countdown, SchedulerAPI.SchedulerType.LOBBY, CountdownUpdateEvent.UpdateCause.SCHEDULER_CYCLE);
+            CountdownUpdateEvent event = new CountdownUpdateEvent(countdown, SchedulerManager.SchedulerType.LOBBY, CountdownUpdateEvent.UpdateCause.SCHEDULER_CYCLE);
             Bukkit.getPluginManager().callEvent(event);
         }, 20L, 20L));
     }
 
     public void force(){
         if(isServerInLobby()){
-            if(HackerTools.getPlugin().getSchedulerAPI().getScheduler(SchedulerAPI.SchedulerType.LOBBY) == -1){
+            if(HackerTools.getPlugin().getSchedulerManager().getScheduler(SchedulerManager.SchedulerType.LOBBY) == -1){
                 startLobbyCountdown();
             }
             setCountdown(force);
@@ -123,7 +147,7 @@ public class MinigameAPI {
 
     public void setCountdown(int countdown) {
         this.countdown = countdown;
-        CountdownUpdateEvent event = new CountdownUpdateEvent(countdown, SchedulerAPI.SchedulerType.LOBBY, CountdownUpdateEvent.UpdateCause.FORCE);
+        CountdownUpdateEvent event = new CountdownUpdateEvent(countdown, SchedulerManager.SchedulerType.LOBBY, CountdownUpdateEvent.UpdateCause.FORCE);
         Bukkit.getPluginManager().callEvent(event);
     }
 
@@ -134,44 +158,13 @@ public class MinigameAPI {
                 HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.COUNTDOWN_STOP_PLAYERDISCONNECT_INFO);
             }
         }
-        CountdownEndEvent event = new CountdownEndEvent(cause, SchedulerAPI.SchedulerType.LOBBY);
+        CountdownEndEvent event = new CountdownEndEvent(cause, SchedulerManager.SchedulerType.LOBBY);
         Bukkit.getPluginManager().callEvent(event);
-        HackerTools.getPlugin().getSchedulerAPI().stopSchedulder(SchedulerAPI.SchedulerType.LOBBY);
-    }
-
-    public void setSpectator(Player player, Location location, boolean compass, boolean settings){
-        for(Player p : Bukkit.getOnlinePlayers()){
-            p.hidePlayer(p);
-        }
-        player.setAllowFlight(true);
-        player.setFlying(true);
-        if(location != null) {
-            player.teleport(location);
-        }
-        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
-        if(compass){
-            HackerTools.getPlugin().getItemInteractAPI().getItemByIdentificator("spectatelist").giveItem(player.getInventory(), 8);
-        }
-        if(settings){
-            HackerTools.getPlugin().getItemInteractAPI().getItemByIdentificator("spectsettings").giveItem(player.getInventory(), 4);
-        }
-        spectators.add(player);
-    }
-
-    public void setSpectator(Player player, Location location){
-        setSpectator(player, location, true, true);
-    }
-
-    public boolean isSpectator(Player player){
-        return spectators.contains(player);
-    }
-
-    public void removeSpectator(Player player){
-        spectators.remove(player);
+        HackerTools.getPlugin().getSchedulerManager().stopSchedulder(SchedulerManager.SchedulerType.LOBBY);
     }
 
     public void resetPlayer(Player player){
-        resetPlayer(player, GameMode.ADVENTURE, true, true, true, true, null);
+        resetPlayer(player, defaultGameMode, true, true, true, true, true);
     }
 
 
