@@ -78,6 +78,9 @@ public class HackerTools extends JavaPlugin {
         minigameManager.enableReconnect();
         registerDefaultEvents();
         registerCommands();
+        for(Player player : Bukkit.getOnlinePlayers()){
+            playerManager.addPlayer(player);
+        }
         Bukkit.getLogger().info("HackerTools support enabled!");
     }
 
