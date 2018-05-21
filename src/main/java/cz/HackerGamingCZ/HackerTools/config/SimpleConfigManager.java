@@ -1,6 +1,7 @@
 package cz.HackerGamingCZ.HackerTools.config;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
+import cz.HackerGamingCZ.HackerTools.managers.LoggerManager;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -8,6 +9,7 @@ import java.nio.charset.Charset;
 public class SimpleConfigManager {
 
     private HackerTools plugin;
+    private LoggerManager loggerManager = HackerTools.getPlugin().getLoggerManager();
 
     /*
      * Manage custom configurations and files
@@ -112,7 +114,7 @@ public class SimpleConfigManager {
             }
 
         } catch (IOException e) {
-            //  Logger.logException("Chyba při příprave config souboru.", e);
+            loggerManager.logException("Chyba při příprave config souboru.", e);
         }
 
     }
@@ -185,20 +187,20 @@ public class SimpleConfigManager {
             writer.close();
 
         } catch (IOException ex) {
-            //Logger.logException("Chyba při nastavování hlavičky config souboru.", ex);
+            loggerManager.logException("Chyba při nastavování hlavičky config souboru.", ex);
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException ex) {
-                    //Logger.logException("Chyba při uzavírání čtečky u nastavování hlavičky config souboru.", ex);
+                    loggerManager.logException("Chyba při uzavírání čtečky u nastavování hlavičky config souboru.", ex);
                 }
             }
             if (writer != null) {
                 try {
                     writer.close();
                 } catch (IOException ex) {
-                    // Logger.logException("Chyba při uzavírání zápisu u nastavování hlavičky config souboru.", ex);
+                    loggerManager.logException("Chyba při uzavírání zápisu u nastavování hlavičky config souboru.", ex);
                 }
             }
         }
@@ -246,13 +248,13 @@ public class SimpleConfigManager {
             String config = whole.toString();
             return new ByteArrayInputStream(config.getBytes(Charset.forName("UTF-8")));
         } catch (IOException ex) {
-            //Logger.logException("Configuration error", ex);
+            loggerManager.logException("Configuration error", ex);
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException ex) {
-                    // Logger.logException("Configuration close error", ex);
+                    loggerManager.logException("Configuration close error", ex);
                 }
             }
         }
@@ -290,13 +292,13 @@ public class SimpleConfigManager {
             reader.close();
             return comments;
         } catch (IOException ex) {
-            //Logger.logException("Configuration error", ex);
+            loggerManager.logException("Configuration error", ex);
         } finally {
             if (reader != null) {
                 try {
                     reader.close();
                 } catch (IOException ex) {
-                    //  Logger.logException("Configuration close error", ex);
+                    loggerManager.logException("Configuration close error", ex);
                 }
             }
         }
@@ -401,13 +403,13 @@ public class SimpleConfigManager {
             writer.flush();
             writer.close();
         } catch (IOException ex) {
-            //  Logger.logException("Configuration error while saving config file.", ex);
+            loggerManager.logException("Configuration error while saving config file.", ex);
         } finally {
             if (writer != null) {
                 try {
                     writer.close();
                 } catch (IOException ex) {
-                    // Logger.logException("Configuration error while closing writer on saving config file.", ex);
+                    loggerManager.logException("Configuration error while closing writer on saving config file.", ex);
                 }
             }
         }
@@ -442,13 +444,13 @@ public class SimpleConfigManager {
             resource.close();
 
         } catch (Exception ex) {
-            //Logger.logException("Configuration error while copying resource.", ex);
+            loggerManager.logException("Configuration error while copying resource.", ex);
         } finally {
             if (out != null) {
                 try {
                     out.close();
                 } catch (IOException ex) {
-                    //Logger.logException("Configuration error while closing stream on copying resource.", ex);
+                    loggerManager.logException("Configuration error while closing stream on copying resource.", ex);
                 }
             }
         }

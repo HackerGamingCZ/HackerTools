@@ -53,6 +53,7 @@ public class HackerTools extends JavaPlugin {
     private Mechanics mechanics;
     private SimpleConfigManager simpleConfigManager;
     private HTConfigManager htConfigManager;
+    private LoggerManager loggerManager;
     private PluginDescriptionFile pdf;
 
     private InteractableItem forcestartItem;
@@ -116,6 +117,8 @@ public class HackerTools extends JavaPlugin {
             Bukkit.getLogger().warning("I wasn't able to load HackerTools. There was problem on page http://playersplace.8u.cz/htsettings.php Please, contant the creator of HackerTools plugin.");
             return;
         }
+        Lang.load();
+        loggerManager = new LoggerManager();
         plugin = this;
         pdf = this.getDescription();
         itemManager = new ItemManager();
@@ -135,7 +138,6 @@ public class HackerTools extends JavaPlugin {
         mechanics = new Mechanics();
         simpleConfigManager = new SimpleConfigManager(plugin);
         htConfigManager = new HTConfigManager();
-        Lang.load();
         for(GameState.JoinType jt : GameState.JoinType.values()){
             jt.setupMessage();
         }
@@ -196,6 +198,7 @@ public class HackerTools extends JavaPlugin {
     public PlayerManager getPlayerManager() { return playerManager; }
     public SimpleConfigManager getSimpleConfigManager() { return simpleConfigManager; }
     public HTConfigManager getHtConfigManager() { return htConfigManager; }
+    public LoggerManager getLoggerManager() { return loggerManager; }
 
     public GUI getSpectatorSettings() { return spectatorSettings; }
     public GUI getSpectatorPlayerList() { return spectatorPlayerList; }
