@@ -91,7 +91,7 @@ public class MinigameManager {
             }
         }
         if (armor) {
-
+            player.getEquipment().clear();
         }
     }
 
