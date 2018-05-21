@@ -20,10 +20,12 @@ import cz.HackerGamingCZ.HackerTools.teams.Team;
 import cz.HackerGamingCZ.HackerTools.teams.TeamManager;
 import cz.HackerGamingCZ.HackerTools.teams.htteams.SpectatorTeam;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -54,6 +56,7 @@ public class HackerTools extends JavaPlugin {
     private HTConfigManager htConfigManager;
     private LoggerManager loggerManager;
     private PluginDescriptionFile pdf;
+    private ServerManager serverManager;
 
     private InteractableItem forcestartItem;
     private InteractableItem spectatorSettingsItem;
@@ -80,11 +83,14 @@ public class HackerTools extends JavaPlugin {
         spectatorPlayerListItem = new InteractableItem(Material.COMPASS, 1, "§7§lSpectate", true, (byte) 0, new OpenGUI(spectatorPlayerList), false, "", "§cList of all players");
         spectatorPlayerListItem.register();
         //TESTING PART
-        //END OF TESTING PART
+        minigameManager.setupGame(2,2,GameState.WAITING, null, GameMode.ADVENTURE);
+        // END OF TESTING PART
         registerDefaultEvents();
         registerCommands();
         for (Player player : Bukkit.getOnlinePlayers()) {
             playerManager.addPlayer(player);
+            PlayerJoinEvent event = new PlayerJoinEvent(player, null);
+            Bukkit.getPluginManager().callEvent(event);
         }
         loggerManager.log("HackerTools support enabled!");
     }
@@ -137,6 +143,7 @@ public class HackerTools extends JavaPlugin {
         guiManager = new GUIManager();
         teamManager = new TeamManager();
         playerManager = new PlayerManager();
+        serverManager = new ServerManager();
         for (GameState.JoinType jt : GameState.JoinType.values()) {
             jt.setupMessage();
         }
@@ -264,6 +271,10 @@ public class HackerTools extends JavaPlugin {
 
     public Team getSpectatorTeam() {
         return spectatorTeam;
+    }
+
+    public ServerManager getServerManager() {
+        return serverManager;
     }
 
     //Interactable items

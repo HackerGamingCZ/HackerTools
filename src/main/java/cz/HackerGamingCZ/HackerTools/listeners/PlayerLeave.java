@@ -2,6 +2,7 @@ package cz.HackerGamingCZ.HackerTools.listeners;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
+import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.managers.SchedulerManager;
 import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
 import cz.HackerGamingCZ.HackerTools.events.CountdownEndEvent;
@@ -19,6 +20,14 @@ public class PlayerLeave implements Listener {
     @EventHandler
     public void onLeave(PlayerQuitEvent e) {
         e.setQuitMessage(null);
+        int onlinePlayers = Bukkit.getOnlinePlayers().size()-1;
+        if(HackerTools.getPlugin().getMinigameManager().getGameState() == GameState.INGAME){
+            if(onlinePlayers <= 0){
+                HackerTools.getPlugin().getLoggerManager().log("Every player left the server. Restarting in 3 seconds...");
+                HackerTools.getPlugin().getSchedulerManager().runLater(()-> HackerTools.getPlugin().getServerManager().restart(), 20*3);
+                return;
+            }
+        }
         if (HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(Lang.LOBBY_DISCONNECT_INFO, Placeholder.ONLINEPLAYERS, String.valueOf(Bukkit.getOnlinePlayers().size() - 1)), e.getPlayer().getName());

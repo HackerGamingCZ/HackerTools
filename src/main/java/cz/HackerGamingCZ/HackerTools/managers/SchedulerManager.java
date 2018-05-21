@@ -1,10 +1,13 @@
 package cz.HackerGamingCZ.HackerTools.managers;
 
+import cz.HackerGamingCZ.HackerTools.HackerTools;
 import org.bukkit.Bukkit;
 
 import java.util.HashMap;
 
 public class SchedulerManager {
+
+    private HackerTools plugin = HackerTools.getPlugin();
 
     //Name >> Scheduler
     private HashMap<String, Integer> schedulers = new HashMap<>();
@@ -28,6 +31,10 @@ public class SchedulerManager {
 
     public void addScheduler(SchedulerType type, int scheduler) {
         schedulers.put(type.getName(), scheduler);
+    }
+
+    public void runLater(Runnable runnable, long ticks) {
+        Bukkit.getScheduler().runTaskLater(plugin, runnable, ticks);
     }
 
     public int getScheduler(SchedulerType type) {

@@ -1,5 +1,6 @@
 package cz.HackerGamingCZ.HackerTools.managers;
 
+import cz.HackerGamingCZ.HackerTools.enchant.Enchant;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -76,6 +77,17 @@ public class ItemManager {
         Collections.addAll(loreList, lore);
         meta.setLore(loreList);
         is.setItemMeta(meta);
+        return is;
+    }
+
+    public ItemStack addEnchant(ItemStack is, Enchant... enchants){
+        for(Enchant enchant : enchants){
+            if(enchant.getEnchantment().getMaxLevel() < enchant.getLevel()){
+                is.addUnsafeEnchantment(enchant.getEnchantment(), enchant.getLevel());
+                continue;
+            }
+            is.addEnchantment(enchant.getEnchantment(), enchant.getLevel());
+        }
         return is;
     }
 
