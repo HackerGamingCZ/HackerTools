@@ -91,6 +91,15 @@ public class ItemManager {
         return is;
     }
 
+    public ItemStack addEnchant(ItemStack is, Enchantment enchant, int level){
+            if(enchant.getMaxLevel() < level) {
+                is.addUnsafeEnchantment(enchant, level);
+                return is;
+            }
+        is.addEnchantment(enchant, level);
+        return is;
+    }
+
     public boolean isItemLegit(ItemStack is) {
         return is != null;
     }

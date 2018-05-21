@@ -17,20 +17,25 @@ public class PlayerJoin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        HackerTools.getPlugin().getMinigameManager().resetPlayer(e.getPlayer());
+        Player player = e.getPlayer();
+        HackerTools.getPlugin().getMinigameManager().resetPlayer(player);
         e.setJoinMessage(null);
-        HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(e.getPlayer());
+        HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
         if (htPlayer == null) {
-            HackerTools.getPlugin().getPlayerManager().addPlayer(e.getPlayer());
-            htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(e.getPlayer());
+            HackerTools.getPlugin().getPlayerManager().addPlayer(player);
+            htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
         } else {
-            htPlayer.setPlayer(e.getPlayer());
+            htPlayer.setPlayer(player);
         }
-        if (HackerTools.getPlugin().getMinigameManager().isServerInLobby() && e.getPlayer().hasPermission(Permissions.HT_FORCESTART)) {
-            HackerTools.getPlugin().getForcestartItem().giveItem(e.getPlayer().getInventory(), 8);
+        if (HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
+            if(player.hasPermission(Permissions.HT_FORCESTART)) {
+                HackerTools.getPlugin().getForcestartItem().giveItem(player.getInventory(), 8);
+            }
+            if(HackerTools.getPlugin().getMinigameManager().getLobbyLocation() != null){
+                player.teleport(HackerTools.getPlugin().getMinigameManager().getLobbyLocation());
+            }
         }
         GameState state = HackerTools.getPlugin().getMinigameManager().getGameState();
-
         GameState.JoinType type = state.getJoinType();
         if (state.getJoinType() == GameState.JoinType.SPECTATOR) {
             HackerTools.getPlugin().getSpectatorTeam().join(htPlayer);
@@ -43,12 +48,12 @@ public class PlayerJoin implements Listener {
         }
         if (state != GameState.INGAME) {
             if (type.getGlobalMessage() != null) {
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, type.getGlobalMessage(), e.getPlayer().getName());
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(p, type.getGlobalMessage(), player.getName());
                 }
             }
             if (type.getMessageToPlayer() != null) {
-                HackerTools.getPlugin().getChatManager().sendPlayerMessage(e.getPlayer(), type.getMessageToPlayer());
+                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, type.getMessageToPlayer());
             }
         }
         int playerCount = Bukkit.getOnlinePlayers().size();
@@ -59,9 +64,9 @@ public class PlayerJoin implements Listener {
             if (HackerTools.getPlugin().getSchedulerManager().getScheduler(SchedulerManager.SchedulerType.LOBBY) == -1) {
                 HackerTools.getPlugin().getMinigameManager().startLobbyCountdown();
             }
-        } else {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.MIN_PLAYERS_INFO);
+        } else if(HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                HackerTools.getPlugin().getChatManager().sendPlayerMessage(p, Lang.MIN_PLAYERS_INFO);
             }
         }
     }

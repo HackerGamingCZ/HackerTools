@@ -25,28 +25,30 @@ public class MinigameManager {
     private int countdown = defaultCountdown;
     private int force = 15;
     private Location spectLocation;
+    private Location lobbyLocation;
     private GameMode defaultGameMode;
 
     public MinigameManager() {
         setGameState(GameState.SETUP);
     }
 
-    public void setupGame(int minPlayers, int maxPlayers, GameState state, Location spectLocation, GameMode defaultGameMode) {
+    public void setupGame(int minPlayers, int maxPlayers, Location spectLocation, Location lobbyLocation, GameMode defaultGameMode) {
         this.maxPlayers = maxPlayers;
         this.minPlayers = minPlayers;
         this.spectLocation = spectLocation;
+        this.lobbyLocation = lobbyLocation;
         if (defaultGameMode == null) {
             throw new IllegalArgumentException("Default Gamemode cannot be null!");
         }
         this.defaultGameMode = defaultGameMode;
-        setGameState(state);
+        setGameState(GameState.WAITING);
     }
 
-    public void setupGame(int minPlayers, int maxPlayers, GameState state, Location spectLocation, GameMode defaultGameMode, int countdownDefault, int force) {
+    public void setupGame(int minPlayers, int maxPlayers, Location spectLocation, Location lobbyLocation, GameMode defaultGameMode, int countdownDefault, int force) {
         this.countdown = countdownDefault;
         this.defaultCountdown = countdownDefault;
         this.force = force;
-        setupGame(minPlayers, maxPlayers, state, spectLocation, defaultGameMode);
+        setupGame(minPlayers, maxPlayers, spectLocation, lobbyLocation, defaultGameMode);
     }
 
     public Location getSpectLocation() {
@@ -179,6 +181,10 @@ public class MinigameManager {
     public void setGameState(GameState gameState) {
         MinecraftServer.getServer().setMotd(gameState.getMotd());
         this.gameState = gameState;
+    }
+
+    public Location getLobbyLocation() {
+        return lobbyLocation;
     }
 
     public int getMinPlayers() {
