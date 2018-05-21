@@ -1,6 +1,9 @@
 package cz.HackerGamingCZ.HackerTools.enums;
 
+import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
+import cz.HackerGamingCZ.HackerTools.config.SimpleConfig;
+import org.bukkit.Bukkit;
 
 public enum GameState {
 
@@ -34,23 +37,29 @@ public enum GameState {
 
     public enum JoinType {
 
-        PLAYER(Lang.DEFAULT_PLAYER_GLOBAL_MESSAGE, Lang.DEFAULT_PLAYER_PLAYER_MESSAGE),
-        SPECTATOR(Lang.DEFAULT_SPECTATOR_GLOBAL_MESSAGE, Lang.DEFAULT_SPECTATOR_PLAYER_MESSAGE),
-        RECONNECT(Lang.DEFAULT_RECONNECT_GLOBAL_MESSAGE, Lang.DEFAULT_RECONNECT_PLAYER_MESSAGE),
-        NOBODY(Lang.DEFAULT_NOBODY_GLOBAL_MESSAGE, Lang.DEFAULT_NOBODY_PLAYER_MESSAGE),
-        ADMIN("ht.adminjoin", Lang.DEFAULT_ADMIN_GLOBAL_MESSAGE, Lang.DEFAULT_ADMIN_PLAYER_MESSAGE);
+        PLAYER(),
+        SPECTATOR(),
+        RECONNECT(),
+        NOBODY(),
+        ADMIN("ht.adminjoin");
 
         private String permission;
         private String globalMessage;
         private String messageToPlayer;
 
-        JoinType(String permission, String globalMessage, String messageToPlayer){
-            this.permission = permission;this.globalMessage = globalMessage;
-            this.messageToPlayer = messageToPlayer;
+        JoinType(String permission){
+            this.permission = permission;
         }
-        JoinType(String globalMessage, String messageToPlayer){
-            this.globalMessage = globalMessage;
-            this.messageToPlayer = messageToPlayer;
+        JoinType(){
+        }
+
+        public void setupMessage(){
+            SimpleConfig config = HackerTools.getPlugin().getHtConfigManager().getLang();
+            Bukkit.getLogger().warning(toString().toLowerCase());
+            String playerConfig = "default-"+toString().toLowerCase()+"-player-message";
+            String globalConfig = "default-"+toString().toLowerCase()+"-global-message";
+            this.messageToPlayer = config.getString(playerConfig);
+            this.globalMessage = config.getString(globalConfig);
         }
 
         public String getMessageToPlayer() {

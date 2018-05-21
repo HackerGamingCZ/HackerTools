@@ -1,5 +1,6 @@
 package cz.HackerGamingCZ.HackerTools;
 
+import cz.HackerGamingCZ.HackerTools.config.SimpleConfigManager;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.gui.GUI;
 import cz.HackerGamingCZ.HackerTools.gui.GUIManager;
@@ -9,7 +10,6 @@ import cz.HackerGamingCZ.HackerTools.actions.OpenGUI;
 import cz.HackerGamingCZ.HackerTools.actions.PerformCommand;
 import cz.HackerGamingCZ.HackerTools.commands.HTCommand;
 import cz.HackerGamingCZ.HackerTools.entities.EntityInteractAPI;
-import cz.HackerGamingCZ.HackerTools.events.ItemInInventoryClickEvent;
 import cz.HackerGamingCZ.HackerTools.items.InteractableItem;
 import cz.HackerGamingCZ.HackerTools.items.ItemInteractManager;
 import cz.HackerGamingCZ.HackerTools.managers.*;
@@ -51,6 +51,8 @@ public class HackerTools extends JavaPlugin {
     private TeamManager teamManager;
     private PlayerManager playerManager;
     private Mechanics mechanics;
+    private SimpleConfigManager simpleConfigManager;
+    private HTConfigManager htConfigManager;
     private PluginDescriptionFile pdf;
 
     private InteractableItem forcestartItem;
@@ -71,11 +73,11 @@ public class HackerTools extends JavaPlugin {
         spectatorPlayerList.register();
         spectatorTeam = new SpectatorTeam();
         spectatorTeam.register();
-        forcestartItem  = new InteractableItem(Material.PAPER, 1, "§c§lForcestart", true, (byte)0, new ItemInInventoryClickEvent(new PerformCommand("hackertools forcestart", true)),false, "", "§cClick to forcestart the start");
+        forcestartItem  = new InteractableItem(Material.PAPER, 1, "§c§lForcestart", true, (byte)0, new PerformCommand("hackertools forcestart", true),false, "", "§cClick to forcestart the start");
         forcestartItem.register();
-        spectatorSettingsItem = new InteractableItem(Material.PAPER, 1, "§7§lSettings", true, (byte)0, new ItemInInventoryClickEvent(new OpenGUI(spectatorSettings)), false, "", "§cSettings of spectator mode");
+        spectatorSettingsItem = new InteractableItem(Material.PAPER, 1, "§7§lSettings", true, (byte)0, new OpenGUI(spectatorSettings), false, "", "§cSettings of spectator mode");
         spectatorSettingsItem.register();
-        spectatorPlayerListItem = new InteractableItem(Material.COMPASS, 1, "§7§lSpectate", true, (byte)0, new ItemInInventoryClickEvent(new OpenGUI(spectatorPlayerList)), false, "", "§cList of all players");
+        spectatorPlayerListItem = new InteractableItem(Material.COMPASS, 1, "§7§lSpectate", true, (byte)0, new OpenGUI(spectatorPlayerList), false, "", "§cList of all players");
         spectatorPlayerListItem.register();
         //TESTING PART
         //END OF TESTING PART
@@ -131,6 +133,12 @@ public class HackerTools extends JavaPlugin {
         teamManager = new TeamManager();
         playerManager = new PlayerManager();
         mechanics = new Mechanics();
+        simpleConfigManager = new SimpleConfigManager(plugin);
+        htConfigManager = new HTConfigManager();
+        Lang.load();
+        for(GameState.JoinType jt : GameState.JoinType.values()){
+            jt.setupMessage();
+        }
     }
 
     private void registerDefaultEvents(){
@@ -186,6 +194,8 @@ public class HackerTools extends JavaPlugin {
     }
     public TeamManager getTeamManager() { return teamManager; }
     public PlayerManager getPlayerManager() { return playerManager; }
+    public SimpleConfigManager getSimpleConfigManager() { return simpleConfigManager; }
+    public HTConfigManager getHtConfigManager() { return htConfigManager; }
 
     public GUI getSpectatorSettings() { return spectatorSettings; }
     public GUI getSpectatorPlayerList() { return spectatorPlayerList; }

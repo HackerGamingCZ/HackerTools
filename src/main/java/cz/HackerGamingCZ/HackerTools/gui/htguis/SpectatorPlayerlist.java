@@ -5,7 +5,6 @@ import cz.HackerGamingCZ.HackerTools.items.Item;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.actions.Teleport;
 import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
-import cz.HackerGamingCZ.HackerTools.events.ItemInInventoryClickEvent;
 import cz.HackerGamingCZ.HackerTools.gui.GUI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -34,7 +33,7 @@ public class SpectatorPlayerlist implements GUI {
                 continue;
             }
             String lore = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(HackerTools.getPlugin().getPlaceholderAPI().replaceString(Lang.TELEPORT_TO_PLAYER), Placeholder.PLAYERNAME, p.getName());
-            items.add(new Item(i, HackerTools.getPlugin().getItemManager().createHeadItem(p, "§a" + p.getName(), false, "", lore), new ItemInInventoryClickEvent(new Teleport(p)), true, true));
+            items.add(new Item(i, HackerTools.getPlugin().getItemManager().createHeadItem(p, "§a" + p.getName(), false, "", lore), new Teleport(p), true, true));
             i++;
         }
         return items;

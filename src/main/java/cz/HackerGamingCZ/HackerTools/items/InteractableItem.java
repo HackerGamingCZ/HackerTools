@@ -1,8 +1,7 @@
 package cz.HackerGamingCZ.HackerTools.items;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
-import cz.HackerGamingCZ.HackerTools.events.Event;
-import org.bukkit.Bukkit;
+import cz.HackerGamingCZ.HackerTools.actions.Action;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 
@@ -11,13 +10,13 @@ public class InteractableItem {
     private Item item;
     private boolean drop;
 
-    public InteractableItem(Material material, int amount, String name, boolean enchanted, byte data, Event event, boolean drop, String... lore){
-        this.item = new Item(HackerTools.getPlugin().getItemManager().createItem(material, amount, name, enchanted, data, lore), event, false, false);
+    public InteractableItem(Material material, int amount, String name, boolean enchanted, byte data, Action action, boolean drop, String... lore){
+        this.item = new Item(HackerTools.getPlugin().getItemManager().createItem(material, amount, name, enchanted, data, lore), action, false, false);
         this.drop = drop;
     }
 
-    public InteractableItem(Material material, int amount, String name, boolean enchanted, byte data, Event event, boolean drop, boolean canceled, boolean closingInventory, String... lore){
-        this.item = new Item(HackerTools.getPlugin().getItemManager().createItem(material, amount, name, enchanted, data, lore), event, canceled, closingInventory);
+    public InteractableItem(Material material, int amount, String name, boolean enchanted, byte data, Action action, boolean drop, boolean canceled, boolean closingInventory, String... lore){
+        this.item = new Item(HackerTools.getPlugin().getItemManager().createItem(material, amount, name, enchanted, data, lore), action, canceled, closingInventory);
         this.drop = drop;
     }
 

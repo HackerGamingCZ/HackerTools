@@ -33,10 +33,7 @@ public class PlayerInteract implements Listener {
             return;
         }
 
-        if(item.getItem().getEvent() == null){
-            return;
-        }
-        cz.HackerGamingCZ.HackerTools.actions.Action itemAction = item.getItem().getEvent().getAction();
+        cz.HackerGamingCZ.HackerTools.actions.Action itemAction = item.getItem().getAction();
         if(itemAction == null){
             return;
         }
