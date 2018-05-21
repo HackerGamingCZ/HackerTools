@@ -37,7 +37,7 @@ public class CountdownUpdateEvent extends Event {
         return HANDLERS;
     }
 
-    public enum UpdateCause{
+    public enum UpdateCause {
         FORCE,
         SCHEDULER_CYCLE
     }

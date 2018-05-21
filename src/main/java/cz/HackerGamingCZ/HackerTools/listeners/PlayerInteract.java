@@ -12,29 +12,29 @@ import org.bukkit.inventory.ItemStack;
 public class PlayerInteract implements Listener {
 
     @EventHandler
-    public void onInteract(PlayerInteractEvent e){
+    public void onInteract(PlayerInteractEvent e) {
         Action action = e.getAction();
-        if(action == Action.PHYSICAL){
+        if (action == Action.PHYSICAL) {
             return;
         }
         Player player = e.getPlayer();
         ItemStack is = e.getItem();
-        if(is == null){
+        if (is == null) {
             return;
         }
-        if(!is.getItemMeta().hasDisplayName()){
+        if (!is.getItemMeta().hasDisplayName()) {
             return;
         }
         InteractableItem item = HackerTools.getPlugin().getItemInteractManager().getItemByIs(is);
-        if(item == null){
+        if (item == null) {
             return;
         }
-        if(item.getItem() == null){
+        if (item.getItem() == null) {
             return;
         }
 
         cz.HackerGamingCZ.HackerTools.actions.Action itemAction = item.getItem().getAction();
-        if(itemAction == null){
+        if (itemAction == null) {
             return;
         }
         itemAction.cast(player);

@@ -1,17 +1,18 @@
 package cz.HackerGamingCZ.HackerTools.managers;
 
 //TODO
-    import net.minecraft.server.v1_12_R1.ChatMessageType;
+
+import net.minecraft.server.v1_12_R1.ChatMessageType;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import net.minecraft.server.v1_12_R1.PacketPlayOutChat;
 import net.minecraft.server.v1_12_R1.PacketPlayOutTitle;
 import net.minecraft.server.v1_12_R1.PlayerConnection;
-    import org.bukkit.ChatColor;
+import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
-    import org.bukkit.entity.Player;
+import org.bukkit.entity.Player;
 
-    import java.util.Collection;
-;
+import java.util.Collection;
+
 public class TitleManager {
     public void sendTitle(Player player, int fadeIn, int stay, int fadeOut, String title, String subtitle) {
         PlayerConnection connection = ((CraftPlayer) player).getHandle().playerConnection;
@@ -33,7 +34,7 @@ public class TitleManager {
     }
 
     public void sendTitle(Collection<? extends Player> col, int fadeIn, int stay, int fadeOut, String title, String subtitle) {
-        for(Player player : col) {
+        for (Player player : col) {
             sendTitle(player, fadeIn, stay, fadeOut, title, subtitle);
         }
     }

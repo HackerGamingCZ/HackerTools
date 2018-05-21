@@ -1,4 +1,5 @@
 package cz.HackerGamingCZ.HackerTools.placeholders;
+
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import org.bukkit.Bukkit;
@@ -25,7 +26,7 @@ public enum Placeholder {
     private Class aClass = Placeholder.class;
     private String methodName;
 
-    Placeholder(){
+    Placeholder() {
         this.placeholder = toString();
         this.replacement = null;
     }
@@ -41,14 +42,14 @@ public enum Placeholder {
         this.methodName = methodName;
     }
 
-    public void update(){
-        if(methodName == null){
+    public void update() {
+        if (methodName == null) {
             return;
         }
-        try{
+        try {
             Method method = aClass.getMethod(methodName);
             setReplacement(String.valueOf(method.invoke(Bukkit.class)));
-        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e){
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             e.printStackTrace();
         }
     }
@@ -67,23 +68,32 @@ public enum Placeholder {
 
     @Override
     public String toString() {
-        return "[_"+name()+"_]";
+        return "[_" + name() + "_]";
     }
 
 
-    public static int getOnlinePlayerCount(){
+    public static int getOnlinePlayerCount() {
         return Bukkit.getOnlinePlayers().size();
     }
 
-    public static int getMinPlayers(){
+    public static int getMinPlayers() {
         return HackerTools.getPlugin().getMinigameManager().getMinPlayers();
     }
-    public static int getMaxPlayers(){
+
+    public static int getMaxPlayers() {
         return HackerTools.getPlugin().getMinigameManager().getMaxPlayers();
     }
 
 
-    public static String getAuthor(){ return HackerTools.getPlugin().getPdf().getAuthors().get(0); }
-    public static String getVersion(){ return HackerTools.getPlugin().getPdf().getVersion(); }
-    public static String getPluginName(){ return HackerTools.getPlugin().getPdf().getName(); }
+    public static String getAuthor() {
+        return HackerTools.getPlugin().getPdf().getAuthors().get(0);
+    }
+
+    public static String getVersion() {
+        return HackerTools.getPlugin().getPdf().getVersion();
+    }
+
+    public static String getPluginName() {
+        return HackerTools.getPlugin().getPdf().getName();
+    }
 }

@@ -5,7 +5,7 @@ import cz.HackerGamingCZ.HackerTools.teams.Team;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class DeathByVoidEvent extends Event{
+public class DeathByVoidEvent extends Event {
 
     private static final HandlerList HANDLERS = new HandlerList();
     private HTPlayer player;

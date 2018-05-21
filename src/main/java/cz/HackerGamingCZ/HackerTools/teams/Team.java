@@ -15,71 +15,75 @@ import java.util.ArrayList;
 
 public interface Team {
     ChatColor getChatColor();
+
     byte getData();
+
     Color getColor();
+
     String getName();
+
     Location getTeamSpawn();
 
-    default void teleportToSpawn(Player player){
+    default void teleportToSpawn(Player player) {
         player.teleport(getTeamSpawn());
     }
 
-    default void teleportAllToSpawn(){
-        for(HTPlayer player : getPlayers()){
+    default void teleportAllToSpawn() {
+        for (HTPlayer player : getPlayers()) {
             teleportToSpawn(player.getPlayer());
         }
     }
 
-    default void register(){
+    default void register() {
         HackerTools.getPlugin().getTeamManager().addTeam(this);
     }
 
-    default boolean canJoin(Player player){
-        if(player.hasPermission(Permissions.TEAMS_FULLJOIN)){
+    default boolean canJoin(Player player) {
+        if (player.hasPermission(Permissions.TEAMS_FULLJOIN)) {
             return true;
         }
         int playersInThisTeam = getPlayers().size();
-        for(Team team : HackerTools.getPlugin().getTeamManager().getTeams()){
+        for (Team team : HackerTools.getPlugin().getTeamManager().getTeams()) {
             int players = team.getPlayers().size();
-            if(players < playersInThisTeam){
+            if (players < playersInThisTeam) {
                 return false;
             }
         }
         return true;
     }
 
-    default void join(Player player){
+    default void join(Player player) {
         HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
         join(htPlayer);
     }
 
-    default void join(HTPlayer htPlayer){
-        if(htPlayer == null){
+    default void join(HTPlayer htPlayer) {
+        if (htPlayer == null) {
             return;
         }
         htPlayer.setTeam(this);
     }
 
-    default void leave(Player player){
+    default void leave(Player player) {
         HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
         leave(htPlayer);
     }
 
-    default void leave(HTPlayer htPlayer){
-        if(htPlayer == null){
+    default void leave(HTPlayer htPlayer) {
+        if (htPlayer == null) {
             return;
         }
         htPlayer.setTeam(null);
     }
 
-    default boolean isPlayerInTeam(Player player){
+    default boolean isPlayerInTeam(Player player) {
         return getPlayers().contains(HackerTools.getPlugin().getPlayerManager().getPlayer(player));
     }
 
-    default ArrayList<HTPlayer> getPlayers(){
+    default ArrayList<HTPlayer> getPlayers() {
         ArrayList<HTPlayer> players = new ArrayList<>();
-        for(HTPlayer htPlayer : HackerTools.getPlugin().getPlayerManager().getPlayers().values()){
-            if(htPlayer.getTeam() == this){
+        for (HTPlayer htPlayer : HackerTools.getPlugin().getPlayerManager().getPlayers().values()) {
+            if (htPlayer.getTeam() == this) {
                 players.add(htPlayer);
             }
         }

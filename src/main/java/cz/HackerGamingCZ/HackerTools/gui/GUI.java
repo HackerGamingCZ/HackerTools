@@ -11,36 +11,37 @@ import java.util.ArrayList;
 
 public interface GUI {
 
-    default void register(){
+    default void register() {
         HackerTools.getPlugin().getGuiManager().addGUI(this);
     }
 
-    default Inventory getInventory(Player player){
+    default Inventory getInventory(Player player) {
         Inventory inv = Bukkit.createInventory(null, getInventorySize(), getInventoryName());
-        for(Item item : getItems(player)){
+        for (Item item : getItems(player)) {
             inv.setItem(item.getPosition(), item.getIs());
         }
         return inv;
     }
 
     int getInventorySize();
+
     String getInventoryName();
 
     ArrayList<Item> getItems(Player player);
 
-    default Item getItemByISName(ItemStack is, Player player){
-        if(!is.getItemMeta().hasDisplayName()){
+    default Item getItemByISName(ItemStack is, Player player) {
+        if (!is.getItemMeta().hasDisplayName()) {
             return null;
         }
-        for(Item item : getItems(player)){
-            if(item.getIs().getItemMeta().getDisplayName().equals(is.getItemMeta().getDisplayName())){
+        for (Item item : getItems(player)) {
+            if (item.getIs().getItemMeta().getDisplayName().equals(is.getItemMeta().getDisplayName())) {
                 return item;
             }
         }
         return null;
     }
 
-    default void open(Player player){
+    default void open(Player player) {
         player.openInventory(getInventory(player));
     }
 

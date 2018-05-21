@@ -14,23 +14,24 @@ public class Action {
     private Player player;
     private Team team;
 
-    protected Action(String value, boolean asPlayer){
+    protected Action(String value, boolean asPlayer) {
         this.value = value;
         this.asPlayer = asPlayer;
     }
 
-    public Action(Player player){
+    public Action(Player player) {
         this.player = player;
     }
-    public Action(Team team){
+
+    public Action(Team team) {
         this.team = team;
     }
 
-    public Action(Location location){
+    public Action(Location location) {
         this.location = location;
     }
 
-    public Action(GUI gui){
+    public Action(GUI gui) {
         this.gui = gui;
     }
 
@@ -38,7 +39,8 @@ public class Action {
         return value;
     }
 
-    public void cast(Player player){ }
+    public void cast(Player player) {
+    }
 
     public void setValue(String value) {
         this.value = value;
@@ -51,6 +53,7 @@ public class Action {
     public void setAsPlayer(boolean asPlayer) {
         this.asPlayer = asPlayer;
     }
+
     public GUI getGui() {
         return gui;
     }

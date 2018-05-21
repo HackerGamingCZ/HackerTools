@@ -22,7 +22,7 @@ public class DenyInteract implements Listener {
 
     @EventHandler
     public void onIteract(PlayerInteractEvent e) {
-        if(e.getClickedBlock() == null){
+        if (e.getClickedBlock() == null) {
             return;
         }
         if (!HackerTools.getPlugin().getItemManager().isItemLegit(new ItemStack(e.getClickedBlock().getType()))) {

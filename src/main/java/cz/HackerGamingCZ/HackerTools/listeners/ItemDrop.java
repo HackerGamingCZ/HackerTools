@@ -11,13 +11,13 @@ import org.bukkit.inventory.ItemStack;
 public class ItemDrop implements Listener {
 
     @EventHandler
-    public void onDrop(PlayerDropItemEvent e){
+    public void onDrop(PlayerDropItemEvent e) {
         ItemStack is = e.getItemDrop().getItemStack();
-        if(is == null || is.getType() == Material.AIR){
+        if (is == null || is.getType() == Material.AIR) {
             return;
         }
         InteractableItem item = HackerTools.getPlugin().getItemInteractManager().getItemByIs(is);
-        if(item == null){
+        if (item == null) {
             return;
         }
         e.setCancelled(!item.isDrop());

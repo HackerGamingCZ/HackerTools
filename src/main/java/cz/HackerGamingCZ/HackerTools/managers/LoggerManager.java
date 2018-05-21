@@ -9,6 +9,7 @@ public class LoggerManager {
     public void log(String text) {
         Bukkit.getLogger().info(text);
     }
+
     public void warn(String text) {
         Bukkit.getLogger().warning(text);
     }

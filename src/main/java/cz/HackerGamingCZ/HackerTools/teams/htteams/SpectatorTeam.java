@@ -59,12 +59,12 @@ public class SpectatorTeam implements Team {
         player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
         HackerTools.getPlugin().getSpectatorPlayerListItem().giveItem(player.getInventory(), 8);
         HackerTools.getPlugin().getSpectatorSettingsItem().giveItem(player.getInventory(), 4);
-        if(GameState.JoinType.SPECTATOR.getGlobalMessage() != null){
-            for(Player p : Bukkit.getOnlinePlayers()){
+        if (GameState.JoinType.SPECTATOR.getGlobalMessage() != null) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
                 HackerTools.getPlugin().getChatManager().sendPlayerMessage(p, GameState.JoinType.SPECTATOR.getGlobalMessage(), player.getName());
             }
         }
-        if(GameState.JoinType.SPECTATOR.getMessageToPlayer() != null){
+        if (GameState.JoinType.SPECTATOR.getMessageToPlayer() != null) {
             HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, GameState.JoinType.SPECTATOR.getMessageToPlayer());
         }
     }

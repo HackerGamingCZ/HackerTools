@@ -7,7 +7,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class PlayerJoinTeamEvent extends Event implements Cancellable{
+public class PlayerJoinTeamEvent extends Event implements Cancellable {
 
     private static final HandlerList HANDLERS = new HandlerList();
     private Team team;

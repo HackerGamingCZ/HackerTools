@@ -11,7 +11,7 @@ public class InteractableArmorStandEntity extends InteractableEntity {
     private boolean visible;
     private boolean small;
 
-    public InteractableArmorStandEntity(String customName, boolean customNameVisible, Action action, boolean gravity, boolean visible, boolean small){
+    public InteractableArmorStandEntity(String customName, boolean customNameVisible, Action action, boolean gravity, boolean visible, boolean small) {
         super(EntityType.ARMOR_STAND, customName, customNameVisible, action);
         this.gravity = gravity;
         this.visible = visible;

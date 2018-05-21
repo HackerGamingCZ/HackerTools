@@ -17,35 +17,35 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class PlayerLeave implements Listener {
 
     @EventHandler
-    public void onLeave(PlayerQuitEvent e){
+    public void onLeave(PlayerQuitEvent e) {
         e.setQuitMessage(null);
-        if(HackerTools.getPlugin().getMinigameManager().isServerInLobby()){
-            for(Player player : Bukkit.getOnlinePlayers()){
-                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(Lang.LOBBY_DISCONNECT_INFO, Placeholder.ONLINEPLAYERS, String.valueOf(Bukkit.getOnlinePlayers().size()-1)), e.getPlayer().getName());
+        if (HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(Lang.LOBBY_DISCONNECT_INFO, Placeholder.ONLINEPLAYERS, String.valueOf(Bukkit.getOnlinePlayers().size() - 1)), e.getPlayer().getName());
             }
         }
         Player player = e.getPlayer();
         HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(e.getPlayer());
-        if(htPlayer == null){
+        if (htPlayer == null) {
             return;
         }
-        if(htPlayer.getTeam() != null) {
+        if (htPlayer.getTeam() != null) {
             htPlayer.getTeam().leave(htPlayer);
         }
-        int newPlayerCount = Bukkit.getOnlinePlayers().size()-1;
-        if(newPlayerCount < HackerTools.getPlugin().getMinigameManager().getMinPlayers() && HackerTools.getPlugin().getSchedulerManager().getScheduler(SchedulerManager.SchedulerType.LOBBY) != -1){
+        int newPlayerCount = Bukkit.getOnlinePlayers().size() - 1;
+        if (newPlayerCount < HackerTools.getPlugin().getMinigameManager().getMinPlayers() && HackerTools.getPlugin().getSchedulerManager().getScheduler(SchedulerManager.SchedulerType.LOBBY) != -1) {
             HackerTools.getPlugin().getMinigameManager().stopLobbyCoutdown(CountdownEndEvent.EndCause.PLAYER_DISCONNECT);
         }
-        if(HackerTools.getPlugin().getPlayerManager().getPlayer(player).isSpectator()){
+        if (HackerTools.getPlugin().getPlayerManager().getPlayer(player).isSpectator()) {
             return;
         }
         Team team = HackerTools.getPlugin().getPlayerManager().getPlayer(player).getTeam();
-        if(team == null){
+        if (team == null) {
             return;
         }
 
-        for(HTPlayer p : team.getPlayers()){
-            if(p.getPlayer().isOnline() && p.getPlayer() != player){
+        for (HTPlayer p : team.getPlayers()) {
+            if (p.getPlayer().isOnline() && p.getPlayer() != player) {
                 return;
             }
         }

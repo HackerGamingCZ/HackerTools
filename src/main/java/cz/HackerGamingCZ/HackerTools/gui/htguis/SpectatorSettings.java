@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-public class SpectatorSettings implements GUI{
+public class SpectatorSettings implements GUI {
 
     @Override
     public int getInventorySize() {
@@ -24,12 +24,12 @@ public class SpectatorSettings implements GUI{
     @Override
     public ArrayList<Item> getItems(Player player) {
         ArrayList<Item> items = new ArrayList<>();
-        for(int i = 1; i <= 3;i++){
-            if(player == null){
-                items.add(new Item("speed"+i,11+i, HackerTools.getPlugin().getItemManager().createItem(Material.FEATHER, "§cSpeed "+i, false), new PerformCommand("ht speed "+i, true), true, true));
+        for (int i = 1; i <= 3; i++) {
+            if (player == null) {
+                items.add(new Item("speed" + i, 11 + i, HackerTools.getPlugin().getItemManager().createItem(Material.FEATHER, "§cSpeed " + i, false), new PerformCommand("ht speed " + i, true), true, true));
                 continue;
             }
-            items.add(new Item("speed"+i,11+i, HackerTools.getPlugin().getItemManager().createItem(Material.FEATHER, "§cSpeed "+i, player.getWalkSpeed() == HackerTools.getPlugin().getMechanics().getRealMoveSpeed(i)), new PerformCommand("ht speed "+i, true), true, true));
+            items.add(new Item("speed" + i, 11 + i, HackerTools.getPlugin().getItemManager().createItem(Material.FEATHER, "§cSpeed " + i, player.getWalkSpeed() == HackerTools.getPlugin().getMechanics().getRealMoveSpeed(i)), new PerformCommand("ht speed " + i, true), true, true));
         }
         return items;
     }

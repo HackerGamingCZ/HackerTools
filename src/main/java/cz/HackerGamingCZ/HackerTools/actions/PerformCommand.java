@@ -12,8 +12,8 @@ public class PerformCommand extends Action {
     }
 
     @Override
-    public void cast(Player player){
-        if(isAsPlayer()){
+    public void cast(Player player) {
+        if (isAsPlayer()) {
             player.performCommand(getValue());
             return;
         }

@@ -15,7 +15,7 @@ public enum GameState {
     private String motd;
     private JoinType joinType;
 
-    GameState(String motd, JoinType joinType){
+    GameState(String motd, JoinType joinType) {
         this.motd = motd;
         this.joinType = joinType;
     }
@@ -24,11 +24,15 @@ public enum GameState {
     public void setMotd(String motd) {
         this.motd = motd;
     }
+
     public void setJoinType(JoinType joinType) {
         this.joinType = joinType;
     }
 
-    public String getMotd() { return motd; }
+    public String getMotd() {
+        return motd;
+    }
+
     public JoinType getJoinType() {
         return joinType;
     }
@@ -45,16 +49,17 @@ public enum GameState {
         private String globalMessage;
         private String messageToPlayer;
 
-        JoinType(String permission){
+        JoinType(String permission) {
             this.permission = permission;
         }
-        JoinType(){
+
+        JoinType() {
         }
 
-        public void setupMessage(){
+        public void setupMessage() {
             SimpleConfig config = HackerTools.getPlugin().getHtConfigManager().getLang();
-            String playerConfig = "default-"+toString().toLowerCase()+"-player-message";
-            String globalConfig = "default-"+toString().toLowerCase()+"-global-message";
+            String playerConfig = "default-" + toString().toLowerCase() + "-player-message";
+            String globalConfig = "default-" + toString().toLowerCase() + "-global-message";
             this.messageToPlayer = config.getString(playerConfig);
             this.globalMessage = config.getString(globalConfig);
         }
@@ -79,6 +84,7 @@ public enum GameState {
         public String getPermission() {
             return permission;
         }
+
         public void setPermission(String permission) {
             this.permission = permission;
         }

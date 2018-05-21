@@ -15,15 +15,18 @@ public class HTPlayer {
     private Team team;
     private Team previousTeam;
 
-    public HTPlayer(Player player){
+    public HTPlayer(Player player) {
         this.player = player;
     }
+
     public Player getPlayer() {
         return player;
     }
+
     public Team getTeam() {
         return team;
     }
+
     public HTPlayer getLastHittedBy() {
         return lastHittedBy;
     }
@@ -32,7 +35,7 @@ public class HTPlayer {
         this.lastHittedBy = lastHittedBy;
     }
 
-    public boolean isSpectator(){
+    public boolean isSpectator() {
         return team == HackerTools.getPlugin().getSpectatorTeam();
     }
 
@@ -40,7 +43,7 @@ public class HTPlayer {
         previousTeam = this.team;
         PlayerJoinTeamEvent event = new PlayerJoinTeamEvent(team, this);
         Bukkit.getPluginManager().callEvent(event);
-        if(event.isCancelled()){
+        if (event.isCancelled()) {
             return;
         }
         this.team = team;
@@ -50,14 +53,14 @@ public class HTPlayer {
         return previousTeam;
     }
 
-    public void reconnect(){
+    public void reconnect() {
         team = previousTeam;
-        if(GameState.JoinType.RECONNECT.getGlobalMessage() != null){
-            for(Player p : Bukkit.getOnlinePlayers()){
+        if (GameState.JoinType.RECONNECT.getGlobalMessage() != null) {
+            for (Player p : Bukkit.getOnlinePlayers()) {
                 HackerTools.getPlugin().getChatManager().sendPlayerMessage(p, GameState.JoinType.RECONNECT.getGlobalMessage(), player.getName());
             }
         }
-        if(GameState.JoinType.RECONNECT.getMessageToPlayer() != null){
+        if (GameState.JoinType.RECONNECT.getMessageToPlayer() != null) {
             HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, GameState.JoinType.RECONNECT.getMessageToPlayer());
         }
     }

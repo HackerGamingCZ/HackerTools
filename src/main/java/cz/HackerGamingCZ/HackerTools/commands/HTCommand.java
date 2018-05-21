@@ -14,11 +14,11 @@ public class HTCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if(args.length == 0){
-            HackerTools.getPlugin().getChatManager().sendPlayerMessage(sender, Placeholder.HTPREFIX+"Plugin was made for spigot minigame developers by §c"+Placeholder.PLUGINAUTHOR+"§7.");
+        if (args.length == 0) {
+            HackerTools.getPlugin().getChatManager().sendPlayerMessage(sender, Placeholder.HTPREFIX + "Plugin was made for spigot minigame developers by §c" + Placeholder.PLUGINAUTHOR + "§7.");
             return true;
         }
-        if(sender instanceof Player) {
+        if (sender instanceof Player) {
             HTPlayer player = HackerTools.getPlugin().getPlayerManager().getPlayer((Player) sender);
             if (args[0].equalsIgnoreCase("speed") && (player.isSpectator() || sender.hasPermission(Permissions.HT_SPEED))) {
                 if (args.length == 1) {
@@ -34,7 +34,7 @@ public class HTCommand implements CommandExecutor {
                 ((Player) sender).setWalkSpeed(HackerTools.getPlugin().getMechanics().getRealMoveSpeed(speed));
             }
         }
-        if(args[0].equalsIgnoreCase("forcestart") && sender.hasPermission(Permissions.HT_FORCESTART)){
+        if (args[0].equalsIgnoreCase("forcestart") && sender.hasPermission(Permissions.HT_FORCESTART)) {
             HackerTools.getPlugin().getMinigameManager().force();
         }
         return true;

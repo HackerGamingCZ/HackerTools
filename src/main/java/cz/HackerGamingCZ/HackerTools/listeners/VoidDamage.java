@@ -10,21 +10,22 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-public class VoidDamage implements Listener{
+public class VoidDamage implements Listener {
     private int lowestY = 0;
-    public VoidDamage(int lowestY){
+
+    public VoidDamage(int lowestY) {
         this.lowestY = lowestY;
     }
 
     @EventHandler
-    public void onMove(PlayerMoveEvent e){
+    public void onMove(PlayerMoveEvent e) {
         long toY = Math.round(e.getTo().getY());
-        if(toY <= this.lowestY){
+        if (toY <= this.lowestY) {
             HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(e.getPlayer());
-            if(htPlayer == null){
+            if (htPlayer == null) {
                 return;
             }
-            if(htPlayer.isSpectator()){
+            if (htPlayer.isSpectator()) {
                 return;
             }
             DeathByVoidEvent event = new DeathByVoidEvent(htPlayer, htPlayer.getLastHittedBy());

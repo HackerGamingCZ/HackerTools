@@ -22,11 +22,11 @@ public class Lang {
     public static String ARGUMENT_WASNT_NUMBER;
     public static String TELEPORT_TO_PLAYER;
 
-    public static String get(String string){
+    public static String get(String string) {
         return HackerTools.getPlugin().getPlaceholderAPI().replaceString(string);
     }
 
-    public static void load(){
+    public static void load() {
         SimpleConfig config = HackerTools.getPlugin().getHtConfigManager().getLang();
         DEBUG_DOESNT_EXIST = config.getString("debug-doesnt-exist");
         JOINTYPE_NOBODY_KICK_MESSAGE = config.getString("jointype-nobody-kick-message");

@@ -13,20 +13,20 @@ public class TeamManager {
 
     private ArrayList<Team> teams = new ArrayList<>();
 
-    public void disableTeamDamage(){
+    public void disableTeamDamage() {
         teamDamage = false;
     }
 
-    public void enableTeamDamage(){
+    public void enableTeamDamage() {
         teamDamage = true;
     }
 
 
-    public void disableTeamChat(){
+    public void disableTeamChat() {
         teamChat = false;
     }
 
-    public void enableTeamChat(){
+    public void enableTeamChat() {
         teamChat = true;
     }
 
@@ -42,17 +42,17 @@ public class TeamManager {
         return teams;
     }
 
-    public void addTeam(Team team){
+    public void addTeam(Team team) {
         teams.add(team);
     }
 
-    public void addAllPlayersIntoTeam(){
-        for(HTPlayer htPlayer : HackerTools.getPlugin().getPlayerManager().getPlayers().values()) {
-            if(htPlayer.getTeam() != null || htPlayer.getTeam() == HackerTools.getPlugin().getSpectatorTeam()){
+    public void addAllPlayersIntoTeam() {
+        for (HTPlayer htPlayer : HackerTools.getPlugin().getPlayerManager().getPlayers().values()) {
+            if (htPlayer.getTeam() != null || htPlayer.getTeam() == HackerTools.getPlugin().getSpectatorTeam()) {
                 continue;
             }
             for (Team team : teams) {
-                if(team.canJoin(htPlayer.getPlayer())){
+                if (team.canJoin(htPlayer.getPlayer())) {
                     team.join(htPlayer);
                 }
             }

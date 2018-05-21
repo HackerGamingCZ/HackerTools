@@ -141,7 +141,7 @@ public class SimpleConfig {
         this.config = YamlConfiguration.loadConfiguration(file);
     }
 
-    public void save(File file) throws FileNotFoundException, IOException,
+    public void save(File file) throws IOException,
             InvalidConfigurationException {
         this.config.load(file);
         saveConfig();

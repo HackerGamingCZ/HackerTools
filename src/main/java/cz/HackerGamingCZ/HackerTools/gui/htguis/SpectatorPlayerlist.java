@@ -30,12 +30,12 @@ public class SpectatorPlayerlist implements GUI {
     public ArrayList<Item> getItems(Player player) {
         ArrayList<Item> items = new ArrayList<>();
         int i = 0;
-        for(Player p : Bukkit.getOnlinePlayers()) {
+        for (Player p : Bukkit.getOnlinePlayers()) {
             HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(p);
             if (htPlayer == null) {
                 continue;
             }
-            if(htPlayer.isSpectator()){
+            if (htPlayer.isSpectator()) {
                 continue;
             }
             String lore = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(HackerTools.getPlugin().getPlaceholderAPI().replaceString(Lang.TELEPORT_TO_PLAYER), Placeholder.PLAYERNAME, p.getName());

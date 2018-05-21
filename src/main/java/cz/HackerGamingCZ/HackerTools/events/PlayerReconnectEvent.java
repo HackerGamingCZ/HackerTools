@@ -5,7 +5,7 @@ import cz.HackerGamingCZ.HackerTools.teams.Team;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class PlayerReconnectEvent extends Event{
+public class PlayerReconnectEvent extends Event {
 
     private static final HandlerList HANDLERS = new HandlerList();
 

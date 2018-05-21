@@ -66,31 +66,31 @@ public class HackerTools extends JavaPlugin {
 
 
     @Override
-    public void onEnable(){
+    public void onEnable() {
         spectatorSettings = new SpectatorSettings();
         spectatorSettings.register();
         spectatorPlayerList = new SpectatorPlayerlist();
         spectatorPlayerList.register();
         spectatorTeam = new SpectatorTeam();
         spectatorTeam.register();
-        forcestartItem  = new InteractableItem(Material.PAPER, 1, "§c§lForcestart", true, (byte)0, new PerformCommand("hackertools forcestart", true),false, "", "§cClick to forcestart the start");
+        forcestartItem = new InteractableItem(Material.PAPER, 1, "§c§lForcestart", true, (byte) 0, new PerformCommand("hackertools forcestart", true), false, "", "§cClick to forcestart the start");
         forcestartItem.register();
-        spectatorSettingsItem = new InteractableItem(Material.PAPER, 1, "§7§lSettings", true, (byte)0, new OpenGUI(spectatorSettings), false, "", "§cSettings of spectator mode");
+        spectatorSettingsItem = new InteractableItem(Material.PAPER, 1, "§7§lSettings", true, (byte) 0, new OpenGUI(spectatorSettings), false, "", "§cSettings of spectator mode");
         spectatorSettingsItem.register();
-        spectatorPlayerListItem = new InteractableItem(Material.COMPASS, 1, "§7§lSpectate", true, (byte)0, new OpenGUI(spectatorPlayerList), false, "", "§cList of all players");
+        spectatorPlayerListItem = new InteractableItem(Material.COMPASS, 1, "§7§lSpectate", true, (byte) 0, new OpenGUI(spectatorPlayerList), false, "", "§cList of all players");
         spectatorPlayerListItem.register();
         //TESTING PART
         //END OF TESTING PART
         registerDefaultEvents();
         registerCommands();
-        for(Player player : Bukkit.getOnlinePlayers()){
+        for (Player player : Bukkit.getOnlinePlayers()) {
             playerManager.addPlayer(player);
         }
         loggerManager.log("HackerTools support enabled!");
     }
 
     @Override
-    public void onLoad(){
+    public void onLoad() {
         URL url;
         String result = "true";
         try {
@@ -102,14 +102,14 @@ public class HackerTools extends JavaPlugin {
 
             int numCharsRead;
             char[] charArray = new char[1024];
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             while ((numCharsRead = isr.read(charArray)) > 0) {
                 sb.append(charArray, 0, numCharsRead);
             }
             result = sb.toString();
         } catch (MalformedURLException e) {
             e.printStackTrace();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
         if (result.equals("false")) {
@@ -137,12 +137,12 @@ public class HackerTools extends JavaPlugin {
         guiManager = new GUIManager();
         teamManager = new TeamManager();
         playerManager = new PlayerManager();
-        for(GameState.JoinType jt : GameState.JoinType.values()){
+        for (GameState.JoinType jt : GameState.JoinType.values()) {
             jt.setupMessage();
         }
     }
 
-    private void registerDefaultEvents(){
+    private void registerDefaultEvents() {
         eventManager.registerInventoryClickEvent();
         eventManager.registerEntityInteract();
         eventManager.registerPlayerJoin();
@@ -154,12 +154,12 @@ public class HackerTools extends JavaPlugin {
         eventManager.registerEntityDamage();
     }
 
-    private void registerCommands(){
+    private void registerCommands() {
         getCommand("hackertools").setExecutor(new HTCommand());
     }
 
     @Override
-    public void onDisable(){
+    public void onDisable() {
         entityInteractAPI.getEntities().values().forEach((entity) -> entity.getEntities().forEach(Entity::remove));
         htConfigManager.saveConfigs();
         loggerManager.log("HackerTools support disabled!");
@@ -168,51 +168,113 @@ public class HackerTools extends JavaPlugin {
     public static HackerTools getPlugin() {
         return plugin;
     }
-    public PluginDescriptionFile getPdf() { return pdf; }
+
+    public PluginDescriptionFile getPdf() {
+        return pdf;
+    }
 
     public boolean hasSpecialPermission(Player player) {
         return player.hasPermission("ht.*") || player.isOp();
     }
+
     public boolean hasSpecialPermission(CommandSender sender) {
         return sender.hasPermission("ht.*") || sender.isOp();
     }
 
     //GETTERS
-    public ItemManager getItemManager() { return itemManager; }
-    public DebugManager getDebugManager() { return debugManager; }
-    public CommandManager getCommandManager() { return commandManager; }
-    public PlaceholderManager getPlaceholderAPI() { return placeholderAPI; }
-    public ChatManager getChatManager() { return chatManager; }
-    public MinigameManager getMinigameManager() { return minigameManager; }
-    public EntityInteractAPI getEntityInteractAPI() { return entityInteractAPI; }
-    public EventManager getEventManager() { return eventManager; }
-    public TitleManager getTitleManager() { return titleManager; }
-    public ItemInteractManager getItemInteractManager() { return itemInteractManager; }
+    public ItemManager getItemManager() {
+        return itemManager;
+    }
+
+    public DebugManager getDebugManager() {
+        return debugManager;
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
+    }
+
+    public PlaceholderManager getPlaceholderAPI() {
+        return placeholderAPI;
+    }
+
+    public ChatManager getChatManager() {
+        return chatManager;
+    }
+
+    public MinigameManager getMinigameManager() {
+        return minigameManager;
+    }
+
+    public EntityInteractAPI getEntityInteractAPI() {
+        return entityInteractAPI;
+    }
+
+    public EventManager getEventManager() {
+        return eventManager;
+    }
+
+    public TitleManager getTitleManager() {
+        return titleManager;
+    }
+
+    public ItemInteractManager getItemInteractManager() {
+        return itemInteractManager;
+    }
+
     public GUIManager getGuiManager() {
         return guiManager;
     }
+
     public SchedulerManager getSchedulerManager() {
         return schedulerManager;
     }
-    public TeamManager getTeamManager() { return teamManager; }
-    public PlayerManager getPlayerManager() { return playerManager; }
-    public SimpleConfigManager getSimpleConfigManager() { return simpleConfigManager; }
-    public HTConfigManager getHtConfigManager() { return htConfigManager; }
-    public LoggerManager getLoggerManager() { return loggerManager; }
 
-    public GUI getSpectatorSettings() { return spectatorSettings; }
-    public GUI getSpectatorPlayerList() { return spectatorPlayerList; }
+    public TeamManager getTeamManager() {
+        return teamManager;
+    }
 
-    public Mechanics getMechanics() { return mechanics; }
-    public Team getSpectatorTeam() { return spectatorTeam; }
+    public PlayerManager getPlayerManager() {
+        return playerManager;
+    }
+
+    public SimpleConfigManager getSimpleConfigManager() {
+        return simpleConfigManager;
+    }
+
+    public HTConfigManager getHtConfigManager() {
+        return htConfigManager;
+    }
+
+    public LoggerManager getLoggerManager() {
+        return loggerManager;
+    }
+
+    public GUI getSpectatorSettings() {
+        return spectatorSettings;
+    }
+
+    public GUI getSpectatorPlayerList() {
+        return spectatorPlayerList;
+    }
+
+    public Mechanics getMechanics() {
+        return mechanics;
+    }
+
+    public Team getSpectatorTeam() {
+        return spectatorTeam;
+    }
 
     //Interactable items
     public InteractableItem getForcestartItem() {
         return forcestartItem;
     }
+
     public InteractableItem getSpectatorPlayerListItem() {
         return spectatorPlayerListItem;
     }
+
     public InteractableItem getSpectatorSettingsItem() {
         return spectatorSettingsItem;
     }

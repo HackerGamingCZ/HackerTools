@@ -9,7 +9,7 @@ public class InteractableLivingEntity extends InteractableEntity {
 
     private boolean AI;
 
-    public InteractableLivingEntity(EntityType entityType, String customName, boolean customNameVisible, Action action, boolean AI){
+    public InteractableLivingEntity(EntityType entityType, String customName, boolean customNameVisible, Action action, boolean AI) {
         super(entityType, customName, customNameVisible, action);
         this.AI = AI;
     }

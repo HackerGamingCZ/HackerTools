@@ -31,7 +31,7 @@ public class CountdownEndEvent extends Event {
         return HANDLERS;
     }
 
-    public enum EndCause{
+    public enum EndCause {
         PLAYER_DISCONNECT,
         SCHEDULER_END
     }

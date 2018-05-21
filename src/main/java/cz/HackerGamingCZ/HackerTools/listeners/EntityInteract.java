@@ -10,16 +10,16 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 public class EntityInteract implements Listener {
 
     @EventHandler
-    public void onInteractWithEntity(PlayerInteractEntityEvent e){
+    public void onInteractWithEntity(PlayerInteractEntityEvent e) {
         Entity entity = e.getRightClicked();
-        if(entity == null){
+        if (entity == null) {
             return;
         }
-        if(entity.getCustomName() == null){
+        if (entity.getCustomName() == null) {
             return;
         }
         InteractableEntity iEntity = HackerTools.getPlugin().getEntityInteractAPI().getEntity(entity.getName());
-        if(iEntity == null){
+        if (iEntity == null) {
             return;
         }
         iEntity.getAction().cast(e.getPlayer());

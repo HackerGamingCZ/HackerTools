@@ -14,25 +14,25 @@ public class ChatManager {
 
     private final static int CENTER_PX = 154;
 
-    public void sendCenteredMessage(Player player, String message, boolean placeholder){
-        if(message == null || message.equals("")) player.sendMessage("");
+    public void sendCenteredMessage(Player player, String message, boolean placeholder) {
+        if (message == null || message.equals("")) player.sendMessage("");
         message = ChatColor.translateAlternateColorCodes('&', message);
 
         int messagePxSize = 0;
         boolean previousCode = false;
         boolean isBold = false;
 
-        for(char c : message.toCharArray()){
-            if(c == '§'){
+        for (char c : message.toCharArray()) {
+            if (c == '§') {
                 previousCode = true;
                 continue;
-            }else if(previousCode){
+            } else if (previousCode) {
                 previousCode = false;
-                if(c == 'l' || c == 'L'){
+                if (c == 'l' || c == 'L') {
                     isBold = true;
                     continue;
-                }else isBold = false;
-            }else{
+                } else isBold = false;
+            } else {
                 DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
                 messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
                 messagePxSize++;
@@ -44,57 +44,57 @@ public class ChatManager {
         int spaceLength = DefaultFontInfo.SPACE.getLength() + 1;
         int compensated = 0;
         StringBuilder sb = new StringBuilder();
-        while(compensated < toCompensate){
+        while (compensated < toCompensate) {
             sb.append(" ");
             compensated += spaceLength;
         }
-        if(placeholder) {
+        if (placeholder) {
             message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
             message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, player.getName());
             player.sendMessage(message);
-        }else{
+        } else {
             player.sendMessage(message);
         }
     }
 
-    public void hoverableText(Player player, String message, String tooltip){
+    public void hoverableText(Player player, String message, String tooltip) {
         TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
         component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(tooltip)));
         player.spigot().sendMessage(component);
     }
 
-    public void sendTooltippedTextPerformingCommand(Player player, String message, String tooltip, String command){
+    public void sendTooltippedTextPerformingCommand(Player player, String message, String tooltip, String command) {
         TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
         component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(tooltip)));
-        command = "/"+command.replaceFirst("/", "");
+        command = "/" + command.replaceFirst("/", "");
         component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
         player.spigot().sendMessage(component);
     }
 
-    public void sendTextPerformingCommand(Player player, String message, String command){
+    public void sendTextPerformingCommand(Player player, String message, String command) {
         TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
-        command = "/"+command.replaceFirst("/", "");
+        command = "/" + command.replaceFirst("/", "");
         component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
         player.spigot().sendMessage(component);
     }
 
-    public void sendTooltippedTextSuggestingCommand(Player player, String message, String tooltip, String command){
+    public void sendTooltippedTextSuggestingCommand(Player player, String message, String tooltip, String command) {
         TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
         component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(tooltip)));
-        command = "/"+command.replaceFirst("/", "");
+        command = "/" + command.replaceFirst("/", "");
         component.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
         player.spigot().sendMessage(component);
     }
 
-    public void sendTextSuggestingCommand(Player player, String message, String command){
+    public void sendTextSuggestingCommand(Player player, String message, String command) {
         TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
-        command = "/"+command.replaceFirst("/", "");
+        command = "/" + command.replaceFirst("/", "");
         component.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
         player.spigot().sendMessage(component);
     }
 
-    public void sendCenteredMessage(Player player, String message){
-        if(message == null || message.equals("")) {
+    public void sendCenteredMessage(Player player, String message) {
+        if (message == null || message.equals("")) {
             player.sendMessage("");
             return;
         }
@@ -104,17 +104,17 @@ public class ChatManager {
         boolean previousCode = false;
         boolean isBold = false;
 
-        for(char c : message.toCharArray()){
-            if(c == '§'){
+        for (char c : message.toCharArray()) {
+            if (c == '§') {
                 previousCode = true;
                 continue;
-            }else if(previousCode){
+            } else if (previousCode) {
                 previousCode = false;
-                if(c == 'l' || c == 'L'){
+                if (c == 'l' || c == 'L') {
                     isBold = true;
                     continue;
-                }else isBold = false;
-            }else{
+                } else isBold = false;
+            } else {
                 DefaultFontInfo dFI = DefaultFontInfo.getDefaultFontInfo(c);
                 messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
                 messagePxSize++;
@@ -126,7 +126,7 @@ public class ChatManager {
         int spaceLength = DefaultFontInfo.SPACE.getLength() + 1;
         int compensated = 0;
         StringBuilder sb = new StringBuilder();
-        while(compensated < toCompensate){
+        while (compensated < toCompensate) {
             sb.append(" ");
             compensated += spaceLength;
         }
@@ -135,38 +135,38 @@ public class ChatManager {
         player.sendMessage(message);
     }
 
-    public void sendPlayerMessage(Player player, String message, boolean placeholder){
-        if(placeholder){
+    public void sendPlayerMessage(Player player, String message, boolean placeholder) {
+        if (placeholder) {
             message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
             message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, player.getName());
             player.sendMessage(message);
-        } else{
+        } else {
             player.sendMessage(message);
         }
     }
 
 
-    public void sendPlayerMessage(Player player, String message, String specialPlayer){
+    public void sendPlayerMessage(Player player, String message, String specialPlayer) {
         message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
         message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, specialPlayer);
         player.sendMessage(message);
     }
 
 
-    public void sendPlayerMessage(Player player, String message){
+    public void sendPlayerMessage(Player player, String message) {
         sendPlayerMessage(player, message, true);
     }
 
-    public void sendPlayerMessage(CommandSender sender, String message){
+    public void sendPlayerMessage(CommandSender sender, String message) {
         sendPlayerMessage(sender, message, true);
     }
 
-    public void sendPlayerMessage(CommandSender sender, String message, boolean placeholder){
-        if(placeholder){
+    public void sendPlayerMessage(CommandSender sender, String message, boolean placeholder) {
+        if (placeholder) {
             message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
             message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, sender.getName());
             sender.sendMessage(message);
-        } else{
+        } else {
             sender.sendMessage(message);
         }
     }

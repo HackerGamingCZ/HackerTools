@@ -12,7 +12,7 @@ public class Item {
     private String identificator;
     private Action action;
 
-    public Item(int position, ItemStack is, Action action, boolean canceled, boolean closingInventory){
+    public Item(int position, ItemStack is, Action action, boolean canceled, boolean closingInventory) {
         this.is = is;
         this.canceled = canceled;
         this.closingInventory = closingInventory;
@@ -20,14 +20,14 @@ public class Item {
         this.action = action;
     }
 
-    public Item(ItemStack is, Action action, boolean canceled, boolean closingInventory){
+    public Item(ItemStack is, Action action, boolean canceled, boolean closingInventory) {
         this.is = is;
         this.canceled = canceled;
         this.closingInventory = closingInventory;
         this.action = action;
     }
 
-    public Item(String identificator, int position, ItemStack is, Action action, boolean canceled, boolean closingInventory){
+    public Item(String identificator, int position, ItemStack is, Action action, boolean canceled, boolean closingInventory) {
         this.is = is;
         this.canceled = canceled;
         this.closingInventory = closingInventory;

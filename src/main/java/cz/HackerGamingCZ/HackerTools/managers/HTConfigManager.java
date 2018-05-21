@@ -42,7 +42,7 @@ public class HTConfigManager {
     }
 
     public void saveConfigs() {
-       lang.saveConfig();
+        lang.saveConfig();
     }
 
     public void reloadConfigs() {

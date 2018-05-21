@@ -27,22 +27,22 @@ public class MinigameManager {
     private Location spectLocation;
     private GameMode defaultGameMode;
 
-    public MinigameManager(){
+    public MinigameManager() {
         setGameState(GameState.SETUP);
     }
 
-    public void setupGame(int minPlayers, int maxPlayers, GameState state, Location spectLocation, GameMode defaultGameMode){
+    public void setupGame(int minPlayers, int maxPlayers, GameState state, Location spectLocation, GameMode defaultGameMode) {
         this.maxPlayers = maxPlayers;
         this.minPlayers = minPlayers;
         this.spectLocation = spectLocation;
-        if(defaultGameMode == null){
+        if (defaultGameMode == null) {
             throw new IllegalArgumentException("Default Gamemode cannot be null!");
         }
         this.defaultGameMode = defaultGameMode;
         setGameState(state);
     }
 
-    public void setupGame(int minPlayers, int maxPlayers, GameState state, Location spectLocation, GameMode defaultGameMode, int countdownDefault, int force){
+    public void setupGame(int minPlayers, int maxPlayers, GameState state, Location spectLocation, GameMode defaultGameMode, int countdownDefault, int force) {
         this.countdown = countdownDefault;
         this.defaultCountdown = countdownDefault;
         this.force = force;
@@ -53,82 +53,82 @@ public class MinigameManager {
         return spectLocation;
     }
 
-    public void enableReconnect(){
+    public void enableReconnect() {
         GameState.INGAME.setJoinType(GameState.JoinType.RECONNECT);
     }
 
-    public void disableReconnect(){
+    public void disableReconnect() {
         GameState.INGAME.setJoinType(GameState.JoinType.SPECTATOR);
     }
 
-    public void resetPlayer(Player player, GameMode gameMode, boolean health, boolean food, boolean inventory, boolean armor, boolean potionEffects, ItemStack... ignoredItems){
+    public void resetPlayer(Player player, GameMode gameMode, boolean health, boolean food, boolean inventory, boolean armor, boolean potionEffects, ItemStack... ignoredItems) {
         player.setWalkSpeed(0.2F);
         player.setFlySpeed(0.1F);
         if (potionEffects) {
-            for(PotionEffect potionEffect : player.getActivePotionEffects()){
+            for (PotionEffect potionEffect : player.getActivePotionEffects()) {
                 player.removePotionEffect(potionEffect.getType());
             }
         }
-        if(gameMode != null){
+        if (gameMode != null) {
             player.setGameMode(gameMode);
         }
-        if(health){
+        if (health) {
             player.setHealth(20);
         }
-        if(food){
+        if (food) {
             player.setFoodLevel(20);
         }
         ArrayList<ItemStack> ignoreItemsList = new ArrayList<>();
-        if(ignoredItems != null){
+        if (ignoredItems != null) {
             Collections.addAll(ignoreItemsList, ignoredItems);
         }
-        if(inventory){
-            for(ItemStack is : player.getInventory()){
-                if(is == null || is.getType() == Material.AIR || ignoreItemsList.contains(is)){
+        if (inventory) {
+            for (ItemStack is : player.getInventory()) {
+                if (is == null || is.getType() == Material.AIR || ignoreItemsList.contains(is)) {
                     continue;
                 }
                 player.getInventory().removeItem(is);
             }
         }
-        if(armor){
+        if (armor) {
 
         }
     }
 
-    public boolean isServerInLobby(){
+    public boolean isServerInLobby() {
         return HackerTools.getPlugin().getMinigameManager().getGameState() == GameState.WAITING || HackerTools.getPlugin().getMinigameManager().getGameState() == GameState.STARTING;
     }
 
-    public void startLobbyCountdown(){
-        if(gameState == GameState.SETUP){
+    public void startLobbyCountdown() {
+        if (gameState == GameState.SETUP) {
             return;
         }
-        if(!isServerInLobby()){
+        if (!isServerInLobby()) {
             return;
         }
         setGameState(GameState.STARTING);
-        for(Player player : Bukkit.getOnlinePlayers()) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
             HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.COUNTDOWN_START_INFO);
         }
-        HackerTools.getPlugin().getSchedulerManager().addScheduler(SchedulerManager.SchedulerType.LOBBY, Bukkit.getScheduler().scheduleSyncRepeatingTask(HackerTools.getPlugin(), ()->{
-            if(countdown == 0){
+        HackerTools.getPlugin().getSchedulerManager().addScheduler(SchedulerManager.SchedulerType.LOBBY, Bukkit.getScheduler().scheduleSyncRepeatingTask(HackerTools.getPlugin(), () -> {
+            if (countdown == 0) {
                 HackerTools.getPlugin().getTitleManager().sendTitle(Bukkit.getOnlinePlayers(), 5, 40, 5, "§aStart!", "§c");
-                for(Player player : Bukkit.getOnlinePlayers()) {
+                for (Player player : Bukkit.getOnlinePlayers()) {
                     HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.GAME_START_INFO);
                 }
                 stopLobbyCoutdown(CountdownEndEvent.EndCause.SCHEDULER_END);
                 setGameState(GameState.INGAME);
                 return;
             }
-            if(countdown % 10 == 0 || countdown <= 10){
-                for(Player player : Bukkit.getOnlinePlayers()){
+            if (countdown % 10 == 0 || countdown <= 10) {
+                for (Player player : Bukkit.getOnlinePlayers()) {
                     String message = Lang.COUNTDOWN_INFO;
                     message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.COUNTDOWN, String.valueOf(countdown));
                     HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, message);
                 }
             }
-            if(countdown <= 5){
-                HackerTools.getPlugin().getTitleManager().sendTitle(Bukkit.getOnlinePlayers(), 3, 15, 3, "§c", "§c"+String.valueOf(countdown));
+            if (countdown <= 5) {
+                HackerTools.getPlugin().getTitleManager().sendTitle(Bukkit.getOnlinePlayers(), 3, 15, 3, "§c", "§c" + String.valueOf(countdown));
             }
             countdown--;
             CountdownUpdateEvent event = new CountdownUpdateEvent(countdown, SchedulerManager.SchedulerType.LOBBY, CountdownUpdateEvent.UpdateCause.SCHEDULER_CYCLE);
@@ -136,9 +136,9 @@ public class MinigameManager {
         }, 20L, 20L));
     }
 
-    public void force(){
-        if(isServerInLobby()){
-            if(HackerTools.getPlugin().getSchedulerManager().getScheduler(SchedulerManager.SchedulerType.LOBBY) == -1){
+    public void force() {
+        if (isServerInLobby()) {
+            if (HackerTools.getPlugin().getSchedulerManager().getScheduler(SchedulerManager.SchedulerType.LOBBY) == -1) {
                 startLobbyCountdown();
             }
             setCountdown(force);
@@ -151,10 +151,10 @@ public class MinigameManager {
         Bukkit.getPluginManager().callEvent(event);
     }
 
-    public void stopLobbyCoutdown(CountdownEndEvent.EndCause cause){
+    public void stopLobbyCoutdown(CountdownEndEvent.EndCause cause) {
         countdown = defaultCountdown;
-        if(cause == CountdownEndEvent.EndCause.PLAYER_DISCONNECT){
-            for(Player player : Bukkit.getOnlinePlayers()) {
+        if (cause == CountdownEndEvent.EndCause.PLAYER_DISCONNECT) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
                 HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.COUNTDOWN_STOP_PLAYERDISCONNECT_INFO);
             }
         }
@@ -163,18 +163,27 @@ public class MinigameManager {
         HackerTools.getPlugin().getSchedulerManager().stopSchedulder(SchedulerManager.SchedulerType.LOBBY);
     }
 
-    public void resetPlayer(Player player){
+    public void resetPlayer(Player player) {
         resetPlayer(player, defaultGameMode, true, true, true, true, true);
     }
 
 
-    public int getMaxPlayers() { return maxPlayers; }
-    public GameState getGameState() { return gameState; }
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
     public void setGameState(GameState gameState) {
         MinecraftServer.getServer().setMotd(gameState.getMotd());
         this.gameState = gameState;
     }
-    public int getMinPlayers() { return minPlayers; }
+
+    public int getMinPlayers() {
+        return minPlayers;
+    }
 
     public int getCountdown() {
         return countdown;

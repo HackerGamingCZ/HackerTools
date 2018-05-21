@@ -10,7 +10,7 @@ public class OpenGUI extends Action {
     }
 
     @Override
-    public void cast(Player player){
+    public void cast(Player player) {
         getGui().open(player);
     }
 

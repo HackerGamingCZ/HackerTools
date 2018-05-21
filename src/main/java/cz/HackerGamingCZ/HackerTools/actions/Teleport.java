@@ -8,13 +8,14 @@ public class Teleport extends Action {
     public Teleport(Location location) {
         super(location);
     }
+
     public Teleport(Player player) {
         super(player);
     }
 
     @Override
-    public void cast(Player player){
-        if(getLocation() == null){
+    public void cast(Player player) {
+        if (getLocation() == null) {
             player.teleport(getPlayer());
             return;
         }

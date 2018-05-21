@@ -34,14 +34,14 @@ public class PlayerJoin implements Listener {
         GameState.JoinType type = state.getJoinType();
         if (state.getJoinType() == GameState.JoinType.SPECTATOR) {
             HackerTools.getPlugin().getSpectatorTeam().join(htPlayer);
-        } else if(state.getJoinType() == GameState.JoinType.RECONNECT){
-            if(htPlayer.getPreviousTeam() != null && htPlayer.getPreviousTeam() != HackerTools.getPlugin().getSpectatorTeam()){
+        } else if (state.getJoinType() == GameState.JoinType.RECONNECT) {
+            if (htPlayer.getPreviousTeam() != null && htPlayer.getPreviousTeam() != HackerTools.getPlugin().getSpectatorTeam()) {
                 htPlayer.reconnect();
-            } else{
+            } else {
                 HackerTools.getPlugin().getSpectatorTeam().join(htPlayer);
             }
         }
-        if(state != GameState.INGAME) {
+        if (state != GameState.INGAME) {
             if (type.getGlobalMessage() != null) {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, type.getGlobalMessage(), e.getPlayer().getName());

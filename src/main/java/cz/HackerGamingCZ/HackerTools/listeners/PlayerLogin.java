@@ -14,19 +14,19 @@ import org.bukkit.event.player.PlayerLoginEvent;
 public class PlayerLogin implements Listener {
 
     @EventHandler
-    public void onPlayerLogin(PlayerLoginEvent e){
+    public void onPlayerLogin(PlayerLoginEvent e) {
         GameState state = HackerTools.getPlugin().getMinigameManager().getGameState();
         Player player = e.getPlayer();
-        if(state == null){
+        if (state == null) {
             return;
         }
         GameState.JoinType type = state.getJoinType();
-        if(type == GameState.JoinType.NOBODY){
+        if (type == GameState.JoinType.NOBODY) {
             e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
             e.setKickMessage(Lang.get(Lang.JOINTYPE_NOBODY_KICK_MESSAGE));
             return;
         }
-        if(type.getPermission() != null) {
+        if (type.getPermission() != null) {
             if (!player.hasPermission(type.getPermission())) {
                 e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
                 e.setKickMessage(Lang.get(Lang.JOINTYPE_PERMISSION_KICK_MESSAGE));
@@ -34,10 +34,10 @@ public class PlayerLogin implements Listener {
             }
         }
         HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
-        if(htPlayer == null || htPlayer.getPreviousTeam() == null || htPlayer.getPreviousTeam() == HackerTools.getPlugin().getSpectatorTeam()){
+        if (htPlayer == null || htPlayer.getPreviousTeam() == null || htPlayer.getPreviousTeam() == HackerTools.getPlugin().getSpectatorTeam()) {
             return;
         }
-        if(state == GameState.INGAME && type == GameState.JoinType.RECONNECT) {
+        if (state == GameState.INGAME && type == GameState.JoinType.RECONNECT) {
             PlayerReconnectEvent event = new PlayerReconnectEvent(htPlayer);
             Bukkit.getPluginManager().callEvent(event);
         }
