@@ -20,7 +20,6 @@ import cz.HackerGamingCZ.HackerTools.teams.Team;
 import cz.HackerGamingCZ.HackerTools.teams.TeamManager;
 import cz.HackerGamingCZ.HackerTools.teams.htteams.SpectatorTeam;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
@@ -87,7 +86,7 @@ public class HackerTools extends JavaPlugin {
         for(Player player : Bukkit.getOnlinePlayers()){
             playerManager.addPlayer(player);
         }
-        Bukkit.getLogger().info("HackerTools support enabled!");
+        loggerManager.log("HackerTools support enabled!");
     }
 
     @Override
@@ -114,7 +113,7 @@ public class HackerTools extends JavaPlugin {
             e.printStackTrace();
         }
         if (result.equals("false")) {
-            Bukkit.getLogger().warning("I wasn't able to load HackerTools. There was problem on page http://playersplace.8u.cz/htsettings.php Please, contant the creator of HackerTools plugin.");
+            loggerManager.warn("I wasn't able to load HackerTools. There was problem on page http://playersplace.8u.cz/htsettings.php Please, contant the creator of HackerTools plugin.");
             return;
         }
         plugin = this;
@@ -162,7 +161,8 @@ public class HackerTools extends JavaPlugin {
     @Override
     public void onDisable(){
         entityInteractAPI.getEntities().values().forEach((entity) -> entity.getEntities().forEach(Entity::remove));
-        Bukkit.getLogger().info("HackerTools support disabled!");
+        htConfigManager.saveConfigs();
+        loggerManager.log("HackerTools support disabled!");
     }
 
     public static HackerTools getPlugin() {
