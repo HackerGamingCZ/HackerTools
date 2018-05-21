@@ -1,9 +1,7 @@
 package cz.HackerGamingCZ.HackerTools.enums;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
-import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.config.SimpleConfig;
-import org.bukkit.Bukkit;
 
 public enum GameState {
 
@@ -55,7 +53,6 @@ public enum GameState {
 
         public void setupMessage(){
             SimpleConfig config = HackerTools.getPlugin().getHtConfigManager().getLang();
-            Bukkit.getLogger().warning(toString().toLowerCase());
             String playerConfig = "default-"+toString().toLowerCase()+"-player-message";
             String globalConfig = "default-"+toString().toLowerCase()+"-global-message";
             this.messageToPlayer = config.getString(playerConfig);

@@ -110,17 +110,20 @@ public class HackerTools extends JavaPlugin {
             result = sb.toString();
         } catch (MalformedURLException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
         }
         if (result.equals("false")) {
             Bukkit.getLogger().warning("I wasn't able to load HackerTools. There was problem on page http://playersplace.8u.cz/htsettings.php Please, contant the creator of HackerTools plugin.");
             return;
         }
-        Lang.load();
-        loggerManager = new LoggerManager();
         plugin = this;
+        loggerManager = new LoggerManager();
         pdf = this.getDescription();
+        mechanics = new Mechanics();
+        simpleConfigManager = new SimpleConfigManager(plugin);
+        htConfigManager = new HTConfigManager();
+        Lang.load();
         itemManager = new ItemManager();
         debugManager = new DebugManager();
         eventManager = new EventManager();
@@ -135,9 +138,6 @@ public class HackerTools extends JavaPlugin {
         guiManager = new GUIManager();
         teamManager = new TeamManager();
         playerManager = new PlayerManager();
-        mechanics = new Mechanics();
-        simpleConfigManager = new SimpleConfigManager(plugin);
-        htConfigManager = new HTConfigManager();
         for(GameState.JoinType jt : GameState.JoinType.values()){
             jt.setupMessage();
         }

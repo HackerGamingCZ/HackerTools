@@ -1,5 +1,7 @@
 package cz.HackerGamingCZ.HackerTools;
 
+import org.bukkit.ChatColor;
+
 public class Mechanics {
 
     public float getRealMoveSpeed(final float userSpeed)
@@ -16,6 +18,13 @@ public class Mechanics {
             float ratio = ((userSpeed - 1) / 9) * (maxSpeed - defaultSpeed);
             return ratio + defaultSpeed;
         }
+    }
+
+    public String convertToSpigotColors(String text){
+        if(text == null){
+            return null;
+        }
+        return ChatColor.translateAlternateColorCodes('&', text);
     }
 
 }

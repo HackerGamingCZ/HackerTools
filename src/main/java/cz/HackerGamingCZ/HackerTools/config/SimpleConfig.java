@@ -38,7 +38,7 @@ public class SimpleConfig {
     }
 
     public String getString(String path) {
-        return this.config.getString(path);
+        return HackerTools.getPlugin().getMechanics().convertToSpigotColors(this.config.getString(path));
     }
 
     public String getString(String path, String def) {

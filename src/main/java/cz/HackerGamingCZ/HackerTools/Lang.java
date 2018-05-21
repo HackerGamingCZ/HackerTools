@@ -8,18 +8,9 @@ public class Lang {
     //PREFIXES
     public static String DEBUG_PREFIX = "§8[§c§lHT_DEBUG§8]§7 ";
     public static String HACKERTOOLS_PREFIX = "§8[§c§lHackerTools§8]§7 ";
+    public static String ERROR_PREFIX = "§c§lERROR§7 ";
 
     public static String DEBUG_DOESNT_EXIST;
-   /* public static String DEFAULT_ADMIN_GLOBAL_MESSAGE = config.getString("default-admin-global-message");
-    public static String DEFAULT_ADMIN_PLAYER_MESSAGE = config.getString("default-admin-player-message");
-    public static String DEFAULT_PLAYER_GLOBAL_MESSAGE = config.getString("default-player-global-message");
-    public static String DEFAULT_PLAYER_PLAYER_MESSAGE = config.getString("default-player-player-message");
-    public static String DEFAULT_SPECTATOR_GLOBAL_MESSAGE = config.getString("default-spectator-global-message");
-    public static String DEFAULT_SPECTATOR_PLAYER_MESSAGE = config.getString("default-spectator-player-message");
-    public static String DEFAULT_RECONNECT_GLOBAL_MESSAGE = config.getString("default-reconnect-global-message");
-    public static String DEFAULT_RECONNECT_PLAYER_MESSAGE = config.getString("default-reconnect-player-message");
-    public static String DEFAULT_NOBODY_GLOBAL_MESSAGE = config.getString("default-nobody-global-message");
-    public static String DEFAULT_NOBODY_PLAYER_MESSAGE = config.getString("default-nobody-player-message");*/
     public static String JOINTYPE_NOBODY_KICK_MESSAGE;
     public static String JOINTYPE_PERMISSION_KICK_MESSAGE;
     public static String COUNTDOWN_START_INFO;
