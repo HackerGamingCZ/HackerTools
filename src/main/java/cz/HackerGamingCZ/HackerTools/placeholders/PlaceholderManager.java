@@ -1,45 +1,57 @@
 package cz.HackerGamingCZ.HackerTools.placeholders;
 
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class PlaceholderManager {
 
-    public void updatePlaceHolders() {
-        for (Placeholder placeholder : Placeholder.values()) {
-            placeholder.update();
-        }
+    public String replaceString(String string, Player player) {
+        return replaceString(string, player, new Placeholders[]{});
+    }
+
+    public String replaceString(String string, OfflinePlayer player) {
+        return replaceString(string, player, new Placeholders[]{});
     }
 
     public String replaceString(String string) {
+        return replaceString(string, null);
+    }
+
+    public String replaceString(String string, Player player, Placeholders... ignore) {
         if (string == null) {
             return null;
         }
-        updatePlaceHolders();
-        for (Placeholder placeholder : Placeholder.values()) {
-            if (placeholder.getReplacement() == null) {
-                continue;
-            }
-            string = string.replace(placeholder.getPlaceholder(), placeholder.getReplacement());
-        }
-        return string;
-    }
-
-    public String replaceString(String string, Placeholder[] ignore) {
-        updatePlaceHolders();
-        ArrayList<Placeholder> ignoreList = new ArrayList<>();
+        ArrayList<Placeholders> ignoreList = new ArrayList<>();
         Collections.addAll(ignoreList, ignore);
-        for (Placeholder placeholder : Placeholder.values()) {
-            if (ignoreList.contains(placeholder) || placeholder.getReplacement() == null) {
+        for (Placeholders placeholder : Placeholders.values()) {
+            if (ignoreList.contains(placeholder)) {
                 continue;
             }
-            string = string.replace(placeholder.getPlaceholder(), placeholder.getReplacement());
+            string = string.replace(placeholder.getPlaceholder().getPlaceholder(), placeholder.getPlaceholder().getReplacement(player));
         }
         return string;
     }
 
-    public String replaceSpecialPlaceholder(String string, Placeholder placeholder, String replacement) {
-        updatePlaceHolders();
+    public String replaceString(String string, OfflinePlayer player, Placeholders... ignore) {
+        if (string == null) {
+            return null;
+        }
+        ArrayList<Placeholders> ignoreList = new ArrayList<>();
+        Collections.addAll(ignoreList, ignore);
+        for (Placeholders placeholder : Placeholders.values()) {
+            if (ignoreList.contains(placeholder)) {
+                continue;
+            }
+            string = string.replace(placeholder.getPlaceholder().getPlaceholder(), placeholder.getPlaceholder().getReplacement(player));
+        }
+        return string;
+    }
+
+    @Deprecated
+   public String replaceSpecialPlaceholder(String string, Placeholder placeholder, String replacement) {
         string = string.replace(placeholder.getPlaceholder(), replacement);
         return string;
     }

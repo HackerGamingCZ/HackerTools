@@ -6,6 +6,7 @@ import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -49,8 +50,7 @@ public class ChatManager {
             compensated += spaceLength;
         }
         if (placeholder) {
-            message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
-            message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, player.getName());
+            message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message, player);
             player.sendMessage(message);
         } else {
             player.sendMessage(message);
@@ -130,15 +130,13 @@ public class ChatManager {
             sb.append(" ");
             compensated += spaceLength;
         }
-        message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
-        message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, player.getName());
+        message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message, player);
         player.sendMessage(message);
     }
 
     public void sendPlayerMessage(Player player, String message, boolean placeholder) {
         if (placeholder) {
-            message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
-            message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, player.getName());
+            message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message, player);
             player.sendMessage(message);
         } else {
             player.sendMessage(message);
@@ -147,8 +145,7 @@ public class ChatManager {
 
 
     public void sendPlayerMessage(Player player, String message, String specialPlayer) {
-        message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
-        message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, specialPlayer);
+        message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message, Bukkit.getOfflinePlayer(specialPlayer));
         player.sendMessage(message);
     }
 
@@ -164,7 +161,6 @@ public class ChatManager {
     public void sendPlayerMessage(CommandSender sender, String message, boolean placeholder) {
         if (placeholder) {
             message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
-            message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.PLAYERNAME, sender.getName());
             sender.sendMessage(message);
         } else {
             sender.sendMessage(message);

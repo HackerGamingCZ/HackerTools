@@ -125,7 +125,7 @@ public class MinigameManager {
             if (countdown % 10 == 0 || countdown <= 10) {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     String message = Lang.COUNTDOWN_INFO;
-                    message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.COUNTDOWN, String.valueOf(countdown));
+                 //   message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.COUNTDOWN, String.valueOf(countdown));
                     HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, message);
                 }
             }

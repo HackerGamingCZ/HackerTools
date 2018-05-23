@@ -3,10 +3,11 @@ package cz.HackerGamingCZ.HackerTools.listeners;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.Permissions;
-import cz.HackerGamingCZ.HackerTools.actions.JoinTeam;
 import cz.HackerGamingCZ.HackerTools.managers.SchedulerManager;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
+import cz.HackerGamingCZ.HackerTools.scoreboard.Scoreboard;
+import cz.HackerGamingCZ.HackerTools.testing.HTScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,10 +16,17 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class PlayerJoin implements Listener {
 
+    private Scoreboard s;
+
+    public PlayerJoin(){
+        s =  new HTScoreboard();
+        s.load();
+    }
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
+        GameState state = HackerTools.getPlugin().getGameState();
         Player player = e.getPlayer();
-        HackerTools.getPlugin().getMinigameManager().resetPlayer(player);
         e.setJoinMessage(null);
         HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
         if (htPlayer == null) {
@@ -26,6 +34,10 @@ public class PlayerJoin implements Listener {
             htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
         } else {
             htPlayer.setPlayer(player);
+        }
+        s.createScoreboard(htPlayer);
+        if(state == GameState.NONE){
+            return;
         }
         if (HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
             if(player.hasPermission(Permissions.HT_FORCESTART)) {
@@ -35,7 +47,6 @@ public class PlayerJoin implements Listener {
                 player.teleport(HackerTools.getPlugin().getMinigameManager().getLobbyLocation());
             }
         }
-        GameState state = HackerTools.getPlugin().getMinigameManager().getGameState();
         GameState.JoinType type = state.getJoinType();
         if (state.getJoinType() == GameState.JoinType.SPECTATOR) {
             HackerTools.getPlugin().getSpectatorTeam().join(htPlayer);

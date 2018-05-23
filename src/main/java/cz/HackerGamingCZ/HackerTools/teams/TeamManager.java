@@ -52,6 +52,9 @@ public class TeamManager {
                 continue;
             }
             for (Team team : teams) {
+                if(team == HackerTools.getPlugin().getSpectatorTeam()){
+                    continue;
+                }
                 if (team.canJoin(htPlayer.getPlayer())) {
                     team.join(htPlayer);
                 }

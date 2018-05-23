@@ -30,7 +30,7 @@ public class PlayerLeave implements Listener {
         }
         if (HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(Lang.LOBBY_DISCONNECT_INFO, Placeholder.ONLINEPLAYERS, String.valueOf(Bukkit.getOnlinePlayers().size() - 1)), e.getPlayer().getName());
+               // HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(Lang.LOBBY_DISCONNECT_INFO, Placeholder.ONLINEPLAYERS, String.valueOf(Bukkit.getOnlinePlayers().size() - 1)), e.getPlayer().getName());
             }
         }
         Player player = e.getPlayer();

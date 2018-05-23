@@ -15,7 +15,10 @@ import cz.HackerGamingCZ.HackerTools.items.ItemInteractManager;
 import cz.HackerGamingCZ.HackerTools.managers.*;
 import cz.HackerGamingCZ.HackerTools.managers.SchedulerManager;
 import cz.HackerGamingCZ.HackerTools.placeholders.PlaceholderManager;
+import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import cz.HackerGamingCZ.HackerTools.players.PlayerManager;
+import cz.HackerGamingCZ.HackerTools.scoreboard.Scoreboard;
+import cz.HackerGamingCZ.HackerTools.scoreboard.ScoreboardManager;
 import cz.HackerGamingCZ.HackerTools.teams.Team;
 import cz.HackerGamingCZ.HackerTools.teams.TeamManager;
 import cz.HackerGamingCZ.HackerTools.teams.htteams.SpectatorTeam;
@@ -57,6 +60,9 @@ public class HackerTools extends JavaPlugin {
     private LoggerManager loggerManager;
     private PluginDescriptionFile pdf;
     private ServerManager serverManager;
+    private ScoreboardManager scoreboardManager;
+
+    private boolean minigame;
 
     private InteractableItem forcestartItem;
     private InteractableItem spectatorSettingsItem;
@@ -91,6 +97,11 @@ public class HackerTools extends JavaPlugin {
             PlayerJoinEvent event = new PlayerJoinEvent(player, null);
             Bukkit.getPluginManager().callEvent(event);
         }
+        schedulerManager.addScheduler("scoreboardupdator", Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, ()->{
+            for(HTPlayer htPlayer : playerManager.getPlayers().values()){
+                htPlayer.updateScoreboard();
+            }
+        }, 20, 20));
         loggerManager.log("HackerTools support enabled!");
     }
 
@@ -128,13 +139,16 @@ public class HackerTools extends JavaPlugin {
         simpleConfigManager = new SimpleConfigManager(plugin);
         htConfigManager = new HTConfigManager();
         Lang.load();
+        minigame = htConfigManager.getConfig().getBoolean("minigame");
         itemManager = new ItemManager();
         debugManager = new DebugManager();
         eventManager = new EventManager();
         commandManager = new CommandManager();
         placeholderAPI = new PlaceholderManager();
         chatManager = new ChatManager();
-        minigameManager = new MinigameManager();
+        if(minigame) {
+            minigameManager = new MinigameManager();
+        }
         entityInteractAPI = new EntityInteractAPI();
         titleManager = new TitleManager();
         itemInteractManager = new ItemInteractManager();
@@ -143,6 +157,7 @@ public class HackerTools extends JavaPlugin {
         teamManager = new TeamManager();
         playerManager = new PlayerManager();
         serverManager = new ServerManager();
+        scoreboardManager = new ScoreboardManager();
         for (GameState.JoinType jt : GameState.JoinType.values()) {
             jt.setupMessage();
         }
@@ -287,5 +302,16 @@ public class HackerTools extends JavaPlugin {
 
     public InteractableItem getSpectatorSettingsItem() {
         return spectatorSettingsItem;
+    }
+
+    public ScoreboardManager getScoreboardManager() {
+        return scoreboardManager;
+    }
+
+    public GameState getGameState(){
+        if(minigameManager == null){
+            return GameState.NONE;
+        }
+        return minigameManager.getGameState();
     }
 }

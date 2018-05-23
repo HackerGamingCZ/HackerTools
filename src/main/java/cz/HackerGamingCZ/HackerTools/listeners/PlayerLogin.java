@@ -15,7 +15,7 @@ public class PlayerLogin implements Listener {
 
     @EventHandler
     public void onPlayerLogin(PlayerLoginEvent e) {
-        GameState state = HackerTools.getPlugin().getMinigameManager().getGameState();
+        GameState state = HackerTools.getPlugin().getGameState();
         Player player = e.getPlayer();
         if (state == null) {
             return;

@@ -3,9 +3,9 @@ package cz.HackerGamingCZ.HackerTools.players;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.events.PlayerJoinTeamEvent;
+import cz.HackerGamingCZ.HackerTools.scoreboard.Scoreboard;
 import cz.HackerGamingCZ.HackerTools.teams.Team;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class HTPlayer {
@@ -14,6 +14,7 @@ public class HTPlayer {
     private HTPlayer lastHittedBy;
     private Team team;
     private Team previousTeam;
+    private Scoreboard board;
 
     public HTPlayer(Player player) {
         this.player = player;
@@ -65,7 +66,24 @@ public class HTPlayer {
         }
     }
 
+    public Scoreboard getBoard() {
+        return board;
+    }
+
+    public void setBoard(Scoreboard board) {
+        this.board = board;
+        player.setScoreboard(board.getBoard());
+    }
+
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void updateScoreboard(){
+        if(board == null){
+            return;
+        }
+        board.update(player);
+        board.updateCustoms(player);
     }
 }

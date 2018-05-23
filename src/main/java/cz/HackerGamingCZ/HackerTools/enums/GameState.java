@@ -10,7 +10,8 @@ public enum GameState {
     STARTING("§cGame is starting...", JoinType.PLAYER),
     INGAME("§cGame is in progress", JoinType.SPECTATOR),
     END("§cGame is over", JoinType.NOBODY),
-    RESET("§cGame is resetting...", JoinType.NOBODY);
+    RESET("§cGame is resetting...", JoinType.NOBODY),
+    NONE("", JoinType.NONE);
 
     private String motd;
     private JoinType joinType;
@@ -43,7 +44,8 @@ public enum GameState {
         SPECTATOR(),
         RECONNECT(),
         NOBODY(),
-        ADMIN("ht.adminjoin");
+        ADMIN("ht.adminjoin"),
+        NONE();
 
         private String permission;
         private String globalMessage;

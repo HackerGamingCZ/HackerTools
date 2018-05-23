@@ -15,7 +15,7 @@ public class HTCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
-            HackerTools.getPlugin().getChatManager().sendPlayerMessage(sender, Placeholder.HTPREFIX + "Plugin was made for spigot minigame developers by §c" + Placeholder.PLUGINAUTHOR + "§7.");
+         //   HackerTools.getPlugin().getChatManager().sendPlayerMessage(sender, Placeholder.HTPREFIX + "Plugin was made for spigot minigame developers by §c" + Placeholder.PLUGINAUTHOR + "§7.");
             return true;
         }
         if (sender instanceof Player) {
