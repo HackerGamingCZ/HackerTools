@@ -30,6 +30,7 @@ public class VoidDamage implements Listener {
             }
             DeathByVoidEvent event = new DeathByVoidEvent(htPlayer, htPlayer.getLastHittedBy());
             Bukkit.getPluginManager().callEvent(event);
+            htPlayer.setLastHittedBy(null);
         }
     }
 
