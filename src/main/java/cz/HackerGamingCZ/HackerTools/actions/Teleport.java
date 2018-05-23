@@ -1,5 +1,6 @@
 package cz.HackerGamingCZ.HackerTools.actions;
 
+import cz.HackerGamingCZ.HackerTools.teams.Team;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -15,11 +16,11 @@ public class Teleport extends Action {
 
     @Override
     public void cast(Player player) {
-        if (getLocation() == null) {
-            player.teleport(getPlayer());
+        if (getObject() == null) {
+            player.teleport(player);
             return;
         }
-        player.teleport(getLocation());
+        player.teleport(((Location)getObject()));
     }
 
 }

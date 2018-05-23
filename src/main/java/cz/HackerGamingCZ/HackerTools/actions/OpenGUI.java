@@ -1,6 +1,7 @@
 package cz.HackerGamingCZ.HackerTools.actions;
 
 import cz.HackerGamingCZ.HackerTools.gui.GUI;
+import cz.HackerGamingCZ.HackerTools.teams.Team;
 import org.bukkit.entity.Player;
 
 public class OpenGUI extends Action {
@@ -11,7 +12,7 @@ public class OpenGUI extends Action {
 
     @Override
     public void cast(Player player) {
-        getGui().open(player);
+        ((GUI)getObject()).open(player);
     }
 
 }

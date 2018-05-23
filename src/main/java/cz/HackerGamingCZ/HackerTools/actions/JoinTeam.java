@@ -14,7 +14,7 @@ public class JoinTeam extends Action {
     @Override
     public void cast(Player player) {
         HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
-        getTeam().join(htPlayer);
+        ((Team)getObject()).join(htPlayer);
     }
 
 }
