@@ -31,6 +31,7 @@ public class Item {
         this.is = is;
         this.canceled = canceled;
         this.closingInventory = closingInventory;
+        this.action = action;
         this.position = position;
         this.identificator = identificator;
     }

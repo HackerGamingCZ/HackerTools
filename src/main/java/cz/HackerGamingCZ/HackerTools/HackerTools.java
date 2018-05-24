@@ -17,7 +17,6 @@ import cz.HackerGamingCZ.HackerTools.managers.SchedulerManager;
 import cz.HackerGamingCZ.HackerTools.placeholders.PlaceholderManager;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import cz.HackerGamingCZ.HackerTools.players.PlayerManager;
-import cz.HackerGamingCZ.HackerTools.scoreboard.Scoreboard;
 import cz.HackerGamingCZ.HackerTools.scoreboard.ScoreboardManager;
 import cz.HackerGamingCZ.HackerTools.teams.Team;
 import cz.HackerGamingCZ.HackerTools.teams.TeamManager;

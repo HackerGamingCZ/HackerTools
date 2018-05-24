@@ -38,8 +38,8 @@ public class SpectatorPlayerlist implements GUI {
             if (htPlayer.isSpectator()) {
                 continue;
             }
-           // String lore = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(HackerTools.getPlugin().getPlaceholderAPI().replaceString(Lang.TELEPORT_TO_PLAYER), Placeholder.PLAYERNAME, p.getName());
-           // items.add(new Item(i, HackerTools.getPlugin().getItemManager().createHeadItem(p, "§a" + p.getName(), false, "", lore), new Teleport(p), true, true));
+            String lore = HackerTools.getPlugin().getPlaceholderAPI().replaceString(HackerTools.getPlugin().getPlaceholderAPI().replaceString(Lang.TELEPORT_TO_PLAYER), p);
+            items.add(new Item(i, HackerTools.getPlugin().getItemManager().createHeadItem(p, "§a" + p.getName(), false, "", lore), new Teleport(p), true, true));
             i++;
         }
         return items;
