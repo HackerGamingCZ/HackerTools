@@ -1,5 +1,6 @@
 package cz.HackerGamingCZ.HackerTools.scoreboard;
 
+import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -24,6 +25,13 @@ public class ScoreboardLine {
         this.team = team;
     }
 
+    public ScoreboardLine(){
+        this.type = LineType.EMPTY;
+        textAfter = "";
+        textBefore = "";
+        team = String.valueOf(HackerTools.getPlugin().getRandomManager().nextInt(100000));
+    }
+
     public LineType getType() {
         return type;
     }
@@ -39,6 +47,7 @@ public class ScoreboardLine {
     public String getTextBefore() {
         return textBefore;
     }
+
 
     public enum LineType{
         ONLINEPLAYERS(Placeholders.ONLINEPLAYERS),

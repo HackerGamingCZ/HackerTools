@@ -16,15 +16,15 @@ public interface Scoreboard {
     Objective obj = board.registerNewObjective("main", "dummy");
     ChatColor[] colors = ChatColor.values();
 
-    public ChatColor getMainColor();
-    public ArrayList<ScoreboardLine> getLines();
+    ChatColor getMainColor();
+    ArrayList<ScoreboardLine> getLines();
     default void load(){
         for(ScoreboardLine scoreboardLine : getLines()){
             board.registerNewTeam(scoreboardLine.getTeam());
         }
     }
 
-    public String getHeader();
+    String getHeader();
 
     default void createScoreboard(HTPlayer player){
         int i = 16;

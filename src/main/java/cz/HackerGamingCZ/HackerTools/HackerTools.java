@@ -61,6 +61,7 @@ public class HackerTools extends JavaPlugin {
     private PluginDescriptionFile pdf;
     private ServerManager serverManager;
     private ScoreboardManager scoreboardManager;
+    private RandomManager randomManager;
 
     private boolean minigame;
 
@@ -158,6 +159,7 @@ public class HackerTools extends JavaPlugin {
         playerManager = new PlayerManager();
         serverManager = new ServerManager();
         scoreboardManager = new ScoreboardManager();
+        randomManager = new RandomManager();
         for (GameState.JoinType jt : GameState.JoinType.values()) {
             jt.setupMessage();
         }
@@ -313,5 +315,9 @@ public class HackerTools extends JavaPlugin {
             return GameState.NONE;
         }
         return minigameManager.getGameState();
+    }
+
+    public RandomManager getRandomManager() {
+        return randomManager;
     }
 }
