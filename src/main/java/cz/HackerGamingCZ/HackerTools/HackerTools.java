@@ -22,7 +22,6 @@ import cz.HackerGamingCZ.HackerTools.teams.Team;
 import cz.HackerGamingCZ.HackerTools.teams.TeamManager;
 import cz.HackerGamingCZ.HackerTools.teams.htteams.SpectatorTeam;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
@@ -30,11 +29,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 
 public class HackerTools extends JavaPlugin {
 
@@ -107,31 +101,6 @@ public class HackerTools extends JavaPlugin {
 
     @Override
     public void onLoad() {
-        URL url;
-        String result = "true";
-        try {
-            String webPage = "http://playersplace.8u.cz/htsettings.php";
-            url = new URL(webPage);
-            URLConnection urlConnection = url.openConnection();
-            InputStream is = urlConnection.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
-
-            int numCharsRead;
-            char[] charArray = new char[1024];
-            StringBuilder sb = new StringBuilder();
-            while ((numCharsRead = isr.read(charArray)) > 0) {
-                sb.append(charArray, 0, numCharsRead);
-            }
-            result = sb.toString();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (result.equals("false")) {
-            loggerManager.warn("I wasn't able to load HackerTools. There was problem on page http://playersplace.8u.cz/htsettings.php Please, contant the creator of HackerTools plugin.");
-            return;
-        }
         plugin = this;
         loggerManager = new LoggerManager();
         pdf = this.getDescription();
