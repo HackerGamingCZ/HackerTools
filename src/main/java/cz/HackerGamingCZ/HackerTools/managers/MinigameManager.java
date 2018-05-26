@@ -6,9 +6,10 @@ import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
 import cz.HackerGamingCZ.HackerTools.events.CountdownEndEvent;
 import cz.HackerGamingCZ.HackerTools.events.CountdownUpdateEvent;
-import net.minecraft.server.v1_12_R1.MinecraftServer;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -179,7 +180,6 @@ public class MinigameManager {
     }
 
     public void setGameState(GameState gameState) {
-        MinecraftServer.getServer().setMotd(gameState.getMotd());
         this.gameState = gameState;
     }
 

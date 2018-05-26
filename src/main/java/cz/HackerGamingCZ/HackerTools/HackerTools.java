@@ -144,6 +144,7 @@ public class HackerTools extends JavaPlugin {
         eventManager.registerItemDrop();
         eventManager.registerTeamListener();
         eventManager.registerEntityDamage();
+        eventManager.registerServerListPing();
     }
 
     private void registerCommands() {

@@ -66,4 +66,8 @@ public class EventManager {
     public void registerEntityDamage() {
         pm.registerEvents(new EntityDamage(), plugin);
     }
+
+    public void registerServerListPing() {
+        pm.registerEvents(new ServerListPing(), plugin);
+    }
 }
