@@ -12,7 +12,7 @@ public class OpenGUI extends Action {
 
     @Override
     public void cast(Player player) {
-        ((GUI)getObject()).open(player);
+        ((GUI) getObject()).open(player, 1);
     }
 
 }

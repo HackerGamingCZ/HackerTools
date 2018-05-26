@@ -57,6 +57,7 @@ public class TeamManager {
                 }
                 if (team.canJoin(htPlayer.getPlayer())) {
                     team.join(htPlayer);
+                    break;
                 }
             }
         }

@@ -20,13 +20,6 @@
     </plugins>
     </build>
     <dependencies>
-    <dependency>
-        <groupId>net.minecraft2</groupId>
-        <artifactId>server</artifactId>
-        <version>1.12-SNAPSHOT</version>
-        <scope>system</scope>
-        <systemPath>${basedir}/libraries/Spigot-1.12.2.jar</systemPath>
-    </dependency>
     <!--Spigot cz.HackerGamingCZ.HackerTools.API-->
     <dependency>
         <groupId>org.spigotmc</groupId>

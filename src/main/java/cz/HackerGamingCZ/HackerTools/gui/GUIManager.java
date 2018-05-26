@@ -7,7 +7,7 @@ public class GUIManager {
     private HashMap<String, GUI> guis = new HashMap<>();
 
     public void addGUI(GUI gui) {
-        if (gui.getInventory(null) == null) {
+        if (gui.getInventory(null, 1) == null) {
             return;
         }
         guis.put(gui.getInventoryName(), gui);

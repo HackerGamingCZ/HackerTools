@@ -44,6 +44,9 @@ public interface Team {
         }
         int playersInThisTeam = getPlayers().size();
         for (Team team : HackerTools.getPlugin().getTeamManager().getTeams()) {
+            if (team == this) {
+                continue;
+            }
             int players = team.getPlayers().size();
             if (players < playersInThisTeam) {
                 return false;
