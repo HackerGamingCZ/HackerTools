@@ -3,6 +3,7 @@ package cz.HackerGamingCZ.HackerTools.managers;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -32,10 +33,18 @@ public class DebugManager {
         return debug;
     }
 
-    public void sendDebug(String message) {
+    public void sendDebug(Object message) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (HackerTools.getPlugin().hasSpecialPermission(player)) {
-                player.sendMessage(Lang.DEBUG_PREFIX + message);
+                player.sendMessage(Lang.DEBUG_PREFIX + String.valueOf(message));
+            }
+        }
+    }
+
+    public void sendDebug(String identificator, Object message) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (HackerTools.getPlugin().hasSpecialPermission(player)) {
+                player.sendMessage(Lang.DEBUG_PREFIX + ChatColor.GREEN + identificator + "§7: " + String.valueOf(message));
             }
         }
     }

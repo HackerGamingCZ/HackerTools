@@ -38,13 +38,13 @@ public interface Team {
         HackerTools.getPlugin().getTeamManager().addTeam(this);
     }
 
-    default boolean canJoin(Player player) {
-        if (player.hasPermission(Permissions.TEAMS_FULLJOIN)) {
+    default boolean canJoin(Player player, boolean usePermission) {
+        if (usePermission && player.hasPermission(Permissions.TEAMS_FULLJOIN)) {
             return true;
         }
         int playersInThisTeam = getPlayers().size();
         for (Team team : HackerTools.getPlugin().getTeamManager().getTeams()) {
-            if (team == this) {
+            if (team == this || team == HackerTools.getPlugin().getSpectatorTeam()) {
                 continue;
             }
             int players = team.getPlayers().size();
@@ -55,6 +55,9 @@ public interface Team {
         return true;
     }
 
+    default boolean canJoin(Player player) {
+        return canJoin(player, true);
+    }
     default void join(Player player) {
         HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
         join(htPlayer);
