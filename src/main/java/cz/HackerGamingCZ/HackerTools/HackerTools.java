@@ -65,7 +65,7 @@ public class HackerTools extends JavaPlugin {
     private GUI spectatorSettings;
     private GUI spectatorPlayerList;
 
-    private Team spectatorTeam;
+    private SpectatorTeam spectatorTeam;
 
 
     @Override
@@ -255,7 +255,7 @@ public class HackerTools extends JavaPlugin {
         return mechanics;
     }
 
-    public Team getSpectatorTeam() {
+    public SpectatorTeam getSpectatorTeam() {
         return spectatorTeam;
     }
 

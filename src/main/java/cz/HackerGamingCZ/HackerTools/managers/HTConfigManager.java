@@ -38,6 +38,7 @@ public class HTConfigManager {
 
         config = manager.getNewConfig("config.yml");
         config.check("minigame", true, "Is server minigame?");
+        config.check("distributor", "!", "Distributor of shout message");
 
         saveConfigs();
     }

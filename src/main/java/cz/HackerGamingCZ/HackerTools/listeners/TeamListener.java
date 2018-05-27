@@ -2,9 +2,13 @@ package cz.HackerGamingCZ.HackerTools.listeners;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
+import cz.HackerGamingCZ.HackerTools.events.TeamDamageEvent;
+import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import cz.HackerGamingCZ.HackerTools.teams.Team;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -26,7 +30,8 @@ public class TeamListener implements Listener {
         }
         if (htDamager.getTeam() == htVictim.getTeam() && !HackerTools.getPlugin().getTeamManager().isTeamDamage()) {
             e.setCancelled(true);
-            //TODO call TeamDamageEvent
+            TeamDamageEvent event = new TeamDamageEvent();
+            Bukkit.getPluginManager().callEvent(event);
         }
     }
 
@@ -38,13 +43,19 @@ public class TeamListener implements Listener {
             return;
         }
         Team team = htPlayer.getTeam();
-        if (team == null) {
+        if (team == null || !HackerTools.getPlugin().getTeamManager().isTeamChat()) {
+            e.setFormat("§7%s §8» §7%s");
             return;
         }
-        if (!HackerTools.getPlugin().getTeamManager().isTeamChat()) {
+        if (String.valueOf(e.getMessage().toCharArray()[0]).equals(HackerTools.getPlugin().getChatManager().getDistributor()) && team != HackerTools.getPlugin().getSpectatorTeam()) {
+            e.setMessage(e.getMessage().replaceFirst(HackerTools.getPlugin().getChatManager().getDistributor(), ""));
+            e.setFormat("§8[" + team.getChatColor() + "ALL§8] " + team.getChatColor() + "%s §8» " + team.getChatColor() + "%s");
             return;
         }
-        e.setFormat("§8[" + team.getChatColor() + "TEAM§8] " + team.getChatColor() + "%s §8» " + team.getChatColor() + "%s");
+        e.setCancelled(true);
+        for (HTPlayer htPlayer1 : team.getPlayers()) {
+            HackerTools.getPlugin().getChatManager().sendPlayerMessage(htPlayer1.getPlayer(), "§8[" + team.getChatColor() + "TEAM§8] " + team.getChatColor() + Placeholders.PLAYERNAME + " §8» " + team.getChatColor() + e.getMessage());
+        }
     }
 
 }

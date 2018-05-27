@@ -11,9 +11,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Collection;
+
 public class ChatManager {
 
     private final static int CENTER_PX = 154;
+    private String distributor;
+
+    public ChatManager() {
+        distributor = HackerTools.getPlugin().getHtConfigManager().getConfig().getString("distributor");
+    }
 
     public void sendCenteredMessage(Player player, String message, boolean placeholder) {
         if (message == null || message.equals("")) player.sendMessage("");
@@ -93,11 +100,8 @@ public class ChatManager {
         player.spigot().sendMessage(component);
     }
 
-    public void sendCenteredMessage(Player player, String message) {
-        if (message == null || message.equals("")) {
-            player.sendMessage("");
-            return;
-        }
+    public static void sendCenteredMessage(Player player, String message) {
+        if (message == null || message.equals("")) player.sendMessage("");
         message = ChatColor.translateAlternateColorCodes('&', message);
 
         int messagePxSize = 0;
@@ -108,7 +112,7 @@ public class ChatManager {
             if (c == '§') {
                 previousCode = true;
                 continue;
-            } else if (previousCode) {
+            } else if (previousCode == true) {
                 previousCode = false;
                 if (c == 'l' || c == 'L') {
                     isBold = true;
@@ -130,8 +134,7 @@ public class ChatManager {
             sb.append(" ");
             compensated += spaceLength;
         }
-        message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message, player);
-        player.sendMessage(message);
+        player.sendMessage(sb.toString() + message);
     }
 
     public void sendPlayerMessage(Player player, String message, boolean placeholder) {
@@ -143,6 +146,17 @@ public class ChatManager {
         }
     }
 
+    public void sendPlayerMessage(Collection<? extends Player> players, String message, boolean placeholder) {
+        for (Player player : players) {
+            sendPlayerMessage(player, message, placeholder);
+        }
+    }
+
+    public void sendPlayerMessage(Collection<? extends Player> players, String message, String specialPlayer) {
+        for (Player player : players) {
+            sendPlayerMessage(player, message, specialPlayer);
+        }
+    }
 
     public void sendPlayerMessage(Player player, String message, String specialPlayer) {
         message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message, Bukkit.getOfflinePlayer(specialPlayer));
@@ -167,4 +181,7 @@ public class ChatManager {
         }
     }
 
+    public String getDistributor() {
+        return distributor;
+    }
 }

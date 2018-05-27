@@ -22,6 +22,11 @@ public enum Placeholders {
         this.placeholder = placeholder;
     }
 
+    @Override
+    public String toString() {
+        return placeholder.getPlaceholder();
+    }
+
     public Placeholder getPlaceholder() {
         return placeholder;
     }
