@@ -4,12 +4,9 @@ import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.Permissions;
 import cz.HackerGamingCZ.HackerTools.managers.ChatManager;
-import cz.HackerGamingCZ.HackerTools.managers.MinigameManager;
 import cz.HackerGamingCZ.HackerTools.managers.SchedulerManager;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
-import cz.HackerGamingCZ.HackerTools.scoreboard.Scoreboard;
-import cz.HackerGamingCZ.HackerTools.testing.HTScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -20,7 +17,6 @@ public class PlayerJoin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        ChatManager.sendCenteredMessage(e.getPlayer(), "§ckjdhgnfdfuigfdiug");
         GameState state = HackerTools.getPlugin().getGameState();
         Player player = e.getPlayer();
         e.setJoinMessage(null);

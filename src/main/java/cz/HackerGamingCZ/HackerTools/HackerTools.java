@@ -88,8 +88,10 @@ public class HackerTools extends JavaPlugin {
         registerCommands();
         HackerTools.getPlugin().getSchedulerManager().runLater(() -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                PlayerJoinEvent event = new PlayerJoinEvent(player, null);
-                Bukkit.getPluginManager().callEvent(event);
+                if (playerManager.getPlayer(player) == null) {
+                    PlayerJoinEvent event = new PlayerJoinEvent(player, null);
+                    Bukkit.getPluginManager().callEvent(event);
+                }
             }
         }, 20 * 5);
         schedulerManager.addScheduler("scoreboardupdator", Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, ()->{
