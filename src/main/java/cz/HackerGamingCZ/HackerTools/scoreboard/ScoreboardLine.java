@@ -52,7 +52,7 @@ public class ScoreboardLine {
     public enum LineType{
         ONLINEPLAYERS(Placeholders.ONLINEPLAYERS),
         GAMESTATE(Placeholders.GAMESTATE),
-        //COUNTDOWN(Placeholders.COUNTDOWN),
+        COUNTDOWN(Placeholders.COUNTDOWN),
         ECONOMY(),
         TEAM(),
         KIT(),
