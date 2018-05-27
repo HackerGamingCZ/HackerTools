@@ -42,11 +42,27 @@ public class PlayerJoin implements Listener {
         GameState.JoinType type = state.getJoinType();
         if (state.getJoinType() == GameState.JoinType.SPECTATOR) {
             HackerTools.getPlugin().getSpectatorTeam().join(htPlayer);
+            if (GameState.JoinType.SPECTATOR.getGlobalMessage() != null) {
+                for (Player p : Bukkit.getOnlinePlayers()) {
+                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(p, GameState.JoinType.SPECTATOR.getGlobalMessage(), player.getName());
+                }
+            }
+            if (GameState.JoinType.SPECTATOR.getMessageToPlayer() != null) {
+                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, GameState.JoinType.SPECTATOR.getMessageToPlayer());
+            }
         } else if (state.getJoinType() == GameState.JoinType.RECONNECT) {
             if (htPlayer.getPreviousTeam() != null && htPlayer.getPreviousTeam() != HackerTools.getPlugin().getSpectatorTeam()) {
                 htPlayer.reconnect();
             } else {
                 HackerTools.getPlugin().getSpectatorTeam().join(htPlayer);
+                if (GameState.JoinType.SPECTATOR.getGlobalMessage() != null) {
+                    for (Player p : Bukkit.getOnlinePlayers()) {
+                        HackerTools.getPlugin().getChatManager().sendPlayerMessage(p, GameState.JoinType.SPECTATOR.getGlobalMessage(), player.getName());
+                    }
+                }
+                if (GameState.JoinType.SPECTATOR.getMessageToPlayer() != null) {
+                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, GameState.JoinType.SPECTATOR.getMessageToPlayer());
+                }
             }
         }
         if (state != GameState.INGAME) {
