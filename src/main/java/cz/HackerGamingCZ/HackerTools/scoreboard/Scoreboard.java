@@ -24,6 +24,10 @@ public interface Scoreboard {
         }
     }
 
+    default ChatColor getSecondaryColor() {
+        return ChatColor.GRAY;
+    }
+
     String getHeader();
 
     default void createScoreboard(HTPlayer player){
@@ -35,10 +39,10 @@ public interface Scoreboard {
             }
             team.addPlayer(Bukkit.getServer().getOfflinePlayer(colors[i-1]+""+getMainColor()));
             if(scoreboardLine.getType() == ScoreboardLine.LineType.CUSTOM) {
-                team.setPrefix("§7"+scoreboardLine.getTextBefore());
+                team.setPrefix(getSecondaryColor() + scoreboardLine.getTextBefore());
                 team.setSuffix(scoreboardLine.getTextAfter());
             } else{
-                team.setPrefix("§7"+scoreboardLine.getTextBefore());
+                team.setPrefix(getSecondaryColor() + scoreboardLine.getTextBefore());
                 team.setSuffix(scoreboardLine.getType().getText(player.getPlayer()));
             }
             obj.getScore(colors[i-1]+""+getMainColor()).setScore(i);

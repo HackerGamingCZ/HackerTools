@@ -1,6 +1,7 @@
 package cz.HackerGamingCZ.HackerTools.gui;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
+import cz.HackerGamingCZ.HackerTools.Registrable;
 import cz.HackerGamingCZ.HackerTools.items.Item;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -10,8 +11,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
-public interface GUI {
+public interface GUI extends Registrable {
 
+    @Override
     default void register() {
         HackerTools.getPlugin().getGuiManager().addGUI(this);
     }

@@ -3,6 +3,7 @@ package cz.HackerGamingCZ.HackerTools.teams;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.Permissions;
+import cz.HackerGamingCZ.HackerTools.Registrable;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -13,7 +14,7 @@ import org.bukkit.event.EventHandler;
 
 import java.util.ArrayList;
 
-public interface Team {
+public interface Team extends Registrable {
     ChatColor getChatColor();
 
     byte getData();
@@ -34,6 +35,7 @@ public interface Team {
         }
     }
 
+    @Override
     default void register() {
         HackerTools.getPlugin().getTeamManager().addTeam(this);
     }

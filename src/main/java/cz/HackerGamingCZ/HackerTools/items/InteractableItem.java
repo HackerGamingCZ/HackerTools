@@ -1,11 +1,12 @@
 package cz.HackerGamingCZ.HackerTools.items;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
+import cz.HackerGamingCZ.HackerTools.Registrable;
 import cz.HackerGamingCZ.HackerTools.actions.Action;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 
-public class InteractableItem {
+public class InteractableItem implements Registrable {
 
     private Item item;
     private boolean drop;
@@ -31,6 +32,7 @@ public class InteractableItem {
         return item;
     }
 
+    @Override
     public void register() {
         HackerTools.getPlugin().getItemInteractManager().addItem(this);
     }

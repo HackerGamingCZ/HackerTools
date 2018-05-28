@@ -2,6 +2,7 @@ package cz.HackerGamingCZ.HackerTools.scoreboard;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
+import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
@@ -62,8 +63,7 @@ public class ScoreboardLine {
 
         private Placeholders placeholder;
 
-        LineType(){
-
+        LineType() {
         }
 
         LineType(Placeholders placeholder){
@@ -80,6 +80,10 @@ public class ScoreboardLine {
 
         public String getText(){
             return placeholder.getPlaceholder().getReplacement();
+        }
+
+        public String getText(HTPlayer htPlayer) {
+            return placeholder.getPlaceholder().getReplacement(htPlayer);
         }
     }
 
