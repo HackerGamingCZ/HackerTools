@@ -72,7 +72,6 @@ public class HackerTools extends JavaPlugin {
 
     private SpectatorTeam spectatorTeam;
 
-
     @Override
     public void onEnable() {
         spectatorSettings = new SpectatorSettings();

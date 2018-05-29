@@ -48,6 +48,12 @@ public class HTScoreboard implements Registrable {
         lines.add(line);
     }
 
+    public void addLine(ScoreboardLine... line) {
+        for (ScoreboardLine scoreboardLine : line) {
+            lines.add(scoreboardLine);
+        }
+    }
+
     public void createScoreboard(HTPlayer htPlayer) {
         int i = 16;
         for (ScoreboardLine scoreboardLine : lines) {
