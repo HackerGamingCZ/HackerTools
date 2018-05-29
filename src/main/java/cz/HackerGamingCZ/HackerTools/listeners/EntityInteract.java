@@ -18,7 +18,7 @@ public class EntityInteract implements Listener {
         if (entity.getCustomName() == null) {
             return;
         }
-        InteractableEntity iEntity = HackerTools.getPlugin().getEntityInteractAPI().getEntity(entity.getName());
+        InteractableEntity iEntity = HackerTools.getPlugin().getEntityInteractManager().getEntity(entity.getName());
         if (iEntity == null) {
             return;
         }

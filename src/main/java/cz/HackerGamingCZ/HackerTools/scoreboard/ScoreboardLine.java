@@ -1,10 +1,7 @@
 package cz.HackerGamingCZ.HackerTools.scoreboard;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
-import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
-import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
+import cz.HackerGamingCZ.HackerTools.scoreboard.linetype.*;
 
 public class ScoreboardLine {
 
@@ -20,14 +17,14 @@ public class ScoreboardLine {
     }
 
     public ScoreboardLine(String team, String textBefore, String textAfter){
-        this.type = LineType.CUSTOM;
+        this.type = new CustomLineType();
         this.textBefore = textBefore;
         this.textAfter = textAfter;
         this.team = team;
     }
 
     public ScoreboardLine(){
-        this.type = LineType.EMPTY;
+        this.type = new EmptyLineType();
         textAfter = "";
         textBefore = "";
         team = String.valueOf(HackerTools.getPlugin().getRandomManager().nextInt(100000));
@@ -49,42 +46,5 @@ public class ScoreboardLine {
         return textBefore;
     }
 
-
-    public enum LineType{
-        ONLINEPLAYERS(Placeholders.ONLINEPLAYERS),
-        GAMESTATE(Placeholders.GAMESTATE),
-        COUNTDOWN(Placeholders.COUNTDOWN),
-        ECONOMY(),
-        TEAM(),
-        KIT(),
-        EMPTY(),
-        PLAYERNAME(Placeholders.PLAYERNAME),
-        CUSTOM();
-
-        private Placeholders placeholder;
-
-        LineType() {
-        }
-
-        LineType(Placeholders placeholder){
-            this.placeholder = placeholder;
-        }
-
-        public String getText(Player player){
-            return placeholder.getPlaceholder().getReplacement(player);
-        }
-
-        public String getText(OfflinePlayer player){
-            return placeholder.getPlaceholder().getReplacement(player);
-        }
-
-        public String getText(){
-            return placeholder.getPlaceholder().getReplacement();
-        }
-
-        public String getText(HTPlayer htPlayer) {
-            return placeholder.getPlaceholder().getReplacement(htPlayer);
-        }
-    }
 
 }

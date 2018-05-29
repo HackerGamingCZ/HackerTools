@@ -2,7 +2,7 @@ package cz.HackerGamingCZ.HackerTools.entities;
 
 import java.util.HashMap;
 
-public class EntityInteractAPI {
+public class EntityInteractManager {
 
     private HashMap<String, InteractableEntity> entities = new HashMap<>();
 

@@ -9,7 +9,7 @@ import cz.HackerGamingCZ.HackerTools.gui.htguis.SpectatorSettings;
 import cz.HackerGamingCZ.HackerTools.actions.OpenGUI;
 import cz.HackerGamingCZ.HackerTools.actions.PerformCommand;
 import cz.HackerGamingCZ.HackerTools.commands.HTCommand;
-import cz.HackerGamingCZ.HackerTools.entities.EntityInteractAPI;
+import cz.HackerGamingCZ.HackerTools.entities.EntityInteractManager;
 import cz.HackerGamingCZ.HackerTools.items.InteractableItem;
 import cz.HackerGamingCZ.HackerTools.items.ItemInteractManager;
 import cz.HackerGamingCZ.HackerTools.managers.*;
@@ -17,11 +17,14 @@ import cz.HackerGamingCZ.HackerTools.managers.SchedulerManager;
 import cz.HackerGamingCZ.HackerTools.placeholders.PlaceholderManager;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import cz.HackerGamingCZ.HackerTools.players.PlayerManager;
-import cz.HackerGamingCZ.HackerTools.scoreboard.ScoreboardManager;
-import cz.HackerGamingCZ.HackerTools.teams.Team;
+import cz.HackerGamingCZ.HackerTools.scoreboard.HTScoreboard;
+import cz.HackerGamingCZ.HackerTools.scoreboard.ScoreboardLine;
+import cz.HackerGamingCZ.HackerTools.scoreboard.linetype.*;
 import cz.HackerGamingCZ.HackerTools.teams.TeamManager;
 import cz.HackerGamingCZ.HackerTools.teams.htteams.SpectatorTeam;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
@@ -37,10 +40,10 @@ public class HackerTools extends JavaPlugin {
     private DebugManager debugManager;
     private EventManager eventManager;
     private CommandManager commandManager;
-    private PlaceholderManager placeholderAPI;
+    private PlaceholderManager placeholderManager;
     private ChatManager chatManager;
     private MinigameManager minigameManager;
-    private EntityInteractAPI entityInteractAPI;
+    private EntityInteractManager entityInteractManager;
     private ItemInteractManager itemInteractManager;
     private SchedulerManager schedulerManager;
     private GUIManager guiManager;
@@ -53,7 +56,6 @@ public class HackerTools extends JavaPlugin {
     private LoggerManager loggerManager;
     private PluginDescriptionFile pdf;
     private ServerManager serverManager;
-    private ScoreboardManager scoreboardManager;
     private RandomManager randomManager;
 
     private boolean minigame;
@@ -116,12 +118,12 @@ public class HackerTools extends JavaPlugin {
         debugManager = new DebugManager();
         eventManager = new EventManager();
         commandManager = new CommandManager();
-        placeholderAPI = new PlaceholderManager();
+        placeholderManager = new PlaceholderManager();
         chatManager = new ChatManager();
         if(minigame) {
             minigameManager = new MinigameManager();
         }
-        entityInteractAPI = new EntityInteractAPI();
+        entityInteractManager = new EntityInteractManager();
         titleManager = new TitleManager();
         itemInteractManager = new ItemInteractManager();
         schedulerManager = new SchedulerManager();
@@ -129,7 +131,6 @@ public class HackerTools extends JavaPlugin {
         teamManager = new TeamManager();
         playerManager = new PlayerManager();
         serverManager = new ServerManager();
-        scoreboardManager = new ScoreboardManager();
         randomManager = new RandomManager();
         for (GameState.JoinType jt : GameState.JoinType.values()) {
             jt.setupMessage();
@@ -155,7 +156,7 @@ public class HackerTools extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        entityInteractAPI.getEntities().values().forEach((entity) -> entity.getEntities().forEach(Entity::remove));
+        entityInteractManager.getEntities().values().forEach((entity) -> entity.getEntities().forEach(Entity::remove));
         htConfigManager.saveConfigs();
         loggerManager.log("HackerTools support disabled!");
     }
@@ -189,8 +190,8 @@ public class HackerTools extends JavaPlugin {
         return commandManager;
     }
 
-    public PlaceholderManager getPlaceholderAPI() {
-        return placeholderAPI;
+    public PlaceholderManager getPlaceholderManager() {
+        return placeholderManager;
     }
 
     public ChatManager getChatManager() {
@@ -201,8 +202,8 @@ public class HackerTools extends JavaPlugin {
         return minigameManager;
     }
 
-    public EntityInteractAPI getEntityInteractAPI() {
-        return entityInteractAPI;
+    public EntityInteractManager getEntityInteractManager() {
+        return entityInteractManager;
     }
 
     public EventManager getEventManager() {
@@ -276,10 +277,6 @@ public class HackerTools extends JavaPlugin {
 
     public InteractableItem getSpectatorSettingsItem() {
         return spectatorSettingsItem;
-    }
-
-    public ScoreboardManager getScoreboardManager() {
-        return scoreboardManager;
     }
 
     public GameState getGameState(){

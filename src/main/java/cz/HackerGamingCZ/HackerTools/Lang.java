@@ -23,7 +23,7 @@ public class Lang {
     public static String TELEPORT_TO_PLAYER;
 
     public static String get(String string) {
-        return HackerTools.getPlugin().getPlaceholderAPI().replaceString(string);
+        return HackerTools.getPlugin().getPlaceholderManager().replaceString(string);
     }
 
     public static void load() {

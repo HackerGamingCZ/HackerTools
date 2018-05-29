@@ -2,7 +2,6 @@ package cz.HackerGamingCZ.HackerTools.managers;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.enums.DefaultFontInfo;
-import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -57,7 +56,7 @@ public class ChatManager {
             compensated += spaceLength;
         }
         if (placeholder) {
-            message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message, player);
+            message = HackerTools.getPlugin().getPlaceholderManager().replaceString(message, player);
             player.sendMessage(message);
         } else {
             player.sendMessage(message);
@@ -139,7 +138,7 @@ public class ChatManager {
 
     public void sendPlayerMessage(Player player, String message, boolean placeholder) {
         if (placeholder) {
-            message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message, player);
+            message = HackerTools.getPlugin().getPlaceholderManager().replaceString(message, player);
             player.sendMessage(message);
         } else {
             player.sendMessage(message);
@@ -159,7 +158,7 @@ public class ChatManager {
     }
 
     public void sendPlayerMessage(Player player, String message, String specialPlayer) {
-        message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message, Bukkit.getOfflinePlayer(specialPlayer));
+        message = HackerTools.getPlugin().getPlaceholderManager().replaceString(message, Bukkit.getOfflinePlayer(specialPlayer));
         player.sendMessage(message);
     }
 
@@ -174,7 +173,7 @@ public class ChatManager {
 
     public void sendPlayerMessage(CommandSender sender, String message, boolean placeholder) {
         if (placeholder) {
-            message = HackerTools.getPlugin().getPlaceholderAPI().replaceString(message);
+            message = HackerTools.getPlugin().getPlaceholderManager().replaceString(message);
             sender.sendMessage(message);
         } else {
             sender.sendMessage(message);

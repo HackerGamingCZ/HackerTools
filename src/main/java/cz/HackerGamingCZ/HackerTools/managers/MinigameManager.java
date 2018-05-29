@@ -3,16 +3,13 @@ package cz.HackerGamingCZ.HackerTools.managers;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
-import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
 import cz.HackerGamingCZ.HackerTools.events.CountdownEndEvent;
 import cz.HackerGamingCZ.HackerTools.events.CountdownUpdateEvent;
+import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -116,8 +113,8 @@ public class MinigameManager {
         HackerTools.getPlugin().getSchedulerManager().addScheduler(SchedulerManager.SchedulerType.LOBBY, Bukkit.getScheduler().scheduleSyncRepeatingTask(HackerTools.getPlugin(), () -> {
             if (countdown == 0) {
                 HackerTools.getPlugin().getTitleManager().sendTitle(Bukkit.getOnlinePlayers(), 5, 40, 5, "§aStart!", "§c");
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.GAME_START_INFO);
+                for (HTPlayer htPlayer : HackerTools.getPlugin().getPlayerManager().getPlayers().values()) {
+                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(htPlayer.getPlayer(), Lang.GAME_START_INFO);
                 }
                 stopLobbyCoutdown(CountdownEndEvent.EndCause.SCHEDULER_END);
                 setGameState(GameState.INGAME);
@@ -126,7 +123,6 @@ public class MinigameManager {
             if (countdown % 10 == 0 || countdown <= 10) {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     String message = Lang.COUNTDOWN_INFO;
-                 //   message = HackerTools.getPlugin().getPlaceholderAPI().replaceSpecialPlaceholder(message, Placeholder.COUNTDOWN, String.valueOf(countdown));
                     HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, message);
                 }
             }

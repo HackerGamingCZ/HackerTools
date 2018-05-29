@@ -4,6 +4,8 @@ import org.bukkit.ChatColor;
 
 public class Mechanics {
 
+    private ChatColor[] colors = ChatColor.values();
+
     public float getRealMoveSpeed(final float userSpeed) {
         final float defaultSpeed = 0.2F;
         float maxSpeed = 1f;
@@ -23,4 +25,7 @@ public class Mechanics {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
+    public ChatColor[] getColors() {
+        return colors;
+    }
 }
