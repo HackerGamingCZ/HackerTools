@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+@Deprecated
 public class ItemManager {
 
     public boolean isItemLegit(ItemStack is, boolean hasItemMeta, String displayName, String[] lore, boolean isEnchanted) {
@@ -92,10 +93,10 @@ public class ItemManager {
     }
 
     public ItemStack addEnchant(ItemStack is, Enchantment enchant, int level){
-            if(enchant.getMaxLevel() < level) {
-                is.addUnsafeEnchantment(enchant, level);
-                return is;
-            }
+        if(enchant.getMaxLevel() < level) {
+            is.addUnsafeEnchantment(enchant, level);
+            return is;
+        }
         is.addEnchantment(enchant, level);
         return is;
     }
