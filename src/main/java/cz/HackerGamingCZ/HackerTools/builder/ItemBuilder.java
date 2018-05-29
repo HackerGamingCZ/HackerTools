@@ -16,13 +16,11 @@ public class ItemBuilder {
     private ItemMeta itemMeta;
 
     public ItemBuilder(Material material) {
-        itemStack = new ItemStack(material, 1);
-        itemMeta = itemStack.getItemMeta();
+        this(material, 1, (byte) 0);
     }
 
     public ItemBuilder(Material material, int amount) {
-        itemStack = new ItemStack(material, amount);
-        itemMeta = itemStack.getItemMeta();
+        this(material, amount, (byte) 0);
     }
 
     public ItemBuilder(Material material, int amount, byte data) {
@@ -31,12 +29,26 @@ public class ItemBuilder {
     }
 
     public ItemBuilder(Material material, byte data) {
-        itemStack = new ItemStack(material, 1, data);
-        itemMeta = itemStack.getItemMeta();
+        this(material, 1, data);
+    }
+
+    public ItemBuilder setData(byte data) {
+        itemStack.setDurability(data);
+        return this;
+    }
+
+    public ItemBuilder setAmount(int amount) {
+        itemStack.setAmount(amount);
+        return this;
     }
 
     public ItemBuilder addEnchant(Enchantment enchantment, int level) {
         itemStack.addUnsafeEnchantment(enchantment, level);
+        return this;
+    }
+
+    public ItemBuilder removeEnchantment(Enchantment enchantment) {
+        itemStack.removeEnchantment(enchantment);
         return this;
     }
 
@@ -62,7 +74,7 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder addLores(String... lore) {
+    public ItemBuilder addLore(String... lore) {
         List<String> itemLore = itemMeta.getLore();
         Collections.addAll(itemLore, lore);
         itemMeta.setLore(itemLore);
@@ -79,11 +91,32 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder removeItemFlags(ItemFlag... itemFlag) {
+        itemMeta.removeItemFlags(itemFlag);
+        return this;
+    }
+
+    public ItemBuilder setGlowing(boolean glowing) {
+        if (glowing) {
+            addEnchant(Enchantment.LURE, 1);
+            addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        } else {
+            removeEnchantment(Enchantment.LURE);
+            removeItemFlags(ItemFlag.HIDE_ENCHANTS);
+        }
+        return this;
+    }
+
     public ItemMeta getItemMeta() {
         return itemMeta;
     }
 
     public ItemStack getItemStack() {
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public ItemStack build() {
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
