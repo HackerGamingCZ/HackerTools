@@ -12,6 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
+import javax.swing.plaf.basic.BasicBorders;
 import java.util.ArrayList;
 
 public interface Team extends Registrable {
@@ -24,6 +25,10 @@ public interface Team extends Registrable {
     String getName();
 
     Location getTeamSpawn();
+
+    default String getFullName(boolean bold) {
+        return getChatColor() + "" + (bold ? ChatColor.BOLD : "") + getName();
+    }
 
     default void teleportToSpawn(Player player) {
         player.teleport(getTeamSpawn());
