@@ -26,6 +26,10 @@ public interface Team extends Registrable {
 
     Location getTeamSpawn();
 
+    default boolean isIngameTeam() {
+        return true;
+    }
+
     default String getFullName(boolean bold) {
         return getChatColor() + "" + (bold ? ChatColor.BOLD : "") + getName();
     }
@@ -46,7 +50,7 @@ public interface Team extends Registrable {
     }
 
     default boolean canJoin(Player player, boolean usePermission) {
-        if (usePermission && player.hasPermission(Permissions.TEAMS_FULLJOIN)) {
+        if (usePermission && Permissions.hasPermission(player, Permissions.TEAMS_FULLJOIN)) {
             return true;
         }
         int playersInThisTeam = getPlayers().size();

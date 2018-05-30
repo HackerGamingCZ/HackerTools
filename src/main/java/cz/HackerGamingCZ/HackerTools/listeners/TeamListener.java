@@ -54,7 +54,7 @@ public class TeamListener implements Listener {
         }
         e.setCancelled(true);
         for (HTPlayer htPlayer1 : team.getPlayers()) {
-            HackerTools.getPlugin().getChatManager().sendPlayerMessage(htPlayer1.getPlayer(), "§8[" + team.getChatColor() + "TEAM§8] " + team.getChatColor() + Placeholders.PLAYERNAME + " §8» " + team.getChatColor() + e.getMessage());
+            HackerTools.getPlugin().getChatManager().sendPlayerMessage(htPlayer1.getPlayer(), "§8[" + team.getChatColor() + "TEAM§8] " + team.getChatColor() + htPlayer.getPlayer().getName() + " §8» " + team.getChatColor() + e.getMessage());
         }
     }
 

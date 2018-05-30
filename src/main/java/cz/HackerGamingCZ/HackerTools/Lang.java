@@ -1,6 +1,7 @@
 package cz.HackerGamingCZ.HackerTools;
 
 import cz.HackerGamingCZ.HackerTools.config.SimpleConfig;
+import org.bukkit.entity.Player;
 
 public class Lang {
 
@@ -22,8 +23,8 @@ public class Lang {
     public static String ARGUMENT_WASNT_NUMBER;
     public static String TELEPORT_TO_PLAYER;
 
-    public static String get(String string) {
-        return HackerTools.getPlugin().getPlaceholderManager().replaceString(string);
+    public static String get(String string, Player player) {
+        return HackerTools.getPlugin().getPlaceholderManager().replaceString(string, player);
     }
 
     public static void load() {

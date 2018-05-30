@@ -70,4 +70,8 @@ public class EventManager {
     public void registerServerListPing() {
         pm.registerEvents(new ServerListPing(), plugin);
     }
+
+    public void registerSpectator() {
+        pm.registerEvents(new Spectator(), plugin);
+    }
 }

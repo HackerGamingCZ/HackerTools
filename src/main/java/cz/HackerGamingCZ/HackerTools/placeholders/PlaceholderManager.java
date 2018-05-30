@@ -1,5 +1,6 @@
 package cz.HackerGamingCZ.HackerTools.placeholders;
 
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 

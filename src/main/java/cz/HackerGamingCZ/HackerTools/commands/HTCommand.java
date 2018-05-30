@@ -20,7 +20,7 @@ public class HTCommand implements CommandExecutor {
         }
         if (sender instanceof Player) {
             HTPlayer player = HackerTools.getPlugin().getPlayerManager().getPlayer((Player) sender);
-            if (args[0].equalsIgnoreCase("speed") && (player.isSpectator() || sender.hasPermission(Permissions.HT_SPEED))) {
+            if (args[0].equalsIgnoreCase("speed") && (player.isSpectator() || Permissions.hasPermission(sender, Permissions.HT_SPEED))) {
                 if (args.length == 1) {
                     return true;
                 }
@@ -34,8 +34,11 @@ public class HTCommand implements CommandExecutor {
                 ((Player) sender).setWalkSpeed(HackerTools.getPlugin().getMechanics().getRealMoveSpeed(speed));
             }
         }
-        if (args[0].equalsIgnoreCase("forcestart") && sender.hasPermission(Permissions.HT_FORCESTART)) {
+        if (args[0].equalsIgnoreCase("forcestart") && Permissions.hasPermission(sender, Permissions.HT_FORCESTART)) {
             HackerTools.getPlugin().getMinigameManager().force();
+        }
+        if ((args[0].equalsIgnoreCase("restart")) && Permissions.hasPermission(sender, Permissions.HT_RESTART)) {
+            HackerTools.getPlugin().getServerManager().restart();
         }
         return true;
     }

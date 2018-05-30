@@ -42,6 +42,16 @@ public class TeamManager {
         return teams;
     }
 
+    public ArrayList<Team> getTeamsInGame() {
+        ArrayList<Team> teams = new ArrayList<>();
+        for (Team team : this.teams) {
+            if (team.isIngameTeam()) {
+                teams.add(team);
+            }
+        }
+        return teams;
+    }
+
     public void addTeam(Team team) {
         teams.add(team);
     }

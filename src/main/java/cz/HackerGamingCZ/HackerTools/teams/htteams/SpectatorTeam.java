@@ -42,6 +42,11 @@ public class SpectatorTeam implements Team {
     }
 
     @Override
+    public boolean isIngameTeam() {
+        return false;
+    }
+
+    @Override
     public void join(HTPlayer htPlayer) {
         if (htPlayer == null) {
             return;

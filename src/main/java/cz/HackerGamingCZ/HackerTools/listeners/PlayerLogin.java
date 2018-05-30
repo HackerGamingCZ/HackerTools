@@ -2,6 +2,7 @@ package cz.HackerGamingCZ.HackerTools.listeners;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
+import cz.HackerGamingCZ.HackerTools.Permissions;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.events.PlayerReconnectEvent;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
@@ -23,13 +24,13 @@ public class PlayerLogin implements Listener {
         GameState.JoinType type = state.getJoinType();
         if (type == GameState.JoinType.NOBODY) {
             e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
-            e.setKickMessage(Lang.get(Lang.JOINTYPE_NOBODY_KICK_MESSAGE));
+            e.setKickMessage(Lang.get(Lang.JOINTYPE_NOBODY_KICK_MESSAGE, player));
             return;
         }
         if (type.getPermission() != null) {
-            if (!player.hasPermission(type.getPermission())) {
+            if (!Permissions.hasPermission(player, type.getPermission())) {
                 e.setResult(PlayerLoginEvent.Result.KICK_OTHER);
-                e.setKickMessage(Lang.get(Lang.JOINTYPE_PERMISSION_KICK_MESSAGE));
+                e.setKickMessage(Lang.get(Lang.JOINTYPE_PERMISSION_KICK_MESSAGE, player));
                 return;
             }
         }

@@ -32,7 +32,7 @@ public class PlayerJoin implements Listener {
         }
         HackerTools.getPlugin().getMinigameManager().resetPlayer(player);
         if (HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
-            if(player.hasPermission(Permissions.HT_FORCESTART)) {
+            if (Permissions.hasPermission(player, Permissions.HT_FORCESTART)) {
                 HackerTools.getPlugin().getForcestartItem().giveItem(player.getInventory(), 8);
             }
             if(HackerTools.getPlugin().getMinigameManager().getLobbyLocation() != null){

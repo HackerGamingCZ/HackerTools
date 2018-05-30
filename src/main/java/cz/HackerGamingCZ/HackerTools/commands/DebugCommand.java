@@ -2,6 +2,7 @@ package cz.HackerGamingCZ.HackerTools.commands;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
+import cz.HackerGamingCZ.HackerTools.Permissions;
 import cz.HackerGamingCZ.HackerTools.managers.DebugManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,7 +15,7 @@ public class DebugCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        if (sender instanceof Player && HackerTools.getPlugin().hasSpecialPermission(sender) || sender instanceof ConsoleCommandSender) {
+        if (sender instanceof Player && Permissions.hasPermission(sender, Permissions.DEBUG_COMMAND) || sender instanceof ConsoleCommandSender) {
             if (args.length != 0) {
                 DebugManager debug = HackerTools.getPlugin().getDebugManager();
                 if (!debug.contains(args[0])) {

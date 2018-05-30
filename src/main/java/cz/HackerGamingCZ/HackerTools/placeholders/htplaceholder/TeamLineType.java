@@ -16,6 +16,9 @@ public class TeamLineType implements LineType {
     @Override
     public String getText(HTPlayer player) {
         Team team = player.getTeam();
+        if (team == null) {
+            return null;
+        }
         return team.getChatColor() + team.getName();
     }
 
