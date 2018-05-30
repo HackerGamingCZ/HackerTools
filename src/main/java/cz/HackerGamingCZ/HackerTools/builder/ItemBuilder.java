@@ -42,7 +42,7 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder addEnchant(Enchantment enchantment, int level) {
+    public ItemBuilder addEnchantment(Enchantment enchantment, int level) {
         itemStack.addUnsafeEnchantment(enchantment, level);
         return this;
     }
@@ -98,7 +98,7 @@ public class ItemBuilder {
 
     public ItemBuilder setGlowing(boolean glowing) {
         if (glowing) {
-            addEnchant(Enchantment.LURE, 1);
+            addEnchantment(Enchantment.LURE, 1);
             addItemFlags(ItemFlag.HIDE_ENCHANTS);
         } else {
             removeEnchantment(Enchantment.LURE);
