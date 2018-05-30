@@ -38,28 +38,21 @@ public class PlayerLeave implements Listener {
         if (htPlayer == null) {
             return;
         }
-        if (htPlayer.getTeam() != null) {
-            htPlayer.getTeam().leave(htPlayer);
-        }
         int newPlayerCount = Bukkit.getOnlinePlayers().size() - 1;
         if (newPlayerCount < HackerTools.getPlugin().getMinigameManager().getMinPlayers() && HackerTools.getPlugin().getSchedulerManager().getScheduler(SchedulerManager.SchedulerType.LOBBY) != -1) {
             HackerTools.getPlugin().getMinigameManager().stopLobbyCoutdown(CountdownEndEvent.EndCause.PLAYER_DISCONNECT);
         }
-        if (HackerTools.getPlugin().getPlayerManager().getPlayer(player).isSpectator()) {
+        /*if (HackerTools.getPlugin().getPlayerManager().getPlayer(player).isSpectator()) {
             return;
-        }
-        Team team = HackerTools.getPlugin().getPlayerManager().getPlayer(player).getTeam();
+        }*/
+        Team team = htPlayer.getTeam();
         if (team == null) {
             return;
         }
-
-        for (HTPlayer p : team.getPlayers()) {
-            if (p.getPlayer().isOnline() && p.getPlayer() != player) {
-                return;
-            }
+        team.leave(player);
+        if (team.getPlayers().size() <= 0) {
+            TeamLeftGameEvent event = new TeamLeftGameEvent(team);
+            Bukkit.getPluginManager().callEvent(event);
         }
-        TeamLeftGameEvent event = new TeamLeftGameEvent(team);
-        Bukkit.getPluginManager().callEvent(event);
     }
-
 }
