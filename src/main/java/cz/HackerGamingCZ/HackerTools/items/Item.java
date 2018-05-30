@@ -3,6 +3,8 @@ package cz.HackerGamingCZ.HackerTools.items;
 import cz.HackerGamingCZ.HackerTools.actions.Action;
 import org.bukkit.inventory.ItemStack;
 
+//TODO Item rework
+@Deprecated
 public class Item {
 
     private ItemStack is;
