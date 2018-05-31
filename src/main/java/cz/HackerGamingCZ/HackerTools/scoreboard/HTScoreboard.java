@@ -63,7 +63,7 @@ public class HTScoreboard implements Registrable {
             }
             team.addPlayer(Bukkit.getServer().getOfflinePlayer(HackerTools.getPlugin().getMechanics().getColors()[i - 1] + "" + primaryColor));
             if (scoreboardLine.getType() instanceof CustomLineType) {
-                team.setPrefix(secondaryColor + scoreboardLine.getTextBefore());
+                team.setPrefix(scoreboardLine.getTextBefore());
                 team.setSuffix(scoreboardLine.getTextAfter());
             } else {
                 team.setPrefix(secondaryColor + scoreboardLine.getTextBefore());

@@ -10,7 +10,14 @@ public class ScoreboardLine {
     private String textAfter;
     private String team;
 
+    @Deprecated
     public ScoreboardLine(String team, LineType type, String textBefore){
+        this.type = type;
+        this.textBefore = textBefore;
+        this.team = team;
+    }
+
+    public ScoreboardLine(String team, String textBefore, LineType type) {
         this.type = type;
         this.textBefore = textBefore;
         this.team = team;
