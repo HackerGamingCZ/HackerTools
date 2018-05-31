@@ -49,6 +49,28 @@ public class MinigameManager {
         setupGame(minPlayers, maxPlayers, spectLocation, lobbyLocation, defaultGameMode);
     }
 
+    public void showAllPlayers(Player player) {
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            player.hidePlayer(online);
+            online.hidePlayer(player);
+        }
+
+        HackerTools.getPlugin().getSchedulerManager().runLater(() -> {
+            for (HTPlayer htPlayer : HackerTools.getPlugin().getPlayerManager().getPlayers().values()) {
+                if (htPlayer.isSpectator()) {
+                    continue;
+                }
+                player.showPlayer(htPlayer.getPlayer());
+                HTPlayer htPlayer1 = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
+                if (htPlayer1.isSpectator()) {
+                    continue;
+                }
+                htPlayer1.getPlayer().showPlayer(player);
+            }
+        }, 3L);
+
+    }
+
     public Location getSpectLocation() {
         return spectLocation;
     }

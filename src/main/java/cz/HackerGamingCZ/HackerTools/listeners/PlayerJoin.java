@@ -30,13 +30,20 @@ public class PlayerJoin implements Listener {
         if(state == GameState.NONE){
             return;
         }
+        //HackerTools.getPlugin().getMinigameManager().showAllPlayers(e.getPlayer());
         HackerTools.getPlugin().getMinigameManager().resetPlayer(player);
         if (HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
             if (Permissions.hasPermission(player, Permissions.HT_FORCESTART)) {
                 HackerTools.getPlugin().getForcestartItem().giveItem(player.getInventory(), 8);
             }
             if(HackerTools.getPlugin().getMinigameManager().getLobbyLocation() != null){
-                player.teleport(HackerTools.getPlugin().getMinigameManager().getLobbyLocation());
+                HackerTools.getPlugin().getDebugManager().sendDebug("tpplayer", player);
+                HackerTools.getPlugin().getDebugManager().sendDebug("getlobbyloc", HackerTools.getPlugin().getMinigameManager().getLobbyLocation());
+                HackerTools.getPlugin().getDebugManager().sendDebug("getlobbyloc world", HackerTools.getPlugin().getMinigameManager().getLobbyLocation().getWorld());
+                try {
+                    player.teleport(HackerTools.getPlugin().getMinigameManager().getLobbyLocation());
+                } catch (Exception ex) {
+                }
             }
         }
         GameState.JoinType type = state.getJoinType();
