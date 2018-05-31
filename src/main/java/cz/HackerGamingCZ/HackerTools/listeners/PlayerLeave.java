@@ -30,7 +30,7 @@ public class PlayerLeave implements Listener {
         }
         if (HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                // HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, HackerTools.getPlugin().getPlaceholderManager().replaceSpecialPlaceholder(Lang.LOBBY_DISCONNECT_INFO, Placeholder.ONLINEPLAYERS, String.valueOf(Bukkit.getOnlinePlayers().size() - 1)), e.getPlayer().getName());
+                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.LOBBY_DISCONNECT_INFO);
             }
         }
         Player player = e.getPlayer();
@@ -42,9 +42,9 @@ public class PlayerLeave implements Listener {
         if (newPlayerCount < HackerTools.getPlugin().getMinigameManager().getMinPlayers() && HackerTools.getPlugin().getSchedulerManager().getScheduler(SchedulerManager.SchedulerType.LOBBY) != -1) {
             HackerTools.getPlugin().getMinigameManager().stopLobbyCoutdown(CountdownEndEvent.EndCause.PLAYER_DISCONNECT);
         }
-        /*if (HackerTools.getPlugin().getPlayerManager().getPlayer(player).isSpectator()) {
+        if (HackerTools.getPlugin().getPlayerManager().getPlayer(player).isSpectator()) {
             return;
-        }*/
+        }
         Team team = htPlayer.getTeam();
         if (team == null) {
             return;
