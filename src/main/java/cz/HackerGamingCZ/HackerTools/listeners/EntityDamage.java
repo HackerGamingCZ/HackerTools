@@ -23,6 +23,10 @@ public class EntityDamage implements Listener {
         if (htVictim == null) {
             return;
         }
+        HTPlayer htDamager = HackerTools.getPlugin().getPlayerManager().getPlayer(damager);
+        if (htDamager.getTeam().isPlayerInTeam(victim)) {
+            return;
+        }
         htVictim.setLastHittedBy(HackerTools.getPlugin().getPlayerManager().getPlayer(damager));
     }
 

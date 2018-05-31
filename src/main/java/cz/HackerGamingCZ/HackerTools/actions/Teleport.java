@@ -2,6 +2,7 @@ package cz.HackerGamingCZ.HackerTools.actions;
 
 import cz.HackerGamingCZ.HackerTools.teams.Team;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 public class Teleport extends Action {
@@ -20,7 +21,12 @@ public class Teleport extends Action {
             player.teleport(player);
             return;
         }
-        player.teleport(((Location)getObject()));
+        if (getObject() instanceof Location) {
+            player.teleport(((Location) getObject()));
+        }
+        if (getObject() instanceof Entity) {
+            player.teleport(((Entity) getObject()));
+        }
     }
 
 }
