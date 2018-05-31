@@ -1,6 +1,8 @@
 package cz.HackerGamingCZ.HackerTools.managers;
 
+import com.google.common.base.Strings;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
+import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.enums.DefaultFontInfo;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -8,8 +10,10 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class ChatManager {
@@ -63,6 +67,92 @@ public class ChatManager {
         }
     }
 
+    public void notEnoughPermissionsError(CommandSender sender) {
+        sendPlayerMessage(sender, Lang.NOT_ENOUGH_PERMISSIONS_ERROR);
+    }
+
+    public void notEnoughPermissionsError(Player player) {
+        sendPlayerMessage(player, Lang.NOT_ENOUGH_PERMISSIONS_ERROR);
+    }
+
+    public void notEnoughArgumentsError(CommandSender sender) {
+        sendPlayerMessage(sender, Lang.NOT_ENOUGH_ARGUMENTS);
+    }
+
+    public void notEnoughArgumentsError(Player player) {
+        sendPlayerMessage(player, Lang.NOT_ENOUGH_ARGUMENTS);
+    }
+
+    public void notEnoughArgumentsError(CommandSender sender, String additionalText) {
+        sendPlayerMessage(sender, Lang.NOT_ENOUGH_ARGUMENTS + " " + additionalText);
+    }
+
+    public void notEnoughArgumentsError(Player player, String additionalText) {
+        sendPlayerMessage(player, Lang.NOT_ENOUGH_ARGUMENTS + " " + additionalText);
+    }
+
+    public void sendBorderedMessage(Player player, String borderChar, boolean arrows, String... text) {
+        if (text.length <= 0) {
+            return;
+        }
+        String border = Strings.repeat(borderChar, 45);
+        player.sendMessage("§8" + border);
+        player.sendMessage("");
+        for (String string : text) {
+            player.sendMessage((arrows || string.length() <= 0 ? "§8»" : "") + "§7 " + string);
+        }
+        player.sendMessage("");
+        player.sendMessage("§8" + border);
+    }
+
+    public void sendBorderedMessage(CommandSender sender, String borderChar, boolean arrows, String... text) {
+        if (text.length <= 0) {
+            return;
+        }
+        if (sender instanceof ConsoleCommandSender) {
+            borderChar = "-";
+        }
+        String border = Strings.repeat(borderChar, 45);
+        sender.sendMessage("§8" + border);
+        sender.sendMessage("");
+        for (String string : text) {
+            sender.sendMessage((arrows || string.length() <= 0 ? "§8»" : "") + "§7 " + string);
+        }
+        sender.sendMessage("");
+        sender.sendMessage("§8" + border);
+    }
+
+    public void sendBorderedMessage(Player player, String borderChar, boolean arrows, ArrayList<String> text) {
+        if (text.size() <= 0) {
+            return;
+        }
+        String border = Strings.repeat(borderChar, 45);
+        player.sendMessage("§8" + border);
+        player.sendMessage("");
+        for (String string : text) {
+            player.sendMessage((arrows || string.length() <= 0 ? "§8»" : "") + "§7 " + string);
+        }
+        player.sendMessage("");
+        player.sendMessage("§8" + border);
+    }
+
+    public void sendBorderedMessage(CommandSender sender, String borderChar, boolean arrows, ArrayList<String> text) {
+        if (text.size() <= 0) {
+            return;
+        }
+        if (sender instanceof ConsoleCommandSender) {
+            borderChar = "-";
+        }
+        String border = Strings.repeat(borderChar, 45);
+        sender.sendMessage("§8" + border);
+        sender.sendMessage("");
+        for (String string : text) {
+            sender.sendMessage((arrows || string.length() <= 0 ? "§8»" : "") + "§7 " + string);
+        }
+        sender.sendMessage("");
+        sender.sendMessage("§8" + border);
+    }
+
     public void hoverableText(Player player, String message, String tooltip) {
         TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
         component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(tooltip)));
@@ -99,7 +189,7 @@ public class ChatManager {
         player.spigot().sendMessage(component);
     }
 
-    public static void sendCenteredMessage(Player player, String message) {
+    public void sendCenteredMessage(Player player, String message) {
         if (message == null || message.equals("")) player.sendMessage("");
         message = ChatColor.translateAlternateColorCodes('&', message);
 

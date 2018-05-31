@@ -25,6 +25,13 @@ public class Mechanics {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
 
+    public String convertFromSpigotColors(String text) {
+        if (text == null) {
+            return null;
+        }
+        return text.replace("§", "&");
+    }
+
     public ChatColor[] getColors() {
         return colors;
     }

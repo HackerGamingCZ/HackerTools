@@ -1,4 +1,4 @@
-package cz.HackerGamingCZ.HackerTools.managers;
+package cz.HackerGamingCZ.HackerTools.debug;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
@@ -11,26 +11,46 @@ import java.util.HashMap;
 
 public class DebugManager {
 
-    //ARGUMENT >> OUTPUT
-    private HashMap<String, String> debug = new HashMap<>();
+    //ARGUMENT >> DEBUG INSTANCE
+    private HashMap<String, Debug> debug = new HashMap<>();
 
-    public void addDebug(String argument, String output) {
-        debug.put(argument, output);
+    public DebugManager() {
+        addDebug("state", new Debug() {
+            @Override
+            public String getOutput() {
+                return String.valueOf(HackerTools.getPlugin().getGameState());
+            }
+
+            @Override
+            public String getDescription() {
+                return "Current server state";
+            }
+        });
+        //TODO add more default debugs
+    }
+
+    public void addDebug(String argument, Debug debug) {
+        this.debug.put(argument, debug);
     }
 
     public void removeDebug(String argument) {
         debug.remove(argument);
     }
 
-    public String getDebug(String argument) {
-        return debug.get(argument);
+    public Debug getDebug(String argument) {
+        for (String arg : debug.keySet()) {
+            if (argument.equalsIgnoreCase(arg)) {
+                return debug.get(arg);
+            }
+        }
+        return null;
     }
 
     public boolean contains(String argument) {
         return debug.containsKey(argument);
     }
 
-    public HashMap<String, String> getAllDebugs() {
+    public HashMap<String, Debug> getAllDebugs() {
         return debug;
     }
 

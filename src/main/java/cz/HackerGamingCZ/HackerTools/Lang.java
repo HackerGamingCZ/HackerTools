@@ -22,6 +22,8 @@ public class Lang {
     public static String LOBBY_DISCONNECT_INFO;
     public static String ARGUMENT_WASNT_NUMBER;
     public static String TELEPORT_TO_PLAYER;
+    public static String NOT_ENOUGH_PERMISSIONS_ERROR;
+    public static String NOT_ENOUGH_ARGUMENTS;
 
     public static String get(String string, Player player) {
         return HackerTools.getPlugin().getPlaceholderManager().replaceString(string, player);
@@ -40,6 +42,8 @@ public class Lang {
         LOBBY_DISCONNECT_INFO = config.getString("lobby-disconnect-info");
         ARGUMENT_WASNT_NUMBER = config.getString("argument-wasnt-number");
         TELEPORT_TO_PLAYER = config.getString("teleport-to-player");
+        NOT_ENOUGH_PERMISSIONS_ERROR = config.getString("not-enough-permission-error");
+        NOT_ENOUGH_ARGUMENTS = config.getString("not-enough-arguments");
     }
 
 }

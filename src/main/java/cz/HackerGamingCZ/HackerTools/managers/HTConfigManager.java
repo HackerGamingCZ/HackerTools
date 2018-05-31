@@ -34,6 +34,8 @@ public class HTConfigManager {
         lang.check("lobby-disconnect-info", "&c" + Placeholders.PLAYERNAME + " &7left the game&c&7. &7(&c" + Placeholders.ONLINEPLAYERS + "&7/&c" + Placeholders.MAXPLAYERS + "&7)");
         lang.check("argument-wasnt-number", "&c&lERROR &7Argument wasn't number");
         lang.check("teleport-to-player", "&cClick to teleport to &6" + Placeholders.PLAYERNAME);
+        lang.check("not-enough-permission-error", Placeholders.ERRORPREFIX + "You don't have enough permissions to perform this action.");
+        lang.check("not-enough-arguments", Placeholders.ERRORPREFIX + "Not enough arguments!");
 
 
         config = manager.getNewConfig("config.yml");

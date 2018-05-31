@@ -1,7 +1,8 @@
 package cz.HackerGamingCZ.HackerTools;
 
-import cz.HackerGamingCZ.HackerTools.builder.ItemBuilder;
+import cz.HackerGamingCZ.HackerTools.debug.DebugCommand;
 import cz.HackerGamingCZ.HackerTools.config.SimpleConfigManager;
+import cz.HackerGamingCZ.HackerTools.debug.DebugManager;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.gui.GUI;
 import cz.HackerGamingCZ.HackerTools.gui.GUIManager;
@@ -18,21 +19,14 @@ import cz.HackerGamingCZ.HackerTools.managers.SchedulerManager;
 import cz.HackerGamingCZ.HackerTools.placeholders.PlaceholderManager;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import cz.HackerGamingCZ.HackerTools.players.PlayerManager;
-import cz.HackerGamingCZ.HackerTools.scoreboard.HTScoreboard;
-import cz.HackerGamingCZ.HackerTools.scoreboard.ScoreboardLine;
-import cz.HackerGamingCZ.HackerTools.scoreboard.linetype.*;
 import cz.HackerGamingCZ.HackerTools.teams.TeamManager;
 import cz.HackerGamingCZ.HackerTools.teams.htteams.SpectatorTeam;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.command.CommandSender;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -156,6 +150,7 @@ public class HackerTools extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("hackertools").setExecutor(new HTCommand());
+        getCommand("debug").setExecutor(new DebugCommand());
     }
 
     @Override

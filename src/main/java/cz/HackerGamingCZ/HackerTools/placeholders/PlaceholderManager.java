@@ -31,6 +31,16 @@ public class PlaceholderManager {
             if (ignoreList.contains(placeholder)) {
                 continue;
             }
+            if (player == null) {
+                if (placeholder.getPlaceholder().getPlaceholder() == null) {
+                    continue;
+                }
+                if (placeholder.getPlaceholder().getReplacement() == null) {
+                    continue;
+                }
+                string = string.replace(placeholder.getPlaceholder().getPlaceholder(), placeholder.getPlaceholder().getReplacement());
+                continue;
+            }
             string = string.replace(placeholder.getPlaceholder().getPlaceholder(), placeholder.getPlaceholder().getReplacement(player));
         }
         return string;

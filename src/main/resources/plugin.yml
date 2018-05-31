@@ -6,3 +6,6 @@ commands:
   hackertools:
     description: Main command for HackerTools
     aliases: [ht]
+  debug:
+    description: Debugging tool
+    aliases: [htdebug]
