@@ -8,6 +8,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.player.PlayerPickupArrowEvent;
 
 public class Spectator implements Listener {
 
@@ -28,18 +30,34 @@ public class Spectator implements Listener {
     }
 
     @EventHandler
-    public void onDamage(BlockBreakEvent e) {
+    public void onBlockBreak(BlockBreakEvent e) {
         if (isSpectator(e.getPlayer())) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
-    public void onDamage(BlockPlaceEvent e) {
+    public void onBlockPlace(BlockPlaceEvent e) {
         if (isSpectator(e.getPlayer())) {
             e.setCancelled(true);
         }
     }
 
+    @EventHandler
+    public void onItemPickup(EntityPickupItemEvent e) {
+        if (!(e.getEntity() instanceof Player)) {
+            return;
+        }
+        if (isSpectator((Player) e.getEntity())) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onItemPickup(PlayerPickupArrowEvent e) {
+        if (isSpectator(e.getPlayer())) {
+            e.setCancelled(true);
+        }
+    }
 
 }

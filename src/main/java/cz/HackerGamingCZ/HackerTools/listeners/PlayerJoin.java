@@ -37,13 +37,7 @@ public class PlayerJoin implements Listener {
                 HackerTools.getPlugin().getForcestartItem().giveItem(player.getInventory(), 8);
             }
             if(HackerTools.getPlugin().getMinigameManager().getLobbyLocation() != null){
-                HackerTools.getPlugin().getDebugManager().sendDebug("tpplayer", player);
-                HackerTools.getPlugin().getDebugManager().sendDebug("getlobbyloc", HackerTools.getPlugin().getMinigameManager().getLobbyLocation());
-                HackerTools.getPlugin().getDebugManager().sendDebug("getlobbyloc world", HackerTools.getPlugin().getMinigameManager().getLobbyLocation().getWorld());
-                try {
-                    player.teleport(HackerTools.getPlugin().getMinigameManager().getLobbyLocation());
-                } catch (Exception ex) {
-                }
+                player.teleport(HackerTools.getPlugin().getMinigameManager().getLobbyLocation());
             }
         }
         GameState.JoinType type = state.getJoinType();
