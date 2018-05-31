@@ -7,7 +7,7 @@ public class ScoreboardLine {
 
     private LineType type;
     private String textBefore;
-    private String textAfter;
+    private String textAfter = "";
     private String team;
 
     @Deprecated
@@ -21,6 +21,14 @@ public class ScoreboardLine {
         this.type = type;
         this.textBefore = textBefore;
         this.team = team;
+    }
+
+
+    public ScoreboardLine(String team, String textBefore, LineType type, String textAfter) {
+        this.type = type;
+        this.textBefore = textBefore;
+        this.team = team;
+        this.textAfter = textAfter;
     }
 
     public ScoreboardLine(String team, String textBefore, String textAfter){

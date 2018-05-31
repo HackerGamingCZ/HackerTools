@@ -67,7 +67,7 @@ public class HTScoreboard implements Registrable {
                 team.setSuffix(scoreboardLine.getTextAfter());
             } else {
                 team.setPrefix(secondaryColor + scoreboardLine.getTextBefore());
-                team.setSuffix(scoreboardLine.getType().getText(htPlayer.getPlayer()));
+                team.setSuffix(scoreboardLine.getType().getText(htPlayer.getPlayer()) + scoreboardLine.getTextAfter());
             }
             objective.getScore(HackerTools.getPlugin().getMechanics().getColors()[i - 1] + "" + primaryColor).setScore(i);
             i--;
@@ -84,7 +84,7 @@ public class HTScoreboard implements Registrable {
             if (team == null) {
                 continue;
             }
-            team.setSuffix(scoreboardLine.getType().getText(player));
+            team.setSuffix(scoreboardLine.getType().getText(player) + scoreboardLine.getTextAfter());
         }
         if (updater == null) {
             return;
