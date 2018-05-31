@@ -25,6 +25,9 @@ public class VoidDamage implements Listener {
             if (htPlayer == null) {
                 return;
             }
+            if (HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
+                return;
+            }
             if (htPlayer.isSpectator()) {
                 return;
             }
