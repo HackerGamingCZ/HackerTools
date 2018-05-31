@@ -2,17 +2,23 @@ package cz.HackerGamingCZ.HackerTools.listeners;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
+import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.events.TeamDamageEvent;
 import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import cz.HackerGamingCZ.HackerTools.teams.Team;
+import io.netty.util.collection.ShortObjectHashMap;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.metadata.FixedMetadataValue;
 
 public class TeamListener implements Listener {
 
@@ -58,4 +64,28 @@ public class TeamListener implements Listener {
         }
     }
 
+    @EventHandler
+    public void arrowDamage(EntityDamageByEntityEvent e) {
+        if (!(e.getDamager() instanceof Arrow)) {
+            return;
+        }
+        Arrow arrow = (Arrow) e.getDamager();
+        if (arrow == null || !(arrow.getShooter() instanceof Player)) {
+            return;
+        }
+        HTPlayer shooter = HackerTools.getPlugin().getPlayerManager().getPlayer((Player) arrow.getShooter());
+        if (!(e.getEntity() instanceof Player)) {
+            return;
+        }
+        HTPlayer entity = HackerTools.getPlugin().getPlayerManager().getPlayer((Player) e.getEntity());
+        if (entity.getTeam() == null || shooter.getTeam() == null) {
+            return;
+        }
+        if (HackerTools.getPlugin().getTeamManager().isTeamDamage()) {
+            return;
+        }
+        if (entity.getTeam().isPlayerInTeam(shooter.getPlayer())) {
+            e.setCancelled(true);
+        }
+    }
 }
