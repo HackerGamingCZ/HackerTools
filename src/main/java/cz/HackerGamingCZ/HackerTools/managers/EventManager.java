@@ -74,4 +74,8 @@ public class EventManager {
     public void registerSpectator() {
         pm.registerEvents(new Spectator(), plugin);
     }
+
+    public void registerLobbyListener() {
+        pm.registerEvents(new Lobby(), plugin);
+    }
 }

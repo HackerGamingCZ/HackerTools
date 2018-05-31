@@ -81,7 +81,6 @@ public class HackerTools extends JavaPlugin {
         spectatorPlayerListItem = new InteractableItem(Material.COMPASS, 1, "§7§lSpectate", true, (byte) 0, new OpenGUI(spectatorPlayerList), false, "", "§cList of all players");
         spectatorPlayerListItem.register();
         //TESTING PART
-        minigameManager.setupGame(5, 5, null, null, GameMode.CREATIVE);
         // END OF TESTING PART
         registerDefaultEvents();
         registerCommands();
@@ -146,6 +145,7 @@ public class HackerTools extends JavaPlugin {
         eventManager.registerEntityDamage();
         eventManager.registerServerListPing();
         eventManager.registerSpectator();
+        eventManager.registerLobbyListener();
     }
 
     private void registerCommands() {
