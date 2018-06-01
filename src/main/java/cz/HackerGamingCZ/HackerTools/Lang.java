@@ -24,7 +24,7 @@ public class Lang {
     public static String ARGUMENT_WASNT_NUMBER;
     public static String TELEPORT_TO_PLAYER;
     public static String NOT_ENOUGH_ARGUMENTS;
-    public static String HT_COMMAND_ARGUMENT_DOESNT_EXIST = Placeholders.ERRORPREFIX + "this argument does not exist. Try /ht help.";
+    public static String HT_COMMAND_ARGUMENT_DOESNT_EXIST = Placeholders.ERRORPREFIX + "this argument does not exist. Try §c/ht help§7.";
     public static String SENDER_MUST_BE_PLAYER = Placeholders.CONSOLEERROR + "you must be player!";
     public static String UNKNOWN_ERROR = Placeholders.ERRORPREFIX + "unknown error.";
     public static String TOO_BIG_NUMBER = Placeholders.ERRORPREFIX + "number was too big.";
