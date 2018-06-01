@@ -30,7 +30,7 @@ public class PlayerLeave implements Listener {
         }
         if (HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.LOBBY_DISCONNECT_INFO);
+                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.LOBBY_DISCONNECT_INFO, e.getPlayer().getName());
             }
         }
         Player player = e.getPlayer();
