@@ -60,13 +60,15 @@ public class DebugManager {
                 player.sendMessage(Lang.DEBUG_PREFIX + String.valueOf(message));
             }
         }
+        HackerTools.getPlugin().getLoggerManager().log("DEBUG " + String.valueOf(message));
     }
 
     public void sendDebug(String identificator, Object message) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (Permissions.hasPermission(player, Permissions.DEBUG_SHOW)) {
-                player.sendMessage(Lang.DEBUG_PREFIX + ChatColor.GREEN + identificator + "§7: " + String.valueOf(message));
+                player.sendMessage(Lang.DEBUG_PREFIX + ChatColor.LIGHT_PURPLE + identificator + "§7: " + String.valueOf(message));
             }
         }
+        HackerTools.getPlugin().getLoggerManager().log("DEBUG " + identificator + ": " + String.valueOf(message));
     }
 }

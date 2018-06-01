@@ -54,19 +54,12 @@ public class MinigameManager {
             player.hidePlayer(online);
             online.hidePlayer(player);
         }
-
         HackerTools.getPlugin().getSchedulerManager().runLater(() -> {
             for (HTPlayer htPlayer : HackerTools.getPlugin().getPlayerManager().getPlayers().values()) {
-                if (htPlayer.isSpectator()) {
-                    continue;
-                }
+                htPlayer.getPlayer().showPlayer(player);
                 player.showPlayer(htPlayer.getPlayer());
-                HTPlayer htPlayer1 = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
-                if (htPlayer1.isSpectator()) {
-                    continue;
-                }
-                htPlayer1.getPlayer().showPlayer(player);
             }
+            HackerTools.getPlugin().getSpectatorTeam().hidePlayers();
         }, 3L);
 
     }

@@ -2,6 +2,7 @@ package cz.HackerGamingCZ.HackerTools.placeholders;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -42,6 +43,31 @@ public class PlaceholderManager {
                 continue;
             }
             string = string.replace(placeholder.getPlaceholder().getPlaceholder(), placeholder.getPlaceholder().getReplacement(player));
+        }
+        return string;
+    }
+
+    public String replaceString(String string, CommandSender sender, Placeholders... ignore) {
+        if (string == null) {
+            return null;
+        }
+        ArrayList<Placeholders> ignoreList = new ArrayList<>();
+        Collections.addAll(ignoreList, ignore);
+        for (Placeholders placeholder : Placeholders.values()) {
+            if (ignoreList.contains(placeholder)) {
+                continue;
+            }
+            if (sender == null) {
+                if (placeholder.getPlaceholder().getPlaceholder() == null) {
+                    continue;
+                }
+                if (placeholder.getPlaceholder().getReplacement() == null) {
+                    continue;
+                }
+                string = string.replace(placeholder.getPlaceholder().getPlaceholder(), placeholder.getPlaceholder().getReplacement());
+                continue;
+            }
+            string = string.replace(placeholder.getPlaceholder().getPlaceholder(), placeholder.getPlaceholder().getReplacement(sender));
         }
         return string;
     }

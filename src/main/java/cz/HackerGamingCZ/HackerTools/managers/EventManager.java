@@ -5,6 +5,8 @@ import cz.HackerGamingCZ.HackerTools.listeners.*;
 import cz.HackerGamingCZ.HackerTools.listeners.TeamListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.plugin.PluginManager;
 
 public class EventManager {
@@ -28,6 +30,14 @@ public class EventManager {
     //TODO
     public void denyAllCraft() {
 
+    }
+
+    public void denyAnimalKilling(EntityType... ignored) {
+        pm.registerEvents(new AnimalsKills(ignored), plugin);
+    }
+
+    public void denyAnimalSpawning(CreatureSpawnEvent.SpawnReason... ignored) {
+        pm.registerEvents(new AnimalSpawn(ignored), plugin);
     }
 
     //DEFAULTs

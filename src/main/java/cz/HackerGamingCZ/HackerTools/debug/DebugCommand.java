@@ -17,8 +17,7 @@ public class DebugCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!Permissions.hasPermission(sender, Permissions.DEBUG_COMMAND)) {
-            HackerTools.getPlugin().getChatManager().notEnoughPermissionsError(sender);
+        if (!Permissions.hasPermission(sender, Permissions.DEBUG_COMMAND, true)) {
             return true;
         }
         if (args.length == 0) {

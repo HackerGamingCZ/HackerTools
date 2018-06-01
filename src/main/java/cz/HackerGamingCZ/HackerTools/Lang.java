@@ -1,15 +1,16 @@
 package cz.HackerGamingCZ.HackerTools;
 
 import cz.HackerGamingCZ.HackerTools.config.SimpleConfig;
+import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
 import org.bukkit.entity.Player;
 
 public class Lang {
 
-
     //PREFIXES
-    public static String DEBUG_PREFIX = "§8[§c§lHT_DEBUG§8]§7 ";
-    public static String HACKERTOOLS_PREFIX = "§8[§c§lHackerTools§8]§7 ";
-    public static String ERROR_PREFIX = "§c§lERROR§7 ";
+    public static String DEBUG_PREFIX = "§5§lDEBUG §8>> §7 ";
+    public static String HACKERTOOLS_PREFIX = "§c§lHackerTools §8>> §7 ";
+    public static String ERROR_PREFIX = "§4§lERROR §8>> §7 ";
+    public static String CONSOLE_ERROR = "ERROR >> ";
 
     public static String DEBUG_DOESNT_EXIST;
     public static String JOINTYPE_NOBODY_KICK_MESSAGE;
@@ -22,8 +23,11 @@ public class Lang {
     public static String LOBBY_DISCONNECT_INFO;
     public static String ARGUMENT_WASNT_NUMBER;
     public static String TELEPORT_TO_PLAYER;
-    public static String NOT_ENOUGH_PERMISSIONS_ERROR;
     public static String NOT_ENOUGH_ARGUMENTS;
+    public static String HT_COMMAND_ARGUMENT_DOESNT_EXIST = Placeholders.ERRORPREFIX + "this argument does not exist. Try /ht help.";
+    public static String SENDER_MUST_BE_PLAYER = Placeholders.CONSOLEERROR + "you must be player!";
+    public static String UNKNOWN_ERROR = Placeholders.ERRORPREFIX + "unknown error.";
+    public static String TOO_BIG_NUMBER = Placeholders.ERRORPREFIX + "number was too big.";
 
     public static String get(String string, Player player) {
         return HackerTools.getPlugin().getPlaceholderManager().replaceString(string, player);
@@ -42,7 +46,6 @@ public class Lang {
         LOBBY_DISCONNECT_INFO = config.getString("lobby-disconnect-info");
         ARGUMENT_WASNT_NUMBER = config.getString("argument-wasnt-number");
         TELEPORT_TO_PLAYER = config.getString("teleport-to-player");
-        NOT_ENOUGH_PERMISSIONS_ERROR = config.getString("not-enough-permission-error");
         NOT_ENOUGH_ARGUMENTS = config.getString("not-enough-arguments");
     }
 

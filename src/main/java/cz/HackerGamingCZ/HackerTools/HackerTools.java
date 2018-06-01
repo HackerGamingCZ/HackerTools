@@ -21,6 +21,8 @@ import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import cz.HackerGamingCZ.HackerTools.players.PlayerManager;
 import cz.HackerGamingCZ.HackerTools.teams.TeamManager;
 import cz.HackerGamingCZ.HackerTools.teams.htteams.SpectatorTeam;
+import cz.HackerGamingCZ.HackerTools.updater.Updater;
+import cz.HackerGamingCZ.HackerTools.updater.UpdaterPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -29,6 +31,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HackerTools extends JavaPlugin {
 
@@ -54,6 +59,7 @@ public class HackerTools extends JavaPlugin {
     private PluginDescriptionFile pdf;
     private ServerManager serverManager;
     private RandomManager randomManager;
+    private Updater updater;
 
     private boolean minigame;
 
@@ -65,6 +71,9 @@ public class HackerTools extends JavaPlugin {
     private GUI spectatorPlayerList;
 
     private SpectatorTeam spectatorTeam;
+
+
+    private final List<UpdaterPlugin> pluginsToUpdate = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -97,6 +106,14 @@ public class HackerTools extends JavaPlugin {
                 htPlayer.updateScoreboard();
             }
         }, 20, 20));
+        for (UpdaterPlugin plugin : pluginsToUpdate) {
+            if (updater.update(plugin)) {
+                loggerManager.log("Successfully updated " + plugin.getSource() + " plugin!");
+            } else {
+                loggerManager.log("Plugin " + plugin.getSource() + " was not updated.");
+            }
+        }
+
         loggerManager.log("HackerTools support enabled!");
     }
 
@@ -131,6 +148,8 @@ public class HackerTools extends JavaPlugin {
         for (GameState.JoinType jt : GameState.JoinType.values()) {
             jt.setupMessage();
         }
+        updater = new Updater();
+        pluginsToUpdate.add(new UpdaterPlugin("HackerTools.jar"));
     }
 
     private void registerDefaultEvents() {
@@ -279,5 +298,9 @@ public class HackerTools extends JavaPlugin {
 
     public RandomManager getRandomManager() {
         return randomManager;
+    }
+
+    public boolean isMinigame() {
+        return minigame;
     }
 }

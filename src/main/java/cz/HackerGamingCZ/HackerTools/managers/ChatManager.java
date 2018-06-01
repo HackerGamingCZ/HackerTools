@@ -67,14 +67,6 @@ public class ChatManager {
         }
     }
 
-    public void notEnoughPermissionsError(CommandSender sender) {
-        sendPlayerMessage(sender, Lang.NOT_ENOUGH_PERMISSIONS_ERROR);
-    }
-
-    public void notEnoughPermissionsError(Player player) {
-        sendPlayerMessage(player, Lang.NOT_ENOUGH_PERMISSIONS_ERROR);
-    }
-
     public void notEnoughArgumentsError(CommandSender sender) {
         sendPlayerMessage(sender, Lang.NOT_ENOUGH_ARGUMENTS);
     }
@@ -99,7 +91,7 @@ public class ChatManager {
         player.sendMessage("§8" + border);
         player.sendMessage("");
         for (String string : text) {
-            player.sendMessage((arrows || string.length() <= 0 ? "§8»" : "") + "§7 " + string);
+            player.sendMessage((arrows || string.length() <= 0 ? "§8» " : "") + "§7" + HackerTools.getPlugin().getPlaceholderManager().replaceString(string, player));
         }
         player.sendMessage("");
         player.sendMessage("§8" + border);
@@ -116,7 +108,7 @@ public class ChatManager {
         sender.sendMessage("§8" + border);
         sender.sendMessage("");
         for (String string : text) {
-            sender.sendMessage((arrows || string.length() <= 0 ? "§8»" : "") + "§7 " + string);
+            sender.sendMessage((arrows || string.length() <= 0 ? "§8» " : "") + "§7" + HackerTools.getPlugin().getPlaceholderManager().replaceString(string, sender));
         }
         sender.sendMessage("");
         sender.sendMessage("§8" + border);
@@ -130,7 +122,7 @@ public class ChatManager {
         player.sendMessage("§8" + border);
         player.sendMessage("");
         for (String string : text) {
-            player.sendMessage((arrows || string.length() <= 0 ? "§8»" : "") + "§7 " + string);
+            player.sendMessage((arrows || string.length() <= 0 ? "§8» " : "") + "§7" + HackerTools.getPlugin().getPlaceholderManager().replaceString(string, player));
         }
         player.sendMessage("");
         player.sendMessage("§8" + border);
@@ -147,7 +139,7 @@ public class ChatManager {
         sender.sendMessage("§8" + border);
         sender.sendMessage("");
         for (String string : text) {
-            sender.sendMessage((arrows || string.length() <= 0 ? "§8»" : "") + "§7 " + string);
+            sender.sendMessage((arrows || string.length() <= 0 ? "§8» " : "") + "§7" + HackerTools.getPlugin().getPlaceholderManager().replaceString(string, sender));
         }
         sender.sendMessage("");
         sender.sendMessage("§8" + border);

@@ -14,6 +14,7 @@ public enum Placeholders {
     MINPLAYERS(new MinPlayersPlaceholder()),
     PLUGINAUTHOR(new PluginAuthorPlaceholder()),
     PLUGINNAME(new PluginNamePlaceholder()),
+    CONSOLEERROR(new ConsoleErrorPlaceholder()),
     GAMESTATE(new GamestatePlaceholder());
 
     private Placeholder placeholder;
