@@ -2,6 +2,7 @@ package cz.HackerGamingCZ.HackerTools.players;
 
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PlayerManager {
@@ -19,6 +20,20 @@ public class PlayerManager {
 
     public HTPlayer getPlayer(String player) {
         return playerMap.getOrDefault(player, null);
+    }
+
+    public ArrayList<HTPlayer> getIngamePlayers() {
+        ArrayList<HTPlayer> players = new ArrayList<>();
+        for (HTPlayer player : getPlayers().values()) {
+            if (player.isSpectator()) {
+                continue;
+            }
+            if (player.getTeam() == null) {
+                continue;
+            }
+            players.add(player);
+        }
+        return players;
     }
 
     public HashMap<String, HTPlayer> getPlayers() {
