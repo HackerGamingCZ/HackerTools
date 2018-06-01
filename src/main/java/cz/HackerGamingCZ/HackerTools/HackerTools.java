@@ -106,14 +106,6 @@ public class HackerTools extends JavaPlugin {
                 htPlayer.updateScoreboard();
             }
         }, 20, 20));
-        for (UpdaterPlugin plugin : pluginsToUpdate) {
-            if (updater.update(plugin)) {
-                loggerManager.log("Successfully updated " + plugin.getSource() + " plugin!");
-            } else {
-                loggerManager.log("Plugin " + plugin.getSource() + " was not updated.");
-            }
-        }
-
         loggerManager.log("HackerTools support enabled!");
     }
 
@@ -176,6 +168,13 @@ public class HackerTools extends JavaPlugin {
     public void onDisable() {
         entityInteractManager.getEntities().values().forEach((entity) -> entity.getEntities().forEach(Entity::remove));
         htConfigManager.saveConfigs();
+        for (UpdaterPlugin plugin : pluginsToUpdate) {
+            if (updater.update(plugin)) {
+                loggerManager.log("Successfully updated " + plugin.getSource() + " plugin!");
+            } else {
+                loggerManager.log("Plugin " + plugin.getSource() + " was not updated.");
+            }
+        }
         loggerManager.log("HackerTools support disabled!");
     }
 
