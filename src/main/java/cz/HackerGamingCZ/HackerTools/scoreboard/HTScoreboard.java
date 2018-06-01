@@ -55,7 +55,7 @@ public class HTScoreboard implements Registrable {
     }
 
     public void createScoreboard(HTPlayer htPlayer) {
-        int i = 16;
+        int i = lines.size();
         for (ScoreboardLine scoreboardLine : lines) {
             Team team = scoreboard.getTeam(scoreboardLine.getTeam());
             if (team == null) {

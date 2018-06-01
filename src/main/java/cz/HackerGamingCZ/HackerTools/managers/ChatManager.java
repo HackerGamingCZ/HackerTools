@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.enums.DefaultFontInfo;
+import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -145,6 +146,14 @@ public class ChatManager {
         sender.sendMessage("§8" + border);
     }
 
+    public void sendBorderedMessage(HTPlayer player, String borderChar, boolean arrows, ArrayList<String> text) {
+        sendBorderedMessage(player.getPlayer(), borderChar, arrows, text);
+    }
+
+    public void sendBorderedMessage(HTPlayer player, String borderChar, boolean arrows, String... text) {
+        sendBorderedMessage(player.getPlayer(), borderChar, arrows, text);
+    }
+
     public void hoverableText(Player player, String message, String tooltip) {
         TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
         component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(tooltip)));
@@ -225,6 +234,14 @@ public class ChatManager {
         } else {
             player.sendMessage(message);
         }
+    }
+
+    public void sendPlayerMessage(HTPlayer player, String message) {
+        sendPlayerMessage(player.getPlayer(), message, true);
+    }
+
+    public void sendPlayerMessage(HTPlayer player, String message, boolean placeholder) {
+        sendPlayerMessage(player.getPlayer(), message, placeholder);
     }
 
     public void sendPlayerMessage(Collection<? extends Player> players, String message, boolean placeholder) {

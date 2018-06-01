@@ -1,6 +1,7 @@
 package cz.HackerGamingCZ.HackerTools;
 
 import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
+import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -31,6 +32,14 @@ public class Permissions {
             HackerTools.getPlugin().getChatManager().sendPlayerMessage(sender, Placeholders.ERRORPREFIX + "Since you are lacking permission §c" + permission + ", your action was cancelled.");
         }
         return output;
+    }
+
+    public static boolean hasPermission(HTPlayer player, String permission, boolean sendMessage) {
+        return hasPermission(player.getPlayer(), permission, sendMessage);
+    }
+
+    public static boolean hasPermission(HTPlayer player, String permission) {
+        return hasPermission(player.getPlayer(), permission, false);
     }
 
     public static boolean hasPermission(CommandSender sender, String permission) {
