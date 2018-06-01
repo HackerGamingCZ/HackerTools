@@ -29,7 +29,7 @@ public class Lang {
     public static String UNKNOWN_ERROR = Placeholders.ERRORPREFIX + "unknown error.";
     public static String TOO_BIG_NUMBER = Placeholders.ERRORPREFIX + "number was too big.";
     public static String SUCCESSFULY_SET_SPEED = Placeholders.HTPREFIX + "successfully set your speed.";
-    public static String FORCESTART_EXECUTED = Placeholders.HTPREFIX + "forcestarting....";
+    public static String FORCESTART_EXECUTED = Placeholders.HTPREFIX + "Starting the game...";
 
     public static String get(String string, Player player) {
         return HackerTools.getPlugin().getPlaceholderManager().replaceString(string, player);

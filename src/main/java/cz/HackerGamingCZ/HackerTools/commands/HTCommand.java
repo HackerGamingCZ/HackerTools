@@ -78,7 +78,7 @@ public class HTCommand implements CommandExecutor {
 
     private void sendHelp(HTPlayer player) {
         ArrayList<String> lines = new ArrayList<>();
-        lines.add("/ht ? | help - §csends all arguments of §4/ht §acommand");
+        lines.add("/ht ? | help - §csends all arguments of §4/ht §ccommand");
         lines.add("/ht restart - §crestarts the server");
         lines.add("/ht forcestart - §cforces the game to start");
         lines.add("/ht speed (number) - §csets your walk and fly speed");
