@@ -53,6 +53,9 @@ public interface Team extends Registrable {
         if (usePermission && Permissions.hasPermission(player, Permissions.TEAMS_FULLJOIN)) {
             return true;
         }
+        if (this == HackerTools.getPlugin().getSpectatorTeam()) {
+            return true;
+        }
         int playersInThisTeam = getPlayers().size();
         for (Team team : HackerTools.getPlugin().getTeamManager().getTeams()) {
             if (team == this || team == HackerTools.getPlugin().getSpectatorTeam()) {

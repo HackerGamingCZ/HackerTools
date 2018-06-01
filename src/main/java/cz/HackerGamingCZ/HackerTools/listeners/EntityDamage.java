@@ -2,6 +2,7 @@ package cz.HackerGamingCZ.HackerTools.listeners;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
+import cz.HackerGamingCZ.HackerTools.teams.Team;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,7 +25,14 @@ public class EntityDamage implements Listener {
             return;
         }
         HTPlayer htDamager = HackerTools.getPlugin().getPlayerManager().getPlayer(damager);
-        if (htDamager.getTeam().isPlayerInTeam(victim)) {
+        Team team = htDamager.getTeam();
+        if (team == null) {
+            return;
+        }
+        if (team.isPlayerInTeam(victim)) {
+            return;
+        }
+        if (team == HackerTools.getPlugin().getSpectatorTeam()) {
             return;
         }
         htVictim.setLastHittedBy(HackerTools.getPlugin().getPlayerManager().getPlayer(damager));

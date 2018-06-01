@@ -53,17 +53,26 @@ public class SpectatorTeam implements Team {
         }
         htPlayer.setTeam(this);
         Player player = htPlayer.getPlayer();
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            p.hidePlayer(player);
-        }
         player.setAllowFlight(true);
         player.setFlying(true);
+        hidePlayers();
         if (getTeamSpawn() != null) {
             player.teleport(getTeamSpawn());
         }
         player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 999999, 1));
         HackerTools.getPlugin().getSpectatorPlayerListItem().giveItem(player.getInventory(), 8);
         HackerTools.getPlugin().getSpectatorSettingsItem().giveItem(player.getInventory(), 4);
+    }
+
+    public void hidePlayers() {
+        for (HTPlayer htPlayer : HackerTools.getPlugin().getPlayerManager().getPlayers().values()) {
+            for (HTPlayer teamMember : this.getPlayers()) {
+                if (htPlayer == teamMember) {
+                    continue;
+                }
+                htPlayer.getPlayer().hidePlayer(teamMember.getPlayer());
+            }
+        }
     }
 
 }

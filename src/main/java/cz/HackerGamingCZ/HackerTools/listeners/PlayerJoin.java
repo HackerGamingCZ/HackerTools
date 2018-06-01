@@ -30,7 +30,7 @@ public class PlayerJoin implements Listener {
         if(state == GameState.NONE){
             return;
         }
-        //HackerTools.getPlugin().getMinigameManager().showAllPlayers(e.getPlayer());
+        HackerTools.getPlugin().getMinigameManager().showAllPlayers(e.getPlayer());
         HackerTools.getPlugin().getMinigameManager().resetPlayer(player);
         if (HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
             if (Permissions.hasPermission(player, Permissions.HT_FORCESTART)) {
@@ -84,7 +84,7 @@ public class PlayerJoin implements Listener {
             if (HackerTools.getPlugin().getSchedulerManager().getScheduler(SchedulerManager.SchedulerType.LOBBY) == -1) {
                 HackerTools.getPlugin().getMinigameManager().startLobbyCountdown();
             }
-        } else if(HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
+        } else if (HackerTools.getPlugin().getGameState() == GameState.WAITING) {
             for (Player p : Bukkit.getOnlinePlayers()) {
                 HackerTools.getPlugin().getChatManager().sendPlayerMessage(p, Lang.MIN_PLAYERS_INFO);
             }

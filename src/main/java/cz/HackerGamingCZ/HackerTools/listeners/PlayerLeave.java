@@ -29,9 +29,11 @@ public class PlayerLeave implements Listener {
             }
         }
         if (HackerTools.getPlugin().getMinigameManager().isServerInLobby()) {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.LOBBY_DISCONNECT_INFO, e.getPlayer().getName());
-            }
+            HackerTools.getPlugin().getSchedulerManager().runLater(() -> {
+                for (Player player : Bukkit.getOnlinePlayers()) {
+                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.LOBBY_DISCONNECT_INFO, e.getPlayer().getName());
+                }
+            }, 3L);
         }
         Player player = e.getPlayer();
         HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(e.getPlayer());
@@ -41,6 +43,9 @@ public class PlayerLeave implements Listener {
         int newPlayerCount = Bukkit.getOnlinePlayers().size() - 1;
         if (newPlayerCount < HackerTools.getPlugin().getMinigameManager().getMinPlayers() && HackerTools.getPlugin().getSchedulerManager().getScheduler(SchedulerManager.SchedulerType.LOBBY) != -1) {
             HackerTools.getPlugin().getMinigameManager().stopLobbyCoutdown(CountdownEndEvent.EndCause.PLAYER_DISCONNECT);
+        }
+        if (HackerTools.getPlugin().getGameState() != GameState.INGAME) {
+            return;
         }
         if (HackerTools.getPlugin().getPlayerManager().getPlayer(player).isSpectator()) {
             return;

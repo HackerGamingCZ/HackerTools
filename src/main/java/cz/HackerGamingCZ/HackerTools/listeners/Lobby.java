@@ -2,9 +2,11 @@ package cz.HackerGamingCZ.HackerTools.listeners;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 public class Lobby implements Listener {
@@ -22,6 +24,17 @@ public class Lobby implements Listener {
             e.setCancelled(true);
             e.getEntity().teleport(lobbyLoc);
         }
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent e) {
+        if (e.getEntity() instanceof Player) {
+            return;
+        }
+        if (!(e.getDamager() instanceof Player)) {
+            return;
+        }
+        e.setCancelled(true);
     }
 
 }

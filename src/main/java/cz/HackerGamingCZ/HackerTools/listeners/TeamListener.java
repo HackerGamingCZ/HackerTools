@@ -49,7 +49,7 @@ public class TeamListener implements Listener {
             return;
         }
         Team team = htPlayer.getTeam();
-        if (team == null || !HackerTools.getPlugin().getTeamManager().isTeamChat()) {
+        if (team == null || !HackerTools.getPlugin().getTeamManager().isTeamChat() || HackerTools.getPlugin().getGameState() != GameState.INGAME) {
             e.setFormat("§7%s §8» §7%s");
             return;
         }
