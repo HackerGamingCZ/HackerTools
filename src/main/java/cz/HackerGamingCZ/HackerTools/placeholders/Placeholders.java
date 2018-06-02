@@ -15,6 +15,7 @@ public enum Placeholders {
     PLUGINAUTHOR(new PluginAuthorPlaceholder()),
     PLUGINNAME(new PluginNamePlaceholder()),
     CONSOLEERROR(new ConsoleErrorPlaceholder()),
+    PLUGINVERSION(new PluginVersionPlaceholder()),
     GAMESTATE(new GamestatePlaceholder());
 
     private Placeholder placeholder;

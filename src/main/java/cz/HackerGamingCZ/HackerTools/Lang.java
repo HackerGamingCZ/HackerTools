@@ -24,12 +24,14 @@ public class Lang {
     public static String ARGUMENT_WASNT_NUMBER;
     public static String TELEPORT_TO_PLAYER;
     public static String NOT_ENOUGH_ARGUMENTS;
-    public static String HT_COMMAND_ARGUMENT_DOESNT_EXIST = Placeholders.ERRORPREFIX + "this argument does not exist. Try §c/ht help§7.";
-    public static String SENDER_MUST_BE_PLAYER = Placeholders.CONSOLEERROR + "you must be player!";
-    public static String UNKNOWN_ERROR = Placeholders.ERRORPREFIX + "unknown error.";
-    public static String TOO_BIG_NUMBER = Placeholders.ERRORPREFIX + "number was too big.";
-    public static String SUCCESSFULY_SET_SPEED = Placeholders.HTPREFIX + "successfully set your speed.";
+    public static String HT_COMMAND_ARGUMENT_DOESNT_EXIST = Placeholders.ERRORPREFIX + "This argument does not exist. Try §c/ht help§7.";
+    public static String SENDER_MUST_BE_PLAYER = Placeholders.CONSOLEERROR + "You must be player!";
+    public static String UNKNOWN_ERROR = Placeholders.ERRORPREFIX + "Unknown error.";
+    public static String TOO_BIG_NUMBER = Placeholders.ERRORPREFIX + "Number was too big.";
+    public static String SUCCESSFULY_SET_SPEED = Placeholders.HTPREFIX + "Successfully set your speed.";
     public static String FORCESTART_EXECUTED = Placeholders.HTPREFIX + "Starting the game...";
+    public static String PLAYER_NOT_FOUND = Placeholders.ERRORPREFIX + "Players wasn't found.";
+    public static String SUCCESSFULY_KICKED_PLAYER = Placeholders.HTPREFIX + "You have successfully kicked a player.";
 
     public static String get(String string, Player player) {
         return HackerTools.getPlugin().getPlaceholderManager().replaceString(string, player);

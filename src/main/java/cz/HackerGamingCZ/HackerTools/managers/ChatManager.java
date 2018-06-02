@@ -243,4 +243,50 @@ public class ChatManager {
     public String getDistributor() {
         return distributor;
     }
+
+    public void broadcastSpecialMessage(SpecialMessageType type, CommandSender player, String line1, String line2) {
+        broadcastSpecialMessage(type, player.getName(), line1, line2);
+    }
+
+    public void broadcastSpecialMessage(SpecialMessageType type, String player, String line1, String line2) {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            for (int i = 0; i <= 13; i++) {
+                p.sendMessage("");
+            }
+            for (int i = 0; i < type.getText().length; i++) {
+                String output = type.getText()[i];
+                if (i == 2) {
+                    output += line1;
+                }
+                if (i == 3) {
+                    output += line2;
+                }
+                if (i == 5) {
+                    output += " §7§o- " + player;
+                }
+                sendPlayerMessage(p, output);
+            }
+        }
+    }
+
+    public enum SpecialMessageType {
+        ALERT("§4████████",
+                "§4███§f██§4███",
+                "§4███§f██§4███",
+                "§4███§f██§4███",
+                "§4███§f██§4███",
+                "§4████████",
+                "§4███§f██§4███ ",
+                "§4████████");
+
+        private String[] text;
+
+        SpecialMessageType(String... text) {
+            this.text = text;
+        }
+
+        public String[] getText() {
+            return text;
+        }
+    }
 }
