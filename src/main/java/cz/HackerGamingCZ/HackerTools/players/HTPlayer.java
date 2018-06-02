@@ -3,6 +3,7 @@ package cz.HackerGamingCZ.HackerTools.players;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.events.PlayerJoinTeamEvent;
+import cz.HackerGamingCZ.HackerTools.gui.GUI;
 import cz.HackerGamingCZ.HackerTools.scoreboard.HTScoreboard;
 import cz.HackerGamingCZ.HackerTools.teams.Team;
 import org.bukkit.Bukkit;
@@ -86,5 +87,13 @@ public class HTPlayer {
             return;
         }
         board.update(player);
+    }
+
+    public void openGUI(GUI gui) {
+        gui.open(this, 0);
+    }
+
+    public void joinTeam(Team team) {
+        team.join(this);
     }
 }

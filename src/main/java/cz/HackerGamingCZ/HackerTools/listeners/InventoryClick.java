@@ -1,9 +1,10 @@
 package cz.HackerGamingCZ.HackerTools.listeners;
 
-import cz.HackerGamingCZ.HackerTools.actions.Action;
+import cz.HackerGamingCZ.HackerTools.PlayerAction;
 import cz.HackerGamingCZ.HackerTools.gui.GUI;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.items.Item;
+import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,15 +25,19 @@ public class InventoryClick implements Listener {
         if (e.getCurrentItem() == null || e.getCurrentItem().getType() == Material.AIR) {
             return;
         }
-        Item item = gui.getItemByISName(e.getCurrentItem(), player);
+        HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
+        if (htPlayer == null) {
+            return;
+        }
+        Item item = gui.getItemByISName(e.getCurrentItem(), htPlayer);
         if (item == null) {
             return;
         }
-        Action action = item.getAction();
+        PlayerAction action = item.getAction();
         if (action == null) {
             return;
         }
-        action.cast(player);
+        action.execute(htPlayer);
         e.setCancelled(item.isCanceled());
         if (item.isClosingInventory()) {
             player.closeInventory();

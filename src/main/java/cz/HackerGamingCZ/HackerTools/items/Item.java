@@ -1,6 +1,6 @@
 package cz.HackerGamingCZ.HackerTools.items;
 
-import cz.HackerGamingCZ.HackerTools.actions.Action;
+import cz.HackerGamingCZ.HackerTools.PlayerAction;
 import org.bukkit.inventory.ItemStack;
 
 //TODO Item rework
@@ -12,28 +12,28 @@ public class Item {
     private boolean closingInventory;
     private int position;
     private String identificator;
-    private Action action;
+    private PlayerAction action;
 
-    public Item(int position, ItemStack is, Action action, boolean canceled, boolean closingInventory) {
+    public Item(int position, ItemStack is, PlayerAction playerAction, boolean canceled, boolean closingInventory) {
         this.is = is;
         this.canceled = canceled;
         this.closingInventory = closingInventory;
         this.position = position;
-        this.action = action;
+        this.action = playerAction;
     }
 
-    public Item(ItemStack is, Action action, boolean canceled, boolean closingInventory) {
+    public Item(ItemStack is, PlayerAction playerAction, boolean canceled, boolean closingInventory) {
         this.is = is;
         this.canceled = canceled;
         this.closingInventory = closingInventory;
-        this.action = action;
+        this.action = playerAction;
     }
 
-    public Item(String identificator, int position, ItemStack is, Action action, boolean canceled, boolean closingInventory) {
+    public Item(String identificator, int position, ItemStack is, PlayerAction playerAction, boolean canceled, boolean closingInventory) {
         this.is = is;
         this.canceled = canceled;
         this.closingInventory = closingInventory;
-        this.action = action;
+        this.action = playerAction;
         this.position = position;
         this.identificator = identificator;
     }
@@ -50,7 +50,7 @@ public class Item {
         return is;
     }
 
-    public Action getAction() {
+    public PlayerAction getAction() {
         return action;
     }
 

@@ -8,8 +8,6 @@ import cz.HackerGamingCZ.HackerTools.gui.GUI;
 import cz.HackerGamingCZ.HackerTools.gui.GUIManager;
 import cz.HackerGamingCZ.HackerTools.gui.htguis.SpectatorPlayerlist;
 import cz.HackerGamingCZ.HackerTools.gui.htguis.SpectatorSettings;
-import cz.HackerGamingCZ.HackerTools.actions.OpenGUI;
-import cz.HackerGamingCZ.HackerTools.actions.PerformCommand;
 import cz.HackerGamingCZ.HackerTools.commands.HTCommand;
 import cz.HackerGamingCZ.HackerTools.entities.EntityInteractManager;
 import cz.HackerGamingCZ.HackerTools.items.InteractableItem;
@@ -83,11 +81,11 @@ public class HackerTools extends JavaPlugin {
         spectatorPlayerList.register();
         spectatorTeam = new SpectatorTeam();
         spectatorTeam.register();
-        forcestartItem = new InteractableItem(Material.PAPER, 1, "§c§lForcestart", true, (byte) 0, new PerformCommand("hackertools forcestart", true), false, "", "§cClick to forcestart the start");
+        forcestartItem = new InteractableItem(Material.PAPER, 1, "§c§lForcestart", true, (byte) 0, player -> player.getPlayer().performCommand("ht forcestart"), false, "", "§cClick to forcestart the start");
         forcestartItem.register();
-        spectatorSettingsItem = new InteractableItem(Material.PAPER, 1, "§7§lSettings", true, (byte) 0, new OpenGUI(spectatorSettings), false, "", "§cSettings of spectator mode");
+        spectatorSettingsItem = new InteractableItem(Material.PAPER, 1, "§7§lSettings", true, (byte) 0, player -> player.openGUI(spectatorSettings), false, "", "§cSettings of spectator mode");
         spectatorSettingsItem.register();
-        spectatorPlayerListItem = new InteractableItem(Material.COMPASS, 1, "§7§lSpectate", true, (byte) 0, new OpenGUI(spectatorPlayerList), false, "", "§cList of all players");
+        spectatorPlayerListItem = new InteractableItem(Material.COMPASS, 1, "§7§lSpectate", true, (byte) 0, player -> player.openGUI(spectatorPlayerList), false, "", "§cList of all players");
         spectatorPlayerListItem.register();
         //TESTING PART
         // END OF TESTING PART

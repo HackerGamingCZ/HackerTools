@@ -1,6 +1,6 @@
 package cz.HackerGamingCZ.HackerTools.entities;
 
-import cz.HackerGamingCZ.HackerTools.actions.Action;
+import cz.HackerGamingCZ.HackerTools.PlayerAction;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -14,9 +14,9 @@ public class InteractableEntity {
     private EntityType entityType;
     private String customName;
     private boolean customNameVisible;
-    private Action action;
+    private PlayerAction action;
 
-    protected InteractableEntity(EntityType entityType, String customName, boolean customNameVisible, Action action) {
+    protected InteractableEntity(EntityType entityType, String customName, boolean customNameVisible, PlayerAction action) {
         this.entityType = entityType;
         this.customName = customName;
         this.customNameVisible = customNameVisible;
@@ -30,7 +30,7 @@ public class InteractableEntity {
     public void spawn(Location location) {
     }
 
-    public Action getAction() {
+    public PlayerAction getAction() {
         return action;
     }
 

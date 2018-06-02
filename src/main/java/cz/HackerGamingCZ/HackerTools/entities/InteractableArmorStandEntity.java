@@ -1,6 +1,6 @@
 package cz.HackerGamingCZ.HackerTools.entities;
 
-import cz.HackerGamingCZ.HackerTools.actions.Action;
+import cz.HackerGamingCZ.HackerTools.PlayerAction;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -11,7 +11,7 @@ public class InteractableArmorStandEntity extends InteractableEntity {
     private boolean visible;
     private boolean small;
 
-    public InteractableArmorStandEntity(String customName, boolean customNameVisible, Action action, boolean gravity, boolean visible, boolean small) {
+    public InteractableArmorStandEntity(String customName, boolean customNameVisible, PlayerAction action, boolean gravity, boolean visible, boolean small) {
         super(EntityType.ARMOR_STAND, customName, customNameVisible, action);
         this.gravity = gravity;
         this.visible = visible;

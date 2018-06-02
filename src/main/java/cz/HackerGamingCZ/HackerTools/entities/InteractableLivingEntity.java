@@ -1,6 +1,6 @@
 package cz.HackerGamingCZ.HackerTools.entities;
 
-import cz.HackerGamingCZ.HackerTools.actions.Action;
+import cz.HackerGamingCZ.HackerTools.PlayerAction;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -9,7 +9,7 @@ public class InteractableLivingEntity extends InteractableEntity {
 
     private boolean AI;
 
-    public InteractableLivingEntity(EntityType entityType, String customName, boolean customNameVisible, Action action, boolean AI) {
+    public InteractableLivingEntity(EntityType entityType, String customName, boolean customNameVisible, PlayerAction action, boolean AI) {
         super(entityType, customName, customNameVisible, action);
         this.AI = AI;
     }
