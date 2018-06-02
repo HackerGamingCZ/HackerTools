@@ -44,9 +44,6 @@ public class PlayerLeave implements Listener {
         if (newPlayerCount < HackerTools.getPlugin().getMinigameManager().getMinPlayers() && HackerTools.getPlugin().getSchedulerManager().getScheduler(SchedulerManager.SchedulerType.LOBBY) != -1) {
             HackerTools.getPlugin().getMinigameManager().stopLobbyCoutdown(CountdownEndEvent.EndCause.PLAYER_DISCONNECT);
         }
-        if (HackerTools.getPlugin().getGameState() != GameState.INGAME) {
-            return;
-        }
         if (HackerTools.getPlugin().getPlayerManager().getPlayer(player).isSpectator()) {
             return;
         }
@@ -56,6 +53,9 @@ public class PlayerLeave implements Listener {
         }
         team.leave(player);
         if (team.getPlayers().size() <= 0) {
+            if (HackerTools.getPlugin().getGameState() != GameState.INGAME) {
+                return;
+            }
             TeamLeftGameEvent event = new TeamLeftGameEvent(team);
             Bukkit.getPluginManager().callEvent(event);
         }

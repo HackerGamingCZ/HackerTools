@@ -89,6 +89,10 @@ public class HTPlayer {
         board.update(player);
     }
 
+    public boolean hasTeam() {
+        return team != null && !isSpectator();
+    }
+
     public void openGUI(GUI gui) {
         gui.open(this, 0);
     }

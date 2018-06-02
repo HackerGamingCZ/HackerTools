@@ -50,6 +50,13 @@ public interface Team extends Registrable {
     }
 
     default boolean canJoin(Player player, boolean usePermission) {
+        return canJoin(HackerTools.getPlugin().getPlayerManager().getPlayer(player), usePermission);
+    }
+
+    default boolean canJoin(HTPlayer player, boolean usePermission) {
+        if (player == null) {
+            return false;
+        }
         if (usePermission && Permissions.hasPermission(player, Permissions.TEAMS_FULLJOIN)) {
             return true;
         }
@@ -62,15 +69,14 @@ public interface Team extends Registrable {
                 continue;
             }
             int players = team.getPlayers().size();
+            if (player.hasTeam()) {
+                playersInThisTeam++;
+            }
             if (players < playersInThisTeam) {
                 return false;
             }
         }
         return true;
-    }
-
-    default boolean canJoin(HTPlayer player, boolean usePermission) {
-        return canJoin(player.getPlayer(), usePermission);
     }
 
     default boolean canJoin(HTPlayer player) {
