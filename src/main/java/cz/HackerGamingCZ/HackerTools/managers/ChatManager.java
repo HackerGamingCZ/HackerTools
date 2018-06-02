@@ -26,7 +26,7 @@ public class ChatManager {
         distributor = HackerTools.getPlugin().getHtConfigManager().getConfig().getString("distributor");
     }
 
-    public void sendCenteredMessage(Player player, String message, boolean placeholder) {
+    public void sendCenteredMessage(CommandSender player, String message, boolean placeholder) {
         if (message == null || message.equals("")) player.sendMessage("");
         message = ChatColor.translateAlternateColorCodes('&', message);
 
@@ -69,34 +69,21 @@ public class ChatManager {
     }
 
     public void notEnoughArgumentsError(CommandSender sender) {
-        sendPlayerMessage(sender, Lang.NOT_ENOUGH_ARGUMENTS);
-    }
-
-    public void notEnoughArgumentsError(Player player) {
-        sendPlayerMessage(player, Lang.NOT_ENOUGH_ARGUMENTS);
+        notEnoughArgumentsError(sender, "");
     }
 
     public void notEnoughArgumentsError(CommandSender sender, String additionalText) {
         sendPlayerMessage(sender, Lang.NOT_ENOUGH_ARGUMENTS + " " + additionalText);
     }
 
-    public void notEnoughArgumentsError(Player player, String additionalText) {
-        sendPlayerMessage(player, Lang.NOT_ENOUGH_ARGUMENTS + " " + additionalText);
+    public void notEnoughArgumentsError(HTPlayer player) {
+        notEnoughArgumentsError(player.getPlayer());
     }
 
-    public void sendBorderedMessage(Player player, String borderChar, boolean arrows, String... text) {
-        if (text.length <= 0) {
-            return;
-        }
-        String border = Strings.repeat(borderChar, 45);
-        player.sendMessage("§8" + border);
-        player.sendMessage("");
-        for (String string : text) {
-            player.sendMessage((arrows || string.length() <= 0 ? "§8» " : "") + "§7" + HackerTools.getPlugin().getPlaceholderManager().replaceString(string, player));
-        }
-        player.sendMessage("");
-        player.sendMessage("§8" + border);
+    public void notEnoughArgumentsError(HTPlayer player, String additionalText) {
+        notEnoughArgumentsError(player.getPlayer(), additionalText);
     }
+
 
     public void sendBorderedMessage(CommandSender sender, String borderChar, boolean arrows, String... text) {
         if (text.length <= 0) {
@@ -105,7 +92,7 @@ public class ChatManager {
         if (sender instanceof ConsoleCommandSender) {
             borderChar = "-";
         }
-        String border = Strings.repeat(borderChar, 45);
+        String border = Strings.repeat(borderChar, 64);
         sender.sendMessage("§8" + border);
         sender.sendMessage("");
         for (String string : text) {
@@ -115,35 +102,9 @@ public class ChatManager {
         sender.sendMessage("§8" + border);
     }
 
-    public void sendBorderedMessage(Player player, String borderChar, boolean arrows, ArrayList<String> text) {
-        if (text.size() <= 0) {
-            return;
-        }
-        String border = Strings.repeat(borderChar, 45);
-        player.sendMessage("§8" + border);
-        player.sendMessage("");
-        for (String string : text) {
-            player.sendMessage((arrows || string.length() <= 0 ? "§8» " : "") + "§7" + HackerTools.getPlugin().getPlaceholderManager().replaceString(string, player));
-        }
-        player.sendMessage("");
-        player.sendMessage("§8" + border);
-    }
 
     public void sendBorderedMessage(CommandSender sender, String borderChar, boolean arrows, ArrayList<String> text) {
-        if (text.size() <= 0) {
-            return;
-        }
-        if (sender instanceof ConsoleCommandSender) {
-            borderChar = "-";
-        }
-        String border = Strings.repeat(borderChar, 45);
-        sender.sendMessage("§8" + border);
-        sender.sendMessage("");
-        for (String string : text) {
-            sender.sendMessage((arrows || string.length() <= 0 ? "§8» " : "") + "§7" + HackerTools.getPlugin().getPlaceholderManager().replaceString(string, sender));
-        }
-        sender.sendMessage("");
-        sender.sendMessage("§8" + border);
+        sendBorderedMessage(sender, borderChar, arrows, text.toArray(new String[text.size()]));
     }
 
     public void sendBorderedMessage(HTPlayer player, String borderChar, boolean arrows, ArrayList<String> text) {

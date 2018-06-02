@@ -55,12 +55,7 @@ public class DebugManager {
     }
 
     public void sendDebug(Object message) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (Permissions.hasPermission(player, Permissions.DEBUG_SHOW)) {
-                player.sendMessage(Lang.DEBUG_PREFIX + String.valueOf(message));
-            }
-        }
-        HackerTools.getPlugin().getLoggerManager().log("DEBUG " + String.valueOf(message));
+        sendDebug("", message);
     }
 
     public void sendDebug(String identificator, Object message) {

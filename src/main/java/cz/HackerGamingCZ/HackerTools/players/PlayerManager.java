@@ -15,7 +15,10 @@ public class PlayerManager {
     }
 
     public HTPlayer getPlayer(Player player) {
-        return playerMap.getOrDefault(player.getName(), null);
+        if (player == null) {
+            return null;
+        }
+        return getPlayer(player.getName());
     }
 
     public HTPlayer getPlayer(String player) {

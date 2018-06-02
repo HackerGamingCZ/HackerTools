@@ -69,6 +69,14 @@ public interface Team extends Registrable {
         return true;
     }
 
+    default boolean canJoin(HTPlayer player, boolean usePermission) {
+        return canJoin(player.getPlayer(), usePermission);
+    }
+
+    default boolean canJoin(HTPlayer player) {
+        return canJoin(player, true);
+    }
+
     default boolean canJoin(Player player) {
         return canJoin(player, true);
     }
@@ -97,7 +105,11 @@ public interface Team extends Registrable {
     }
 
     default boolean isPlayerInTeam(Player player) {
-        return getPlayers().contains(HackerTools.getPlugin().getPlayerManager().getPlayer(player));
+        return isPlayerInTeam(HackerTools.getPlugin().getPlayerManager().getPlayer(player));
+    }
+
+    default boolean isPlayerInTeam(HTPlayer player) {
+        return getPlayers().contains(player);
     }
 
     default ArrayList<HTPlayer> getPlayers() {

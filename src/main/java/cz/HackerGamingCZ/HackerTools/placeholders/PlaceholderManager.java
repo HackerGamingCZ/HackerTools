@@ -1,6 +1,6 @@
 package cz.HackerGamingCZ.HackerTools.placeholders;
 
-import org.bukkit.Bukkit;
+import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -23,28 +23,11 @@ public class PlaceholderManager {
     }
 
     public String replaceString(String string, Player player, Placeholders... ignore) {
-        if (string == null) {
-            return null;
-        }
-        ArrayList<Placeholders> ignoreList = new ArrayList<>();
-        Collections.addAll(ignoreList, ignore);
-        for (Placeholders placeholder : Placeholders.values()) {
-            if (ignoreList.contains(placeholder)) {
-                continue;
-            }
-            if (player == null) {
-                if (placeholder.getPlaceholder().getPlaceholder() == null) {
-                    continue;
-                }
-                if (placeholder.getPlaceholder().getReplacement() == null) {
-                    continue;
-                }
-                string = string.replace(placeholder.getPlaceholder().getPlaceholder(), placeholder.getPlaceholder().getReplacement());
-                continue;
-            }
-            string = string.replace(placeholder.getPlaceholder().getPlaceholder(), placeholder.getPlaceholder().getReplacement(player));
-        }
-        return string;
+        return replaceString(string, (CommandSender) player, ignore);
+    }
+
+    public String replaceString(String string, HTPlayer player, Placeholders... ignore) {
+        return replaceString(string, player.getPlayer(), ignore);
     }
 
     public String replaceString(String string, CommandSender sender, Placeholders... ignore) {
@@ -84,12 +67,6 @@ public class PlaceholderManager {
             }
             string = string.replace(placeholder.getPlaceholder().getPlaceholder(), placeholder.getPlaceholder().getReplacement(player));
         }
-        return string;
-    }
-
-    @Deprecated
-   public String replaceSpecialPlaceholder(String string, Placeholder placeholder, String replacement) {
-        string = string.replace(placeholder.getPlaceholder(), replacement);
         return string;
     }
 

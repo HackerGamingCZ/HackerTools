@@ -3,6 +3,7 @@ package cz.HackerGamingCZ.HackerTools.gui;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Registrable;
 import cz.HackerGamingCZ.HackerTools.items.Item;
+import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -35,9 +36,14 @@ public interface GUI extends Registrable {
 
     String getInventoryName();
 
-    ArrayList<Item> getItems(Player player);
+    ArrayList<Item> getItems(HTPlayer player);
 
-    default Item getItemByISName(ItemStack is, Player player) {
+    default ArrayList<Item> getItems(Player player) {
+        HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
+        return getItems(htPlayer);
+    }
+
+    default Item getItemByISName(ItemStack is, HTPlayer player) {
         if (!is.getItemMeta().hasDisplayName()) {
             return null;
         }
@@ -51,6 +57,10 @@ public interface GUI extends Registrable {
 
     default void open(Player player, int page) {
         player.openInventory(getInventory(player, page));
+    }
+
+    default void open(HTPlayer player, int page) {
+        open(player.getPlayer(), page);
     }
 
     default ItemStack getPreviousPage() {

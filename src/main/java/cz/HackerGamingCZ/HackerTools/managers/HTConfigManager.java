@@ -56,6 +56,7 @@ public class HTConfigManager {
 
     public void reloadConfigs() {
         lang.reloadConfig();
+        config.reloadConfig();
     }
 
     public SimpleConfig getConfig() {

@@ -5,7 +5,7 @@ import org.bukkit.Bukkit;
 public class ServerManager {
 
     public void restart(){
-        Bukkit.getServer().reload();
+        Bukkit.getServer().shutdown();
     }
 
 }

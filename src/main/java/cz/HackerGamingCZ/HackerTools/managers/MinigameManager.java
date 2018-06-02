@@ -64,6 +64,10 @@ public class MinigameManager {
 
     }
 
+    public void showAllPlayers(HTPlayer player) {
+        showAllPlayers(player.getPlayer());
+    }
+
     public Location getSpectLocation() {
         return spectLocation;
     }
@@ -108,6 +112,10 @@ public class MinigameManager {
         if (armor) {
             player.getEquipment().clear();
         }
+    }
+
+    public void resetPlayer(HTPlayer player, GameMode gameMode, boolean health, boolean food, boolean inventory, boolean armor, boolean potionEffects, ItemStack... ignoredItems) {
+        resetPlayer(player.getPlayer(), gameMode, health, food, inventory, armor, potionEffects, ignoredItems);
     }
 
     public boolean isServerInLobby() {
@@ -178,6 +186,10 @@ public class MinigameManager {
     }
 
     public void resetPlayer(Player player) {
+        resetPlayer(player, defaultGameMode, true, true, true, true, true);
+    }
+
+    public void resetPlayer(HTPlayer player) {
         resetPlayer(player, defaultGameMode, true, true, true, true, true);
     }
 
