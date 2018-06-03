@@ -45,18 +45,18 @@ public class TeamListener implements Listener {
         PlayerChatMessageEvent event = new PlayerChatMessageEvent(htPlayer, e.getMessage());
         Bukkit.getPluginManager().callEvent(event);
         if (team == null || HackerTools.getPlugin().getGameState() != GameState.INGAME || !HackerTools.getPlugin().getTeamManager().isTeamChat()) {
-            e.setFormat(event.getPrefix() + "%s §8» §7%s");
+            e.setFormat(event.getPrefix() + "%s §8» §7" + event.getSuffix() + "%s");
             return;
         }
         if (String.valueOf(e.getMessage().toCharArray()[0]).equals(HackerTools.getPlugin().getChatManager().getDistributor()) && team != HackerTools.getPlugin().getSpectatorTeam()) {
             e.setMessage(e.getMessage().replaceFirst(HackerTools.getPlugin().getChatManager().getDistributor(), ""));
-            e.setFormat("§8[" + team.getChatColor() + "ALL§8] " + event.getPrefix() + team.getChatColor() + "%s §8» " + team.getChatColor() + "%s");
+            e.setFormat("§8[" + team.getChatColor() + "ALL§8] " + event.getPrefix() + team.getChatColor() + "%s §8» " + team.getChatColor() + event.getSuffix() + "%s");
             HackerTools.getPlugin().getLoggerManager().log("[ALL] " + sender.getName() + " » " + e.getMessage());
             return;
         }
         e.setCancelled(true);
         for (HTPlayer htPlayer1 : team.getPlayers()) {
-            HackerTools.getPlugin().getChatManager().sendPlayerMessage(htPlayer1.getPlayer(), "§8[" + team.getChatColor() + "TEAM§8] " + event.getPrefix() + team.getChatColor() + htPlayer.getPlayer().getName() + " §8» " + team.getChatColor() + e.getMessage());
+            HackerTools.getPlugin().getChatManager().sendPlayerMessage(htPlayer1.getPlayer(), "§8[" + team.getChatColor() + "TEAM§8] " + event.getPrefix() + team.getChatColor() + htPlayer.getPlayer().getName() + " §8» " + team.getChatColor() + event.getSuffix() + e.getMessage());
             HackerTools.getPlugin().getLoggerManager().log("[" + team.getName() + "] " + sender.getName() + " » " + e.getMessage());
         }
     }
