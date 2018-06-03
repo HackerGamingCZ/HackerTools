@@ -36,7 +36,7 @@ public class SpectatorPlayerlist implements GUI {
                 continue;
             }
             String lore = HackerTools.getPlugin().getPlaceholderManager().replaceString(HackerTools.getPlugin().getPlaceholderManager().replaceString(Lang.TELEPORT_TO_PLAYER), p);
-            items.add(new Item(i, HackerTools.getPlugin().getItemManager().createHeadItem(p, "§a" + p.getName(), false, "", lore), player1 -> player1.getPlayer().teleport(player.getPlayer()), true, true));
+            items.add(new Item(i, HackerTools.getPlugin().getItemManager().createHeadItem(p, "§a" + p.getName(), false, "", lore), player1 -> player1.getPlayer().teleport(htPlayer.getPlayer()), true, true));
             i++;
         }
         return items;
