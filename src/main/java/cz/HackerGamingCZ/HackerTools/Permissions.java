@@ -14,6 +14,8 @@ public class Permissions {
     public static final String DEBUG_COMMAND = "ht.debug.command";
     public static final String DEBUG_SHOW = "ht.debug.show";
     public static final String KICKALL_PROTECTION = "ht.kickall.bypass";
+    public static final String KICK_ANNOUNCEMENT_SHOW = "ht.kick.announce.show";
+    public static final String RELOAD_ANNOUNCEMENT_SHOW = "ht.reload.announce.show";
 
     public static boolean hasPermission(Player player, String permission) {
         return hasPermission(player, permission, false);

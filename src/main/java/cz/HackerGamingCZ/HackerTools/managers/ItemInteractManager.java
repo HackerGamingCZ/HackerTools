@@ -1,4 +1,4 @@
-package cz.HackerGamingCZ.HackerTools.items;
+package cz.HackerGamingCZ.HackerTools.managers;
 
 import cz.HackerGamingCZ.HackerTools.builder.ItemBuilder;
 import org.bukkit.inventory.ItemStack;

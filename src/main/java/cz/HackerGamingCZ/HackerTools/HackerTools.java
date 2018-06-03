@@ -4,6 +4,7 @@ import cz.HackerGamingCZ.HackerTools.builder.ItemBuilder;
 import cz.HackerGamingCZ.HackerTools.debug.DebugCommand;
 import cz.HackerGamingCZ.HackerTools.config.SimpleConfigManager;
 import cz.HackerGamingCZ.HackerTools.debug.DebugManager;
+import cz.HackerGamingCZ.HackerTools.entities.InteractableEntity;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.gui.GUI;
 import cz.HackerGamingCZ.HackerTools.gui.GUIManager;
@@ -11,7 +12,7 @@ import cz.HackerGamingCZ.HackerTools.gui.htguis.SpectatorPlayerlist;
 import cz.HackerGamingCZ.HackerTools.gui.htguis.SpectatorSettings;
 import cz.HackerGamingCZ.HackerTools.commands.HTCommand;
 import cz.HackerGamingCZ.HackerTools.entities.EntityInteractManager;
-import cz.HackerGamingCZ.HackerTools.items.ItemInteractManager;
+import cz.HackerGamingCZ.HackerTools.managers.ItemInteractManager;
 import cz.HackerGamingCZ.HackerTools.managers.*;
 import cz.HackerGamingCZ.HackerTools.managers.SchedulerManager;
 import cz.HackerGamingCZ.HackerTools.placeholders.PlaceholderManager;
@@ -172,7 +173,7 @@ public class HackerTools extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        entityInteractManager.getEntities().values().forEach((entity) -> entity.getEntities().forEach(Entity::remove));
+        entityInteractManager.getEntities().values().forEach(InteractableEntity::despawn);
         htConfigManager.saveConfigs();
         for (UpdaterPlugin plugin : pluginsToUpdate) {
             if (updater.update(plugin)) {

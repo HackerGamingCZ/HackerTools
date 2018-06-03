@@ -2,13 +2,14 @@ package cz.HackerGamingCZ.HackerTools.entities;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.PlayerAction;
+import cz.HackerGamingCZ.HackerTools.Registrable;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
 
-public class InteractableEntity {
+public class InteractableEntity implements Registrable {
 
     private Entity entity;
     private ArrayList<Entity> entities = new ArrayList<>();
@@ -24,6 +25,7 @@ public class InteractableEntity {
         this.customNameVisible = customNameVisible;
         this.action = action;
         this.id = HackerTools.getPlugin().getEntityInteractManager().getNextId();
+        register();
     }
 
     public int getId() {
@@ -31,7 +33,9 @@ public class InteractableEntity {
     }
 
     public void despawn() {
-        entity.remove();
+        for (Entity entity : entities) {
+            entity.remove();
+        }
     }
 
     public void spawn(Location location) {
@@ -80,5 +84,10 @@ public class InteractableEntity {
     public void setEntity(Entity entity) {
         this.entity = entity;
         entities.add(entity);
+    }
+
+    @Override
+    public void register() {
+        HackerTools.getPlugin().getEntityInteractManager().addEntity(this);
     }
 }

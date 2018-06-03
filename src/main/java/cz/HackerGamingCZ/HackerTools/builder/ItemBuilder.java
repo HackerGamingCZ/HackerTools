@@ -3,7 +3,6 @@ package cz.HackerGamingCZ.HackerTools.builder;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.PlayerAction;
 import cz.HackerGamingCZ.HackerTools.Registrable;
-import cz.HackerGamingCZ.HackerTools.items.ItemInteractManager;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.Inventory;
@@ -86,7 +85,12 @@ public class ItemBuilder implements Registrable {
     }
 
     public ItemBuilder hideEnchants() {
-        getItemMeta().addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        return this;
+    }
+
+    public ItemBuilder showEnchants() {
+        removeItemFlags(ItemFlag.HIDE_ENCHANTS);
         return this;
     }
 

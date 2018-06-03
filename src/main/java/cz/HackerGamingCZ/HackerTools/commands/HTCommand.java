@@ -18,6 +18,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.plugin.PluginManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,7 +57,7 @@ public class HTCommand implements CommandExecutor {
                 for (InteractableEntity interactableEntity : HackerTools.getPlugin().getEntityInteractManager().getEntities().values()) {
                     for (Entity entity : interactableEntity.getEntities()) {
                         Location location = entity.getLocation();
-                        components.add(HackerTools.getPlugin().getChatManager().getTextPerformingCommandComponent("§aEntity with id §2" + interactableEntity.getId() + "§a. Click to teleport.", "teleport " + player.getName() + " " + location.getX() + " " + location.getY() + " " + location.getZ()));
+                        components.add(HackerTools.getPlugin().getChatManager().getTooltippedTextPerformingCommand(player, "§aEntity with id §2" + interactableEntity.getId() + "§a. Click here to teleport.", "teleport " + player.getName() + " " + Math.round(location.getX()) + " " + Math.round(location.getY()) + " " + Math.round(location.getZ()), "§aClick to teleport to entity's location"));
                     }
                 }
                 if (components.size() == 0) {
@@ -107,17 +108,17 @@ public class HTCommand implements CommandExecutor {
             }
             if (reason.length() > 0) {
                 victim.kickPlayer("§6You have been kicked for: §e" + reason);
+                HackerTools.getPlugin().getLoggerManager().log("Administrator " + player.getName() + " kicked player " + victim.getName() + " with reason: " + reason + ".");
             } else {
                 victim.kickPlayer("§6You have been kicked!");
+                HackerTools.getPlugin().getLoggerManager().log("Administrator " + player.getName() + " kicked player " + victim.getName() + " with no reason.");
             }
             for (Player p : Bukkit.getOnlinePlayers()) {
-                if (Permissions.hasPermission(p, "hackertools.kick.announce", false)) {
+                if (Permissions.hasPermission(p, Permissions.KICK_ANNOUNCEMENT_SHOW, false)) {
                     if (reason.length() > 0) {
                         HackerTools.getPlugin().getChatManager().sendPlayerMessage(p, Placeholders.HTPREFIX + "Administrator §e" + player.getName() + " §7kicked player §e" + victim.getName() + "§7 with reason: §e" + reason + "§7.");
-                        HackerTools.getPlugin().getLoggerManager().log("Administrator " + player.getName() + " kicked player " + victim.getName() + " with no reason.");
                     } else {
                         HackerTools.getPlugin().getChatManager().sendPlayerMessage(p, Placeholders.HTPREFIX + "Administrator §e" + player.getName() + " §7kicked player §e" + victim.getName() + "§7 with no reason.");
-                        HackerTools.getPlugin().getLoggerManager().log("Administrator " + player.getName() + " kicked player " + victim.getName() + " with no reason.");
                     }
                 }
             }
@@ -141,6 +142,19 @@ public class HTCommand implements CommandExecutor {
             HackerTools.getPlugin().getChatManager().broadcastSpecialMessage(ChatManager.SpecialMessageType.ALERT, player, line1, line2);
         });
         arguments.put("help", (player, args) -> sendHelp(player));
+        arguments.put("reload", (player, args) -> {
+            Bukkit.getPluginManager().disablePlugin(HackerTools.getPlugin());
+            Bukkit.getPluginManager().enablePlugin(HackerTools.getPlugin());
+
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if (Permissions.hasPermission(p, Permissions.RELOAD_ANNOUNCEMENT_SHOW, false)) {
+                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(p, Placeholders.HTPREFIX + "Administrator §e" + player.getName() + " §7reloaded §e" + Placeholders.PLUGINNAME + "§7.");
+                }
+            }
+            HackerTools.getPlugin().getLoggerManager().log("Administrator " + player.getName() + " reloaded " + Placeholders.PLUGINNAME + ".");
+            HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.PLUGIN_RELOADED);
+
+        });
         arguments.put("kickall", (player, args) -> {
             String reason = "";
             for (int i = 1; i < args.length; i++) {
@@ -151,6 +165,22 @@ public class HTCommand implements CommandExecutor {
                 }
             }
             HackerTools.getPlugin().getServerManager().kickAll(true, reason);
+
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                if (Permissions.hasPermission(p, Permissions.KICK_ANNOUNCEMENT_SHOW, false)) {
+                    if (reason.length() > 0) {
+                        HackerTools.getPlugin().getChatManager().sendPlayerMessage(p, Placeholders.HTPREFIX + "Administrator §e" + player.getName() + " §7kicked player §eall players §7with reason: §e" + reason + "§7.");
+                    } else {
+                        HackerTools.getPlugin().getChatManager().sendPlayerMessage(p, Placeholders.HTPREFIX + "Administrator §e" + player.getName() + " §7kicked §eall players §7with no reason.");
+                    }
+                }
+            }
+            if (reason.length() > 0) {
+                HackerTools.getPlugin().getLoggerManager().log("Administrator " + player.getName() + " kicked all players with reason: " + reason + ".");
+            } else {
+                HackerTools.getPlugin().getLoggerManager().log("Administrator " + player.getName() + " kicked all players with no reason.");
+            }
+            HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.SUCCESSFULY_KICKED_ALL_PLAYERS);
         });
         arguments.put("?", (player, args) -> sendHelp(player));
         arguments.put("list", (player, args) -> sendHelp(player));
@@ -159,12 +189,17 @@ public class HTCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args.length == 0) {
-            HackerTools.getPlugin().getChatManager().sendBorderedMessage(sender, "■", false, "§c§l" + Placeholders.PLUGINNAME + "§7 Plugin was made for spigot minigame developers by §c§l" + Placeholders.PLUGINAUTHOR, "The version of " + Placeholders.PLUGINNAME + " is §c§l" + Placeholders.PLUGINVERSION);
+            ArrayList<TextComponent> components = new ArrayList<>();
+            components.add(HackerTools.getPlugin().getChatManager().getTooltippedLinkMessage(sender, "§c§l" + Placeholders.PLUGINNAME + "§7 Plugin was made for spigot minigame developers by §c§l" + Placeholders.PLUGINAUTHOR, "§7Open §cGit §7of HackerTools", "https://github.com/HackerGamingCZ/HackerTools/tree/master/src/main/java/cz/HackerGamingCZ/HackerTools"));
+            components.add(HackerTools.getPlugin().getChatManager().getTooltippedLinkMessage(sender, "§7The version of " + Placeholders.PLUGINNAME + " is §c§l" + Placeholders.PLUGINVERSION, "§7Open §cGit §7of HackerTools", "https://github.com/HackerGamingCZ/HackerTools/tree/master/src/main/java/cz/HackerGamingCZ/HackerTools"));
+            components.add(HackerTools.getPlugin().getChatManager().getTooltippedTextPerformingCommand(sender, "§7To see all arguments of §c/ht§7, type §c/ht help §7or click §chere§7.", "§7Click to suggest §c/ht help", "ht help"));
+            HackerTools.getPlugin().getChatManager().sendBorderedMessage(sender, "■", components);
             return true;
         }
         String command = args[0];
         CommandArgument runnable = arguments.get(command.toLowerCase());
         if (runnable == null) {
+            sendHelp(sender);
             HackerTools.getPlugin().getChatManager().sendPlayerMessage(sender, Lang.HT_COMMAND_ARGUMENT_DOESNT_EXIST);
             return true;
         }
@@ -175,14 +210,19 @@ public class HTCommand implements CommandExecutor {
     }
 
     private void sendHelp(CommandSender player) {
-        ArrayList<String> lines = new ArrayList<>();
-        lines.add("/ht - §csends informations about §4" + Placeholders.PLUGINNAME + " §cplugin");
-        lines.add("/ht ? | help - §csends all arguments of §4/ht §ccommand");
-        lines.add("/ht restart [number] - §crestarts the server");
-        lines.add("/ht forcestart - §cforces the game to start");
-        lines.add("/ht speed <number> - §csets your walk and fly speed");
-        lines.add("/ht kick <player> [reason] - §ckicks a player");
-        lines.add("/ht alert <message> - §csends alert message");
-        HackerTools.getPlugin().getChatManager().sendBorderedMessage(player, "■", true, lines);
+        ArrayList<TextComponent> lines = new ArrayList<>();
+        ChatManager manager = HackerTools.getPlugin().getChatManager();
+        lines.add(manager.getTooltippedTextPerformingCommand(player, "§7/ht - §csends informations about §4" + Placeholders.PLUGINNAME + " §cplugin", "§7Click to perform §c/ht", "ht"));
+        lines.add(manager.getTooltippedTextPerformingCommand(player, "§7/ht ? | help - §csends all arguments of §4/ht §ccommand", "§7Click to perform §c/ht help", "ht help"));
+        lines.add(manager.getTooltippedTextSuggestingCommand(player, "§7/ht restart [seconds] - §crestarts the server. Default time is §410 seconds", "§7Click to suggest §c/ht restart", "ht restart "));
+        lines.add(manager.getTooltippedTextPerformingCommand(player, "§7/ht reload - §creloads §4" + Placeholders.PLUGINNAME + " §cplugin", "§7Click to perform §c/ht reload", "ht reload"));
+        lines.add(manager.getTooltippedTextPerformingCommand(player, "§7/ht forcestart - §cforces the game to start", "§7Click to perform §c/ht forcestart", "ht forcestart"));
+        lines.add(manager.getTooltippedTextSuggestingCommand(player, "§7/ht speed <number> - §csets your walk and fly speed", "§7Click to suggest §c/ht speed", "ht speed "));
+        lines.add(manager.getTooltippedTextSuggestingCommand(player, "§7/ht kick <player> [reason] - §ckicks a player", "§7Click to suggest §c/ht kick", "ht kick "));
+        lines.add(manager.getTooltippedTextSuggestingCommand(player, "§7/ht kickall [reason] - §ckicks all players except those with §4bypass §cpermission", "§7Click to suggest §c/ht kickall", "ht kickall "));
+        lines.add(manager.getTooltippedTextSuggestingCommand(player, "§7/ht alert <message> - §csends alert message", "§7Click to suggest §c/ht alert", "ht alert "));
+        lines.add(manager.getTooltippedTextPerformingCommand(player, "§7/ht entities - §cshows list of all entities spawned using §4" + Placeholders.PLUGINNAME, "§7Click to perform §c/ht entities", "ht entities"));
+        //lines.add(manager.getTooltippedTextSuggestingCommand("/ht entities remove <id> - §ckicks all players except those with §4bypass §cpermission", "§7Click to suggest §2/ht kickall","ht kickall "));
+        HackerTools.getPlugin().getChatManager().sendBorderedMessage(player, "■", lines);
     }
 }

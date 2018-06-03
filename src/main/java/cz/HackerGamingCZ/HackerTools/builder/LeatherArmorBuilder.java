@@ -13,9 +13,7 @@ import java.util.List;
 
 public class LeatherArmorBuilder extends ItemBuilder {
 
-    LeatherArmorMeta armorMeta = (LeatherArmorMeta) super.getItemMeta();
-
-    private Material[] allowedMaterials = {Material.LEATHER_CHESTPLATE, Material.LEATHER_BOOTS, Material.LEATHER_LEGGINGS, Material.LEATHER_HELMET};
+    private LeatherArmorMeta armorMeta = (LeatherArmorMeta) super.getItemMeta();
 
     public LeatherArmorBuilder(Material material) {
         this(material, 1, (byte) 0);
@@ -27,7 +25,8 @@ public class LeatherArmorBuilder extends ItemBuilder {
 
     public LeatherArmorBuilder(Material material, int amount, byte data) {
         super(material, amount, data);
-        List allowedMaterials = Arrays.asList(this.allowedMaterials);
+        Material[] allowedMaterials1 = {Material.LEATHER_CHESTPLATE, Material.LEATHER_BOOTS, Material.LEATHER_LEGGINGS, Material.LEATHER_HELMET};
+        List allowedMaterials = Arrays.asList(allowedMaterials1);
 
     }
 
@@ -36,12 +35,12 @@ public class LeatherArmorBuilder extends ItemBuilder {
     }
 
     public LeatherArmorBuilder setColor(Color color) {
-        armorMeta.setColor(color);
+        getItemMeta().setColor(color);
         return this;
     }
 
     @Override
-    public ItemMeta getItemMeta() {
+    public LeatherArmorMeta getItemMeta() {
         return armorMeta;
     }
 }

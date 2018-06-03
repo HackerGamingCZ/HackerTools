@@ -14,17 +14,17 @@ public class SkullBuilder extends ItemBuilder {
     }
 
     public SkullBuilder setOwner(String name) {
-        skullMeta.setOwner(name);
+        getItemMeta().setOwner(name);
         return this;
     }
 
     public SkullBuilder setOwner(OfflinePlayer player) {
-        skullMeta.setOwningPlayer(player);
+        getItemMeta().setOwningPlayer(player);
         return this;
     }
 
     @Override
-    public ItemMeta getItemMeta() {
+    public SkullMeta getItemMeta() {
         return skullMeta;
     }
 }
