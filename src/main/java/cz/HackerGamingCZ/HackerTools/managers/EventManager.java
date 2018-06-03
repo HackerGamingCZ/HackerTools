@@ -22,6 +22,10 @@ public class EventManager {
         pm.registerEvents(new VoidDamage(lowestY), plugin);
     }
 
+    public void disableExplosion(boolean damage, boolean effect) {
+        pm.registerEvents(new EntityExplosion(damage, effect), plugin);
+    }
+
     //TODO
     public void denyCraft(Material... materials) {
 
@@ -32,11 +36,11 @@ public class EventManager {
 
     }
 
-    public void denyAnimalKilling(EntityType... ignored) {
+    public void disableAnimalKilling(EntityType... ignored) {
         pm.registerEvents(new AnimalsKills(ignored), plugin);
     }
 
-    public void denyAnimalSpawning(CreatureSpawnEvent.SpawnReason... ignored) {
+    public void disableAnimalSpawning(CreatureSpawnEvent.SpawnReason... ignored) {
         pm.registerEvents(new AnimalSpawn(ignored), plugin);
     }
 
