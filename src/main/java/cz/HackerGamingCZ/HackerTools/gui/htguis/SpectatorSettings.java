@@ -7,6 +7,7 @@ import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SpectatorSettings implements GUI {
 
@@ -26,13 +27,12 @@ public class SpectatorSettings implements GUI {
     }
 
     @Override
-    public ArrayList<ItemBuilder> getItems(HTPlayer player) {
-        ArrayList<ItemBuilder> items = new ArrayList<>();
+    public HashMap<Integer, ItemBuilder> getItems(HTPlayer player) {
+        HashMap<Integer, ItemBuilder> items = new HashMap<>();
         for (int i = 1; i <= 3; i++) {
             int finalI = i;
-            items.add(new ItemBuilder(Material.FEATHER)
+            items.put(11 + i, new ItemBuilder(Material.FEATHER)
                     .setDisplayName("§eSpeed §6" + i)
-                    .setPosition(11 + i)
                     .setGlowing(HackerTools.getPlugin().getMechanics().getRealMoveSpeed(i) == player.getPlayer().getFlySpeed())
                     .setPlayerAction(player1 -> {
                         player1.getPlayer().setFlySpeed(HackerTools.getPlugin().getMechanics().getRealMoveSpeed(finalI));

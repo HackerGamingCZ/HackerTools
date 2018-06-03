@@ -20,7 +20,6 @@ public class ItemBuilder implements Registrable {
 
     private ItemStack itemStack;
     private ItemMeta itemMeta;
-    private int position = -1;
     private ArrayList<ItemProperty> properties = new ArrayList<>();
     private PlayerAction playerAction;
 
@@ -60,15 +59,6 @@ public class ItemBuilder implements Registrable {
     public ItemBuilder(Material material, int amount, byte data) {
         itemStack = new ItemStack(material, amount, data);
         itemMeta = itemStack.getItemMeta();
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public ItemBuilder setPosition(int position) {
-        this.position = position;
-        return this;
     }
 
     public ItemBuilder(Material material, byte data) {

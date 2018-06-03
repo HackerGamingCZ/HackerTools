@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SpectatorPlayerlist implements GUI {
 
@@ -30,8 +31,8 @@ public class SpectatorPlayerlist implements GUI {
     }
 
     @Override
-    public ArrayList<ItemBuilder> getItems(HTPlayer player) {
-        ArrayList<ItemBuilder> items = new ArrayList<>();
+    public HashMap<Integer, ItemBuilder> getItems(HTPlayer player) {
+        HashMap<Integer, ItemBuilder> items = new HashMap<>();
         int i = 0;
         for (Player p : Bukkit.getOnlinePlayers()) {
             HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(p);
@@ -42,7 +43,7 @@ public class SpectatorPlayerlist implements GUI {
                 continue;
             }
             String lore = HackerTools.getPlugin().getPlaceholderManager().replaceString(HackerTools.getPlugin().getPlaceholderManager().replaceString(Lang.TELEPORT_TO_PLAYER), p);
-            items.add(new SkullBuilder()
+            items.put(i, new SkullBuilder()
                     .setDisplayName("§a" + p.getName())
                     .addLore("")
                     .addLore(lore)

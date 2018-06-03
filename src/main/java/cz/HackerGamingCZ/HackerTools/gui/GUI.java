@@ -13,6 +13,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface GUI extends Registrable {
 
@@ -22,18 +23,10 @@ public interface GUI extends Registrable {
     }
 
     default Inventory getInventory(Player player, int page) {
-        ArrayList<Inventory> inventories = new ArrayList<>();
         Inventory inv = Bukkit.createInventory(null, getInventorySize(), getInventoryName());
-        /*if(getItems(player).size() > getInventorySize()){
-            int itemsPerPage = getInventorySize()-18;
-            int pages = (int)Math.round((double)getItems(player).size()/itemsPerPage);
-        }*/
-        for (ItemBuilder item : getItems(player)) {
-            if (item.getPosition() == -1) {
-                inv.setItem(inv.firstEmpty(), item.build());
-                continue;
-            }
-            inv.setItem(item.getPosition(), item.build());
+        for (int i : getItems(player).keySet()) {
+            ItemBuilder item = getItems(player).get(i);
+            inv.setItem(i, item.build());
 
         }
         return inv;
@@ -49,9 +42,9 @@ public interface GUI extends Registrable {
 
     String getInventoryName();
 
-    ArrayList<ItemBuilder> getItems(HTPlayer player);
+    HashMap<Integer, ItemBuilder> getItems(HTPlayer player);
 
-    default ArrayList<ItemBuilder> getItems(Player player) {
+    default HashMap<Integer, ItemBuilder> getItems(Player player) {
         HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
         return getItems(htPlayer);
     }
@@ -60,7 +53,7 @@ public interface GUI extends Registrable {
         if (!is.getItemMeta().hasDisplayName()) {
             return null;
         }
-        for (ItemBuilder item : getItems(player)) {
+        for (ItemBuilder item : getItems(player).values()) {
             if (item.build().getItemMeta().getDisplayName().equals(is.getItemMeta().getDisplayName())) {
                 return item;
             }
