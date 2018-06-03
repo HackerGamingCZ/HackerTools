@@ -1,5 +1,6 @@
 package cz.HackerGamingCZ.HackerTools.entities;
 
+import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.PlayerAction;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -15,12 +16,18 @@ public class InteractableEntity {
     private String customName;
     private boolean customNameVisible;
     private PlayerAction action;
+    private int id;
 
     protected InteractableEntity(EntityType entityType, String customName, boolean customNameVisible, PlayerAction action) {
         this.entityType = entityType;
         this.customName = customName;
         this.customNameVisible = customNameVisible;
         this.action = action;
+        this.id = HackerTools.getPlugin().getEntityInteractManager().getNextId();
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void despawn() {

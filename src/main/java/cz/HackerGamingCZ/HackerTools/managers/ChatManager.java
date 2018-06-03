@@ -107,6 +107,23 @@ public class ChatManager {
         sendBorderedMessage(sender, borderChar, arrows, text.toArray(new String[text.size()]));
     }
 
+    public void sendBorderedMessage(CommandSender sender, String borderChar, ArrayList<TextComponent> text) {
+        if (text.size() <= 0) {
+            return;
+        }
+        if (sender instanceof ConsoleCommandSender) {
+            borderChar = "-";
+        }
+        String border = Strings.repeat(borderChar, 64);
+        sender.sendMessage("§8" + border);
+        sender.sendMessage("");
+        for (TextComponent component : text) {
+            sender.spigot().sendMessage(component);
+        }
+        sender.sendMessage("");
+        sender.sendMessage("§8" + border);
+    }
+
     public void sendBorderedMessage(HTPlayer player, String borderChar, boolean arrows, ArrayList<String> text) {
         sendBorderedMessage(player.getPlayer(), borderChar, arrows, text);
     }
@@ -129,11 +146,15 @@ public class ChatManager {
         player.spigot().sendMessage(component);
     }
 
-    public void sendTextPerformingCommand(Player player, String message, String command) {
+    public TextComponent getTextPerformingCommandComponent(String message, String command) {
         TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
         command = "/" + command.replaceFirst("/", "");
         component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
-        player.spigot().sendMessage(component);
+        return component;
+    }
+
+    public void sendTextPerformingCommand(Player player, String message, String command) {
+        player.spigot().sendMessage(getTextPerformingCommandComponent(message, command));
     }
 
     public void sendTooltippedTextSuggestingCommand(Player player, String message, String tooltip, String command) {

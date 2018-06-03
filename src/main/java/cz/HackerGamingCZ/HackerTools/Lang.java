@@ -32,6 +32,7 @@ public class Lang {
     public static String FORCESTART_EXECUTED = Placeholders.HTPREFIX + "Starting the game...";
     public static String PLAYER_NOT_FOUND = Placeholders.ERRORPREFIX + "Players wasn't found.";
     public static String SUCCESSFULY_KICKED_PLAYER = Placeholders.HTPREFIX + "You have successfully kicked a player.";
+    public static String NO_ENTITIES_FOUND = Placeholders.ERRORPREFIX + "No entities found. :(";
 
     public static String get(String string, Player player) {
         return HackerTools.getPlugin().getPlaceholderManager().replaceString(string, player);

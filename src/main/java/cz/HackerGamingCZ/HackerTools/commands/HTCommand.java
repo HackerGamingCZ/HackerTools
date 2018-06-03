@@ -4,14 +4,18 @@ import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.Permissions;
 import cz.HackerGamingCZ.HackerTools.CommandArgument;
+import cz.HackerGamingCZ.HackerTools.entities.InteractableEntity;
 import cz.HackerGamingCZ.HackerTools.managers.ChatManager;
 import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
 import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
@@ -45,6 +49,21 @@ public class HTCommand implements CommandExecutor {
                 }
                 i[0]--;
             }, 0, 20);
+        });
+        arguments.put("entities", (player, args) -> {
+            if (args.length <= 1 || args[1].equalsIgnoreCase("list")) {
+                ArrayList<TextComponent> components = new ArrayList<>();
+                for (InteractableEntity interactableEntity : HackerTools.getPlugin().getEntityInteractManager().getEntities().values()) {
+                    for (Entity entity : interactableEntity.getEntities()) {
+                        Location location = entity.getLocation();
+                        components.add(HackerTools.getPlugin().getChatManager().getTextPerformingCommandComponent("§aEntity with id §2" + interactableEntity.getId() + "§a. Click to teleport.", "teleport " + player.getName() + " " + location.getX() + " " + location.getY() + " " + location.getZ()));
+                    }
+                }
+                if (components.size() == 0) {
+                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.NO_ENTITIES_FOUND);
+                }
+                HackerTools.getPlugin().getChatManager().sendBorderedMessage(player, "■", components);
+            }
         });
         arguments.put("speed", (player, args) -> {
             if (!(player instanceof Player)) {

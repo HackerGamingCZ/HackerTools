@@ -6,6 +6,13 @@ public class EntityInteractManager {
 
     private HashMap<String, InteractableEntity> entities = new HashMap<>();
 
+    private int id = 0;
+
+    int getNextId() {
+        id++;
+        return id;
+    }
+
     public void addEntity(InteractableEntity entity) {
         entities.put(entity.getCustomName(), entity);
     }
