@@ -1,24 +1,17 @@
-package cz.HackerGamingCZ.HackerTools.listeners;
+package cz.HackerGamingCZ.HackerTools.teams;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
-import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
+import cz.HackerGamingCZ.HackerTools.events.PlayerChatMessageEvent;
 import cz.HackerGamingCZ.HackerTools.events.TeamDamageEvent;
-import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
-import cz.HackerGamingCZ.HackerTools.teams.Team;
-import io.netty.util.collection.ShortObjectHashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.metadata.FixedMetadataValue;
 
 public class TeamListener implements Listener {
 
@@ -43,24 +36,28 @@ public class TeamListener implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
-        Player player = e.getPlayer();
-        HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
+        Player sender = e.getPlayer();
+        HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(sender);
         if (htPlayer == null) {
             return;
         }
         Team team = htPlayer.getTeam();
-        if (team == null || !HackerTools.getPlugin().getTeamManager().isTeamChat() || HackerTools.getPlugin().getGameState() != GameState.INGAME) {
-            e.setFormat("§7%s §8» §7%s");
+        PlayerChatMessageEvent event = new PlayerChatMessageEvent(htPlayer, e.getMessage());
+        Bukkit.getPluginManager().callEvent(event);
+        if (team == null || HackerTools.getPlugin().getGameState() != GameState.INGAME || !HackerTools.getPlugin().getTeamManager().isTeamChat()) {
+            e.setFormat(event.getPrefix() + "%s §8» §7%s");
             return;
         }
         if (String.valueOf(e.getMessage().toCharArray()[0]).equals(HackerTools.getPlugin().getChatManager().getDistributor()) && team != HackerTools.getPlugin().getSpectatorTeam()) {
             e.setMessage(e.getMessage().replaceFirst(HackerTools.getPlugin().getChatManager().getDistributor(), ""));
-            e.setFormat("§8[" + team.getChatColor() + "ALL§8] " + team.getChatColor() + "%s §8» " + team.getChatColor() + "%s");
+            e.setFormat("§8[" + team.getChatColor() + "ALL§8] " + event.getPrefix() + team.getChatColor() + "%s §8» " + team.getChatColor() + "%s");
+            HackerTools.getPlugin().getLoggerManager().log("[ALL] " + sender.getName() + " » " + e.getMessage());
             return;
         }
         e.setCancelled(true);
         for (HTPlayer htPlayer1 : team.getPlayers()) {
-            HackerTools.getPlugin().getChatManager().sendPlayerMessage(htPlayer1.getPlayer(), "§8[" + team.getChatColor() + "TEAM§8] " + team.getChatColor() + htPlayer.getPlayer().getName() + " §8» " + team.getChatColor() + e.getMessage());
+            HackerTools.getPlugin().getChatManager().sendPlayerMessage(htPlayer1.getPlayer(), "§8[" + team.getChatColor() + "TEAM§8] " + event.getPrefix() + team.getChatColor() + htPlayer.getPlayer().getName() + " §8» " + team.getChatColor() + e.getMessage());
+            HackerTools.getPlugin().getLoggerManager().log("[" + team.getName() + "] " + sender.getName() + " » " + e.getMessage());
         }
     }
 

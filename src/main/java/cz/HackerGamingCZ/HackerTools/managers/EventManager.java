@@ -2,7 +2,7 @@ package cz.HackerGamingCZ.HackerTools.managers;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.listeners.*;
-import cz.HackerGamingCZ.HackerTools.listeners.TeamListener;
+import cz.HackerGamingCZ.HackerTools.teams.TeamListener;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
