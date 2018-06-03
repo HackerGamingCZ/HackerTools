@@ -2,7 +2,7 @@ package cz.HackerGamingCZ.HackerTools.listeners;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.PlayerAction;
-import cz.HackerGamingCZ.HackerTools.items.InteractableItem;
+import cz.HackerGamingCZ.HackerTools.builder.ItemBuilder;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,15 +31,12 @@ public class PlayerInteract implements Listener {
         if (!is.getItemMeta().hasDisplayName()) {
             return;
         }
-        InteractableItem item = HackerTools.getPlugin().getItemInteractManager().getItemByIs(is);
+        ItemBuilder item = HackerTools.getPlugin().getItemInteractManager().getItemByIs(is);
         if (item == null) {
             return;
         }
-        if (item.getItem() == null) {
-            return;
-        }
 
-        PlayerAction itemAction = item.getItem().getAction();
+        PlayerAction itemAction = item.getPlayerAction();
         if (itemAction == null) {
             return;
         }

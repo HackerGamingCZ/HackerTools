@@ -1,7 +1,8 @@
 package cz.HackerGamingCZ.HackerTools.listeners;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
-import cz.HackerGamingCZ.HackerTools.items.InteractableItem;
+import cz.HackerGamingCZ.HackerTools.builder.ItemBuilder;
+import cz.HackerGamingCZ.HackerTools.builder.ItemProperty;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,11 +17,11 @@ public class ItemDrop implements Listener {
         if (is == null || is.getType() == Material.AIR) {
             return;
         }
-        InteractableItem item = HackerTools.getPlugin().getItemInteractManager().getItemByIs(is);
+        ItemBuilder item = HackerTools.getPlugin().getItemInteractManager().getItemByIs(is);
         if (item == null) {
             return;
         }
-        e.setCancelled(!item.isDrop());
+        e.setCancelled(item.getProperties().contains(ItemProperty.DISABLE_DROP));
     }
 
 }

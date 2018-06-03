@@ -25,9 +25,6 @@ public class DenyInteract implements Listener {
         if (e.getClickedBlock() == null) {
             return;
         }
-        if (!HackerTools.getPlugin().getItemManager().isItemLegit(new ItemStack(e.getClickedBlock().getType()))) {
-            return;
-        }
         if (e.getAction() == Action.LEFT_CLICK_BLOCK) {
             return;
         }

@@ -6,10 +6,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 public class LeatherArmorBuilder extends ItemBuilder {
 
-    LeatherArmorMeta armorMeta = (LeatherArmorMeta) getItemMeta();
+    LeatherArmorMeta armorMeta = (LeatherArmorMeta) super.getItemMeta();
+
+    private Material[] allowedMaterials = {Material.LEATHER_CHESTPLATE, Material.LEATHER_BOOTS, Material.LEATHER_LEGGINGS, Material.LEATHER_HELMET};
 
     public LeatherArmorBuilder(Material material) {
         this(material, 1, (byte) 0);
@@ -21,6 +27,8 @@ public class LeatherArmorBuilder extends ItemBuilder {
 
     public LeatherArmorBuilder(Material material, int amount, byte data) {
         super(material, amount, data);
+        List allowedMaterials = Arrays.asList(this.allowedMaterials);
+
     }
 
     public LeatherArmorBuilder(Material material, byte data) {

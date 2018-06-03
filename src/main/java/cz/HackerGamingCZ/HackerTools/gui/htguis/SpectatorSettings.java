@@ -1,15 +1,19 @@
 package cz.HackerGamingCZ.HackerTools.gui.htguis;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
-import cz.HackerGamingCZ.HackerTools.items.Item;
+import cz.HackerGamingCZ.HackerTools.builder.ItemBuilder;
 import cz.HackerGamingCZ.HackerTools.gui.GUI;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
 public class SpectatorSettings implements GUI {
+
+    @Override
+    public boolean closeInventoryAfterInteract() {
+        return true;
+    }
 
     @Override
     public int getInventorySize() {
@@ -22,14 +26,19 @@ public class SpectatorSettings implements GUI {
     }
 
     @Override
-    public ArrayList<Item> getItems(HTPlayer player) {
-        ArrayList<Item> items = new ArrayList<>();
+    public ArrayList<ItemBuilder> getItems(HTPlayer player) {
+        ArrayList<ItemBuilder> items = new ArrayList<>();
         for (int i = 1; i <= 3; i++) {
             int finalI = i;
-            items.add(new Item("speed" + i, 11 + i, HackerTools.getPlugin().getItemManager().createItem(Material.FEATHER, "§cSpeed " + i, player.getPlayer().getWalkSpeed() == HackerTools.getPlugin().getMechanics().getRealMoveSpeed(i)), p -> {
-                p.getPlayer().setWalkSpeed(HackerTools.getPlugin().getMechanics().getRealMoveSpeed(finalI));
-                p.getPlayer().setFlySpeed(HackerTools.getPlugin().getMechanics().getRealMoveSpeed(finalI));
-            }, true, true));
+            items.add(new ItemBuilder(Material.FEATHER)
+                    .setDisplayName("§eSpeed §6" + i)
+                    .setPosition(11 + i)
+                    .setGlowing(HackerTools.getPlugin().getMechanics().getRealMoveSpeed(i) == player.getPlayer().getFlySpeed())
+                    .setPlayerAction(player1 -> {
+                        player1.getPlayer().setFlySpeed(HackerTools.getPlugin().getMechanics().getRealMoveSpeed(finalI));
+                        player1.getPlayer().setWalkSpeed(HackerTools.getPlugin().getMechanics().getRealMoveSpeed(finalI));
+                    }));
+
         }
         return items;
     }

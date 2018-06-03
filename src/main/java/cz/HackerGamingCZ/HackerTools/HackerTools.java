@@ -1,5 +1,6 @@
 package cz.HackerGamingCZ.HackerTools;
 
+import cz.HackerGamingCZ.HackerTools.builder.ItemBuilder;
 import cz.HackerGamingCZ.HackerTools.debug.DebugCommand;
 import cz.HackerGamingCZ.HackerTools.config.SimpleConfigManager;
 import cz.HackerGamingCZ.HackerTools.debug.DebugManager;
@@ -10,7 +11,6 @@ import cz.HackerGamingCZ.HackerTools.gui.htguis.SpectatorPlayerlist;
 import cz.HackerGamingCZ.HackerTools.gui.htguis.SpectatorSettings;
 import cz.HackerGamingCZ.HackerTools.commands.HTCommand;
 import cz.HackerGamingCZ.HackerTools.entities.EntityInteractManager;
-import cz.HackerGamingCZ.HackerTools.items.InteractableItem;
 import cz.HackerGamingCZ.HackerTools.items.ItemInteractManager;
 import cz.HackerGamingCZ.HackerTools.managers.*;
 import cz.HackerGamingCZ.HackerTools.managers.SchedulerManager;
@@ -22,7 +22,6 @@ import cz.HackerGamingCZ.HackerTools.teams.htteams.SpectatorTeam;
 import cz.HackerGamingCZ.HackerTools.updater.Updater;
 import cz.HackerGamingCZ.HackerTools.updater.UpdaterPlugin;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -36,7 +35,6 @@ import java.util.List;
 public class HackerTools extends JavaPlugin {
 
     private static HackerTools plugin;
-    private ItemManager itemManager;
     private DebugManager debugManager;
     private EventManager eventManager;
     private CommandManager commandManager;
@@ -61,15 +59,14 @@ public class HackerTools extends JavaPlugin {
 
     private boolean minigame;
 
-    private InteractableItem forcestartItem;
-    private InteractableItem spectatorSettingsItem;
-    private InteractableItem spectatorPlayerListItem;
+    private ItemBuilder forcestartItem;
+    private ItemBuilder spectatorSettingsItem;
+    private ItemBuilder spectatorPlayerListItem;
 
     private GUI spectatorSettings;
     private GUI spectatorPlayerList;
 
     private SpectatorTeam spectatorTeam;
-
 
     private final List<UpdaterPlugin> pluginsToUpdate = new ArrayList<>();
 
@@ -81,12 +78,24 @@ public class HackerTools extends JavaPlugin {
         spectatorPlayerList.register();
         spectatorTeam = new SpectatorTeam();
         spectatorTeam.register();
-        forcestartItem = new InteractableItem(Material.PAPER, 1, "§c§lForcestart", true, (byte) 0, player -> player.getPlayer().performCommand("ht forcestart"), false, "", "§cClick to forcestart the start");
-        forcestartItem.register();
-        spectatorSettingsItem = new InteractableItem(Material.PAPER, 1, "§7§lSettings", true, (byte) 0, player -> player.openGUI(spectatorSettings), false, "", "§cSettings of spectator mode");
-        spectatorSettingsItem.register();
-        spectatorPlayerListItem = new InteractableItem(Material.COMPASS, 1, "§7§lSpectate", true, (byte) 0, player -> player.openGUI(spectatorPlayerList), false, "", "§cList of all players");
-        spectatorPlayerListItem.register();
+        forcestartItem = new ItemBuilder(Material.PAPER)
+                .setGlowing(true)
+                .setDisplayName("§c§lForcestart")
+                .addLore("")
+                .addLore("§cClick to forcestart the game")
+                .setPlayerAction(player -> player.getPlayer().performCommand("ht forcestart"));
+        spectatorSettingsItem = new ItemBuilder(Material.PAPER)
+                .setGlowing(true)
+                .setDisplayName("§7§Settings")
+                .addLore("")
+                .addLore("§c§lSettings of spectator mode")
+                .setPlayerAction(player -> player.openGUI(spectatorSettings));
+        spectatorPlayerListItem = new ItemBuilder(Material.COMPASS)
+                .setGlowing(true)
+                .setDisplayName("§7§lSpectate")
+                .addLore("")
+                .addLore("§c§lList of all players")
+                .setPlayerAction(player -> player.openGUI(spectatorPlayerList));
         //TESTING PART
         // END OF TESTING PART
         registerDefaultEvents();
@@ -117,7 +126,6 @@ public class HackerTools extends JavaPlugin {
         htConfigManager = new HTConfigManager();
         Lang.load();
         minigame = htConfigManager.getConfig().getBoolean("minigame");
-        itemManager = new ItemManager();
         debugManager = new DebugManager();
         eventManager = new EventManager();
         commandManager = new CommandManager();
@@ -185,10 +193,6 @@ public class HackerTools extends JavaPlugin {
     }
 
     //GETTERS
-    public ItemManager getItemManager() {
-        return itemManager;
-    }
-
     public DebugManager getDebugManager() {
         return debugManager;
     }
@@ -274,15 +278,15 @@ public class HackerTools extends JavaPlugin {
     }
 
     //Interactable items
-    public InteractableItem getForcestartItem() {
+    public ItemBuilder getForcestartItem() {
         return forcestartItem;
     }
 
-    public InteractableItem getSpectatorPlayerListItem() {
+    public ItemBuilder getSpectatorPlayerListItem() {
         return spectatorPlayerListItem;
     }
 
-    public InteractableItem getSpectatorSettingsItem() {
+    public ItemBuilder getSpectatorSettingsItem() {
         return spectatorSettingsItem;
     }
 

@@ -1,31 +1,35 @@
 package cz.HackerGamingCZ.HackerTools.items;
 
-import cz.HackerGamingCZ.HackerTools.items.InteractableItem;
+import cz.HackerGamingCZ.HackerTools.builder.ItemBuilder;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
 public class ItemInteractManager {
 
-    private HashMap<String, InteractableItem> items = new HashMap<>();
+    private HashMap<String, ItemBuilder> items = new HashMap<>();
 
-    public void addItem(InteractableItem item) {
-        items.put(item.getItem().getIs().getItemMeta().getDisplayName(), item);
+    public void addItem(ItemBuilder item) {
+        if (!item.build().getItemMeta().hasDisplayName()) {
+            return;
+        }
+        items.put(item.build().getItemMeta().getDisplayName(), item);
     }
 
-    public InteractableItem getItemByIs(ItemStack is) {
-        if (!is.getItemMeta().hasDisplayName()) {
-            return null;
+    public ItemBuilder getItemByIs(ItemStack is) {
+        for (ItemBuilder item : items.values()) {
+            if (item.getItemStack().isSimilar(is)) {
+                return item;
+            }
         }
-        String name = is.getItemMeta().getDisplayName();
-        return items.getOrDefault(name, null);
+        return null;
     }
 
     public void removeItem(String name) {
         items.remove(name);
     }
 
-    public HashMap<String, InteractableItem> getItems() {
+    public HashMap<String, ItemBuilder> getItems() {
         return items;
     }
 }
