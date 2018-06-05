@@ -42,9 +42,9 @@ public class HTCommand implements CommandExecutor {
             }
             Bukkit.getScheduler().scheduleSyncRepeatingTask(HackerTools.getPlugin(), () -> {
                 if (i[0] > 0) {
-                    HackerTools.getPlugin().getChatManager().broadcastSpecialMessage(ChatManager.SpecialMessageType.ALERT, "SYSTEM", " §2»§a This server is going to be restarted.", " §2»§a You'll be kicked in §2" + i[0] + "§a seconds.");
+                    HackerTools.getPlugin().getChatManager().sendSpecialMessage(Bukkit.getOnlinePlayers(), ChatManager.SpecialMessageType.ALERT, "SYSTEM", "This server is going to be restarted.", "You'll be kicked in §2" + i[0] + "§a seconds.");
                 } else {
-                    HackerTools.getPlugin().getChatManager().broadcastSpecialMessage(ChatManager.SpecialMessageType.ALERT, "SYSTEM", " §2»§a Restarting...", "");
+                    HackerTools.getPlugin().getChatManager().sendSpecialMessage(Bukkit.getOnlinePlayers(), ChatManager.SpecialMessageType.ALERT, "SYSTEM", "Restarting...", "");
                     HackerTools.getPlugin().getServerManager().kickAll(false, "restart");
                     HackerTools.getPlugin().getServerManager().restart();
                 }
@@ -134,12 +134,12 @@ public class HTCommand implements CommandExecutor {
             if (message.length() >= 60) {
                 String[] size = message.split(" ");
                 int lines = size.length % 2 == 0 ? size.length / 2 : (size.length + 1) / 2;
-                line1 = " §2» §a" + HackerTools.getPlugin().getMechanics().color(HackerTools.getPlugin().getMechanics().argConvert(size, 0, lines));
-                line2 = " §2» §a" + HackerTools.getPlugin().getMechanics().color(HackerTools.getPlugin().getMechanics().argConvert(size, lines, size.length));
+                line1 = HackerTools.getPlugin().getMechanics().color(HackerTools.getPlugin().getMechanics().argConvert(size, 0, lines));
+                line2 = HackerTools.getPlugin().getMechanics().color(HackerTools.getPlugin().getMechanics().argConvert(size, lines, size.length));
             } else {
-                line1 = " §2» §a" + HackerTools.getPlugin().getMechanics().color(message);
+                line1 = HackerTools.getPlugin().getMechanics().color(message);
             }
-            HackerTools.getPlugin().getChatManager().broadcastSpecialMessage(ChatManager.SpecialMessageType.ALERT, player, line1, line2);
+            HackerTools.getPlugin().getChatManager().sendSpecialMessage(Bukkit.getOnlinePlayers(), ChatManager.SpecialMessageType.ALERT, player, line1, line2);
         });
         arguments.put("help", (player, args) -> sendHelp(player));
         arguments.put("kickall", (player, args) -> {

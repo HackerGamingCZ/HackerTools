@@ -13,6 +13,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HTScoreboard implements Registrable {
 
@@ -23,6 +24,8 @@ public class HTScoreboard implements Registrable {
     private Runnable updater;
     private ChatColor primaryColor;
     private ChatColor secondaryColor;
+    private HashMap<Team.Option, Team.OptionStatus> options = new HashMap<>();
+    private Team playersTeam;
 
     public void setUpdater(Runnable updater) {
         this.updater = updater;
@@ -34,6 +37,7 @@ public class HTScoreboard implements Registrable {
         this.objective = scoreboard.registerNewObjective(name, "dummy");
         this.primaryColor = primaryColor;
         this.secondaryColor = ChatColor.GRAY;
+        playersTeam = scoreboard.registerNewTeam("playerTeam");
     }
 
     public HTScoreboard(String name, String header, ChatColor primaryColor, ChatColor secondaryColor) {
@@ -42,6 +46,11 @@ public class HTScoreboard implements Registrable {
         this.objective = scoreboard.registerNewObjective(name, "dummy");
         this.secondaryColor = secondaryColor;
         this.primaryColor = primaryColor;
+        playersTeam = scoreboard.registerNewTeam("playerTeam");
+    }
+
+    public void addTeamOption(Team.Option option, Team.OptionStatus status) {
+        options.put(option, status);
     }
 
     public void addLine(ScoreboardLine line) {
@@ -61,6 +70,7 @@ public class HTScoreboard implements Registrable {
             if (team == null) {
                 continue;
             }
+            team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
             team.addPlayer(Bukkit.getServer().getOfflinePlayer(HackerTools.getPlugin().getMechanics().getColors()[i - 1] + "" + primaryColor));
             if (scoreboardLine.getType() instanceof CustomLineType) {
                 team.setPrefix(scoreboardLine.getTextBefore());
@@ -71,6 +81,14 @@ public class HTScoreboard implements Registrable {
             }
             objective.getScore(HackerTools.getPlugin().getMechanics().getColors()[i - 1] + "" + primaryColor).setScore(i);
             i--;
+        }
+        playersTeam.addPlayer(htPlayer.getPlayer());
+        for (Team.Option option : options.keySet()) {
+            Team.OptionStatus status = options.get(option);
+            if (status == null) {
+                continue;
+            }
+            playersTeam.setOption(option, status);
         }
         htPlayer.setBoard(this);
     }

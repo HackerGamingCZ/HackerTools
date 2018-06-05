@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.enums.DefaultFontInfo;
+import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -16,6 +17,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class ChatManager {
 
@@ -275,28 +277,36 @@ public class ChatManager {
         return distributor;
     }
 
-    public void broadcastSpecialMessage(SpecialMessageType type, CommandSender player, String line1, String line2) {
-        broadcastSpecialMessage(type, player.getName(), line1, line2);
+    public void sendSpecialMessage(Player p, SpecialMessageType type, CommandSender sender, String line1, String line2) {
+        sendSpecialMessage(p, type, sender.getName(), line1, line2);
     }
 
-    public void broadcastSpecialMessage(SpecialMessageType type, String player, String line1, String line2) {
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            for (int i = 0; i <= 13; i++) {
-                p.sendMessage("");
+    public void sendSpecialMessage(Collection<? extends Player> players, SpecialMessageType type, CommandSender sender, String line1, String line2) {
+        sendSpecialMessage(players, type, sender.getName(), line1, line2);
+    }
+
+    public void sendSpecialMessage(Collection<? extends Player> players, SpecialMessageType type, String sender, String line1, String line2) {
+        for (Player p : players) {
+            sendSpecialMessage(p, type, sender, line1, line2);
+        }
+    }
+
+    public void sendSpecialMessage(Player player, SpecialMessageType type, String sender, String line1, String line2) {
+        for (int i = 0; i <= 5; i++) {
+            player.sendMessage("");
+        }
+        for (int i = 0; i < type.getText().length; i++) {
+            String output = type.getText()[i];
+            if (i == 2) {
+                output += " §2» §a" + line1;
             }
-            for (int i = 0; i < type.getText().length; i++) {
-                String output = type.getText()[i];
-                if (i == 2) {
-                    output += line1;
-                }
-                if (i == 3) {
-                    output += line2;
-                }
-                if (i == 5) {
-                    output += " §7§o- " + player;
-                }
-                sendPlayerMessage(p, output);
+            if (i == 3) {
+                output += (line2.length() > 0 ? " §2» §a" : "") + line2;
             }
+            if (i == 5) {
+                output += " §7§o- " + sender;
+            }
+            sendPlayerMessage(player, output);
         }
     }
 
