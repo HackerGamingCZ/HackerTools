@@ -136,30 +136,45 @@ public class ChatManager {
         sendBorderedMessage(player.getPlayer(), borderChar, arrows, text);
     }
 
-    public TextComponent getHoverableText(CommandSender player, String message, String tooltip) {
+    private TextComponent getComponent(String message) {
+        return new TextComponent(TextComponent.fromLegacyText(message));
+    }
+
+    private String getCommand(String command) {
+        return "/" + command.replaceFirst("/", "");
+    }
+
+    public TextComponent getTooltippedMessage(CommandSender player, String message, String... tooltip) {
+        String tooltipString = "";
+        for (int i = 0; i < tooltip.length; i++) {
+            String s = HackerTools.getPlugin().getPlaceholderManager().replaceString(tooltip[i], player);
+            if ((i + 1) == tooltip.length) {
+                tooltipString += s;
+                break;
+            }
+            tooltipString += s + System.lineSeparator();
+        }
         message = HackerTools.getPlugin().getPlaceholderManager().replaceString(message, player);
-        TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
-        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(tooltip)));
+        TextComponent component = getComponent(message);
+        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(tooltipString)));
         return component;
     }
 
-    public TextComponent getTooltippedLinkMessage(CommandSender player, String message, String tooltip, String link) {
+    public TextComponent getTooltippedLinkMessage(CommandSender player, String message, String link, String... tooltip) {
         message = HackerTools.getPlugin().getPlaceholderManager().replaceString(message, player);
-        TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
-        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(tooltip)));
+        TextComponent component = getTooltippedMessage(player, message, tooltip);
         component.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, link));
         return component;
     }
 
     public void sendHoverableText(CommandSender player, String message, String tooltip) {
-        player.spigot().sendMessage(getHoverableText(player, message, tooltip));
+        player.spigot().sendMessage(getTooltippedMessage(player, message, tooltip));
     }
 
-    public TextComponent getTooltippedTextPerformingCommand(CommandSender player, String message, String tooltip, String command) {
+    public TextComponent getTooltippedTextPerformingCommand(CommandSender player, String message, String command, String... tooltip) {
         message = HackerTools.getPlugin().getPlaceholderManager().replaceString(message, player);
-        TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
-        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(tooltip)));
-        command = "/" + command.replaceFirst("/", "");
+        TextComponent component = getTooltippedMessage(player, message, tooltip);
+        command = getCommand(command);
         component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
         return component;
     }
@@ -170,8 +185,8 @@ public class ChatManager {
 
     public TextComponent getTextPerformingCommandComponent(CommandSender player, String message, String command) {
         message = HackerTools.getPlugin().getPlaceholderManager().replaceString(message, player);
-        TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
-        command = "/" + command.replaceFirst("/", "");
+        TextComponent component = getComponent(message);
+        command = getCommand(command);
         component.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
         return component;
     }
@@ -180,11 +195,10 @@ public class ChatManager {
         player.spigot().sendMessage(getTextPerformingCommandComponent(player, message, command));
     }
 
-    public TextComponent getTooltippedTextSuggestingCommand(CommandSender player, String message, String tooltip, String command) {
+    public TextComponent getTooltippedTextSuggestingCommand(CommandSender player, String message, String command, String... tooltip) {
         message = HackerTools.getPlugin().getPlaceholderManager().replaceString(message, player);
-        TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
-        component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(tooltip)));
-        command = "/" + command.replaceFirst("/", "");
+        TextComponent component = getTooltippedMessage(player, message, tooltip);
+        command = getCommand(command);
         component.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
         return component;
     }
@@ -195,8 +209,8 @@ public class ChatManager {
 
     public TextComponent getTextSuggestingCommand(CommandSender player, String message, String command) {
         message = HackerTools.getPlugin().getPlaceholderManager().replaceString(message, player);
-        TextComponent component = new TextComponent(TextComponent.fromLegacyText(message));
-        command = "/" + command.replaceFirst("/", "");
+        TextComponent component = getComponent(message);
+        command = getCommand(command);
         component.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, command));
         return component;
     }
