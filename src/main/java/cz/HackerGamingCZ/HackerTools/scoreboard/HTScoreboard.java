@@ -1,7 +1,11 @@
 package cz.HackerGamingCZ.HackerTools.scoreboard;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
+import cz.HackerGamingCZ.HackerTools.PlayerAction;
 import cz.HackerGamingCZ.HackerTools.Registrable;
+import cz.HackerGamingCZ.HackerTools.managers.ChatManager;
+import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
+import cz.HackerGamingCZ.HackerTools.placeholders.PlaceholderManager;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import cz.HackerGamingCZ.HackerTools.scoreboard.linetype.CustomLineType;
 import org.bukkit.Bukkit;
@@ -21,13 +25,13 @@ public class HTScoreboard implements Registrable {
     private Scoreboard scoreboard;
     private Objective objective;
     private ArrayList<ScoreboardLine> lines = new ArrayList<>();
-    private Runnable updater;
+    private PlayerAction updater;
     private ChatColor primaryColor;
     private ChatColor secondaryColor;
     private HashMap<Team.Option, Team.OptionStatus> options = new HashMap<>();
     private Team playersTeam;
 
-    public void setUpdater(Runnable updater) {
+    public void setUpdater(PlayerAction updater) {
         this.updater = updater;
     }
 
@@ -64,6 +68,7 @@ public class HTScoreboard implements Registrable {
     }
 
     public void createScoreboard(HTPlayer htPlayer) {
+        PlaceholderManager manager = HackerTools.getPlugin().getPlaceholderManager();
         int i = lines.size();
         for (ScoreboardLine scoreboardLine : lines) {
             Team team = scoreboard.getTeam(scoreboardLine.getTeam());
@@ -73,11 +78,11 @@ public class HTScoreboard implements Registrable {
             team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
             team.addPlayer(Bukkit.getServer().getOfflinePlayer(HackerTools.getPlugin().getMechanics().getColors()[i - 1] + "" + primaryColor));
             if (scoreboardLine.getType() instanceof CustomLineType) {
-                team.setPrefix(scoreboardLine.getTextBefore());
-                team.setSuffix(scoreboardLine.getTextAfter());
+                team.setPrefix(manager.replaceString(scoreboardLine.getTextBefore(), htPlayer));
+                team.setSuffix(manager.replaceString(scoreboardLine.getTextAfter(), htPlayer));
             } else {
-                team.setPrefix(secondaryColor + scoreboardLine.getTextBefore());
-                team.setSuffix(scoreboardLine.getType().getText(htPlayer.getPlayer()) + scoreboardLine.getTextAfter());
+                team.setPrefix(secondaryColor + manager.replaceString(scoreboardLine.getTextBefore(), htPlayer));
+                team.setSuffix(scoreboardLine.getType().getText(htPlayer.getPlayer()) + manager.replaceString(scoreboardLine.getTextAfter(), htPlayer));
             }
             objective.getScore(HackerTools.getPlugin().getMechanics().getColors()[i - 1] + "" + primaryColor).setScore(i);
             i--;
@@ -93,7 +98,10 @@ public class HTScoreboard implements Registrable {
         htPlayer.setBoard(this);
     }
 
-    public void update(Player player) {
+    public void update(HTPlayer player) {
+        if (player == null) {
+            return;
+        }
         for (ScoreboardLine scoreboardLine : lines) {
             if (scoreboardLine.getType() instanceof CustomLineType) {
                 continue;
@@ -107,7 +115,12 @@ public class HTScoreboard implements Registrable {
         if (updater == null) {
             return;
         }
-        updater.run();
+        updater.execute(player);
+    }
+
+    public void update(Player player) {
+        HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer(player);
+        update(htPlayer);
     }
 
     @Override
