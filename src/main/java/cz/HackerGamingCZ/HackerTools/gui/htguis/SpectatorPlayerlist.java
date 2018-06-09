@@ -44,6 +44,7 @@ public class SpectatorPlayerlist implements GUI {
             }
             String lore = HackerTools.getPlugin().getPlaceholderManager().replaceString(HackerTools.getPlugin().getPlaceholderManager().replaceString(Lang.TELEPORT_TO_PLAYER), p);
             items.put(i, new SkullBuilder()
+                    .setOwner(p.getName())
                     .setDisplayName("§a" + p.getName())
                     .addLore("")
                     .addLore(lore)
