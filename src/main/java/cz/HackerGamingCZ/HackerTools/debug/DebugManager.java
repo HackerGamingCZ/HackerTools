@@ -3,6 +3,8 @@ package cz.HackerGamingCZ.HackerTools.debug;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.Permissions;
+import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
+import cz.HackerGamingCZ.HackerTools.scoreboard.HTScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -59,9 +61,12 @@ public class DebugManager {
     }
 
     public void sendDebug(String identificator, Object message) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        for (HTPlayer player : HackerTools.getPlugin().getPlayerManager().getPlayers().values()) {
+            if (!player.isDebug()) {
+                continue;
+            }
             if (Permissions.hasPermission(player, Permissions.DEBUG_SHOW)) {
-                player.sendMessage(Lang.DEBUG_PREFIX + ChatColor.LIGHT_PURPLE + identificator + "§7: " + String.valueOf(message));
+                player.getPlayer().sendMessage(Lang.DEBUG_PREFIX + ChatColor.LIGHT_PURPLE + identificator + "§7: " + String.valueOf(message));
             }
         }
         HackerTools.getPlugin().getLoggerManager().log("DEBUG " + identificator + ": " + String.valueOf(message));

@@ -68,6 +68,7 @@ public class HTCommand implements CommandExecutor {
             }
             Player realPlayer = (Player) player;
             if (args.length < 2) {
+                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.NOT_ENOUGH_ARGUMENTS);
                 return;
             }
             int speed = 1;
@@ -83,6 +84,26 @@ public class HTCommand implements CommandExecutor {
             realPlayer.setFlySpeed(HackerTools.getPlugin().getMechanics().getRealMoveSpeed(speed) / 2);
             realPlayer.setWalkSpeed(HackerTools.getPlugin().getMechanics().getRealMoveSpeed(speed));
             HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.SUCCESSFULY_SET_SPEED);
+        });
+
+        arguments.put("debug", (player, args) -> {
+            if (!(player instanceof Player)) {
+                return;
+            }
+            if (args.length < 2) {
+                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.NOT_ENOUGH_ARGUMENTS);
+                return;
+            }
+            String action = args[1];
+            if (action.equals("disable") || action.equals("off")) {
+                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Placeholders.DEBUGPREFIX + "Debug was disabled for you!");
+                HackerTools.getPlugin().getPlayerManager().getPlayer((Player) player).setDebug(false);
+            } else if (action.equals("enable") || action.equals("on")) {
+                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Placeholders.DEBUGPREFIX + "Debug was enabled for you!");
+                HackerTools.getPlugin().getPlayerManager().getPlayer((Player) player).setDebug(true);
+            } else {
+                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.WRONG_ARGUMENT);
+            }
         });
         arguments.put("kick", (player, args) -> {
             if (args.length < 2) {
@@ -195,8 +216,8 @@ public class HTCommand implements CommandExecutor {
     private void sendHelp(CommandSender player) {
         ArrayList<TextComponent> lines = new ArrayList<>();
         ChatManager manager = HackerTools.getPlugin().getChatManager();
-        lines.add(manager.getTooltippedTextPerformingCommand(player, "§7/ht - §csends informations about §4" + Placeholders.PLUGINNAME + " §cplugin", "§7Click to perform §c/ht", "ht"));
-        lines.add(manager.getTooltippedTextPerformingCommand(player, "§7/ht ? | help - §csends all arguments of §4/ht §ccommand", "§7Click to perform §c/ht help", "ht help"));
+        lines.add(manager.getTooltippedTextPerformingCommand(player, "§7/ht - §csends informations about §4" + Placeholders.PLUGINNAME + " §cplugin", "ht", "§7Click to perform §c/ht"));
+        lines.add(manager.getTooltippedTextPerformingCommand(player, "§7/ht ? | help - §csends all arguments of §4/ht §ccommand", "ht help", "§7Click to perform §c/ht help"));
         lines.add(manager.getTooltippedTextSuggestingCommand(player, "§7/ht restart [seconds] - §crestarts the server. Default time is §410 seconds", "ht restart ", "§7Click to suggest §c/ht restart"));
         lines.add(manager.getTooltippedTextPerformingCommand(player, "§7/ht forcestart - §cforces the game to start", "ht forcestart", "§7Click to perform §c/ht forcestart"));
         lines.add(manager.getTooltippedTextSuggestingCommand(player, "§7/ht speed <number> - §csets your walk and fly speed", "ht speed ", "§7Click to suggest §c/ht speed"));
@@ -211,8 +232,9 @@ public class HTCommand implements CommandExecutor {
                 "§4████████ §7§o- " + Placeholders.PLAYERNAME,
                 "§4███§f██§4███",
                 "§4████████"));
+        lines.add(manager.getTooltippedTextSuggestingCommand(player, "§7/ht debug <on/off> - §cturn off or on automatic debug sending.", "ht debug ", "§7Click to suggest §c/ht debug"));
         lines.add(manager.getTooltippedTextPerformingCommand(player, "§7/ht entities - §cshows list of all entities spawned using §4" + Placeholders.PLUGINNAME, "ht entities", "§7Click to perform §c/ht entities"));
-        lines.add(manager.getTooltippedTextSuggestingCommand(player, "§7/ht entities remove <id> - §c", "ht entities remove ", "§7Click to suggest §2/ht entities remove"));
+        lines.add(manager.getTooltippedTextSuggestingCommand(player, "§7/ht entities remove <id> - §c", "ht entities remove ", "§7Click to suggest §c/ht entities remove"));
         HackerTools.getPlugin().getChatManager().sendBorderedMessage(player, "■", lines);
     }
 }

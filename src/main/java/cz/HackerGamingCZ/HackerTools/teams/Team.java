@@ -1,18 +1,14 @@
 package cz.HackerGamingCZ.HackerTools.teams;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
-import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.Permissions;
 import cz.HackerGamingCZ.HackerTools.Registrable;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 
-import javax.swing.plaf.basic.BasicBorders;
 import java.util.ArrayList;
 
 public interface Team extends Registrable {

@@ -35,6 +35,7 @@ public class Lang {
     public static String NO_ENTITIES_FOUND = Placeholders.ERRORPREFIX + "No entities found. :(";
     public static String PLUGIN_RELOADED = Placeholders.HTPREFIX + "Plugin §e" + Placeholders.PLUGINNAME + " §7reloaded!";
     public static String SUCCESSFULY_KICKED_ALL_PLAYERS = Placeholders.HTPREFIX + "You have kicked §eall players §7except those with §ebypass §7permission!";
+    public static String WRONG_ARGUMENT = Placeholders.ERRORPREFIX + "Sorry, I don't know that argument. :(";
 
     public static String get(String string, Player player) {
         return HackerTools.getPlugin().getPlaceholderManager().replaceString(string, player);

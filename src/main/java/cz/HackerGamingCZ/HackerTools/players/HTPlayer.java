@@ -17,6 +17,7 @@ public class HTPlayer {
     private Team team;
     private Team previousTeam;
     private HTScoreboard board;
+    private boolean debug = true;
 
     public HTPlayer(Player player) {
         this.player = player;
@@ -99,5 +100,13 @@ public class HTPlayer {
 
     public void joinTeam(Team team) {
         team.join(this);
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
+    public boolean isDebug() {
+        return debug;
     }
 }
