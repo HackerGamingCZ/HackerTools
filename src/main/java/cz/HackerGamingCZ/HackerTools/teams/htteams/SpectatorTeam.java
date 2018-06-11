@@ -15,7 +15,6 @@ import org.bukkit.potion.PotionEffectType;
 
 public class SpectatorTeam implements Team {
 
-
     @Override
     public ChatColor getChatColor() {
         return ChatColor.GRAY;

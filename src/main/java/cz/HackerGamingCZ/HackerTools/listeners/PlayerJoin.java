@@ -3,7 +3,6 @@ package cz.HackerGamingCZ.HackerTools.listeners;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.Permissions;
-import cz.HackerGamingCZ.HackerTools.managers.ChatManager;
 import cz.HackerGamingCZ.HackerTools.managers.SchedulerManager;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;

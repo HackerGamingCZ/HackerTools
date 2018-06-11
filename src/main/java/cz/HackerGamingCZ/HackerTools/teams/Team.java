@@ -34,13 +34,18 @@ public interface Team extends Registrable {
         return getChatColor() + "" + (bold ? ChatColor.BOLD : "") + getName();
     }
 
+
+    default void teleportToSpawn(HTPlayer player) {
+        teleportToSpawn(player.getPlayer());
+    }
+
     default void teleportToSpawn(Player player) {
         player.teleport(getTeamSpawn());
     }
 
     default void teleportAllToSpawn() {
         for (HTPlayer player : getPlayers()) {
-            teleportToSpawn(player.getPlayer());
+            teleportToSpawn(player);
         }
     }
 

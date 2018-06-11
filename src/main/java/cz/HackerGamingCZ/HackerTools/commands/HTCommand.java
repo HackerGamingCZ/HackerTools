@@ -6,9 +6,7 @@ import cz.HackerGamingCZ.HackerTools.Permissions;
 import cz.HackerGamingCZ.HackerTools.CommandArgument;
 import cz.HackerGamingCZ.HackerTools.entities.InteractableEntity;
 import cz.HackerGamingCZ.HackerTools.managers.ChatManager;
-import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
 import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
-import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -17,8 +15,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.plugin.PluginManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;

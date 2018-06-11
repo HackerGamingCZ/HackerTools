@@ -3,8 +3,6 @@ package cz.HackerGamingCZ.HackerTools.scoreboard;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.PlayerAction;
 import cz.HackerGamingCZ.HackerTools.Registrable;
-import cz.HackerGamingCZ.HackerTools.managers.ChatManager;
-import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
 import cz.HackerGamingCZ.HackerTools.placeholders.PlaceholderManager;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import cz.HackerGamingCZ.HackerTools.scoreboard.linetype.CustomLineType;

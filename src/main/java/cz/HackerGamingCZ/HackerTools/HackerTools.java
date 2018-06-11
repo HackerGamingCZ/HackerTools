@@ -1,6 +1,7 @@
 package cz.HackerGamingCZ.HackerTools;
 
 import cz.HackerGamingCZ.HackerTools.builder.ItemBuilder;
+import cz.HackerGamingCZ.HackerTools.managers.ChatManager;
 import cz.HackerGamingCZ.HackerTools.debug.DebugCommand;
 import cz.HackerGamingCZ.HackerTools.config.SimpleConfigManager;
 import cz.HackerGamingCZ.HackerTools.debug.DebugManager;
@@ -24,7 +25,6 @@ import cz.HackerGamingCZ.HackerTools.updater.Updater;
 import cz.HackerGamingCZ.HackerTools.updater.UpdaterPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
