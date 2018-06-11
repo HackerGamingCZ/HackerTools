@@ -31,6 +31,9 @@ public class VoidDamage implements Listener {
             if (htPlayer.isSpectator()) {
                 return;
             }
+            if (htPlayer.getPlayer().isDead()) {
+                return;
+            }
             DeathByVoidEvent event = new DeathByVoidEvent(htPlayer, htPlayer.getLastHittedBy());
             Bukkit.getPluginManager().callEvent(event);
             htPlayer.setLastHittedBy(null);
