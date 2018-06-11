@@ -87,7 +87,7 @@ public class HTPlayer {
         if(board == null){
             return;
         }
-        board.update(player);
+        board.update();
     }
 
     public boolean hasTeam() {
