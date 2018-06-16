@@ -1,7 +1,9 @@
 package cz.HackerGamingCZ.HackerTools.players;
 
+import cz.HackerGamingCZ.HackerTools.HackerTools;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -9,6 +11,18 @@ public class PlayerManager {
 
     //PLAYERNAME => HTPLAYER
     private HashMap<String, HTPlayer> playerMap = new HashMap<>();
+    private File playerFolder;
+
+    public PlayerManager() {
+        playerFolder = new File(HackerTools.getPlugin().getDataFolder(), "players");
+        if (!playerFolder.exists()) {
+            if (playerFolder.mkdir()) {
+                HackerTools.getPlugin().getLoggerManager().log("Folder players created!");
+            } else {
+                HackerTools.getPlugin().getLoggerManager().warn("Folder players could not be created!");
+            }
+        }
+    }
 
     public void addPlayer(Player player) {
         playerMap.put(player.getName(), new HTPlayer(player));
@@ -43,5 +57,7 @@ public class PlayerManager {
         return playerMap;
     }
 
-
+    public File getPlayerFolder() {
+        return playerFolder;
+    }
 }

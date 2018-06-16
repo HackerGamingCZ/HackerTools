@@ -10,16 +10,9 @@ import java.util.Collections;
 
 public class PlaceholderManager {
 
-    public String replaceString(String string, Player player) {
-        return replaceString(string, player, new Placeholders[]{});
-    }
-
-    public String replaceString(String string, OfflinePlayer player) {
-        return replaceString(string, player, new Placeholders[]{});
-    }
 
     public String replaceString(String string) {
-        return replaceString(string, null);
+        return replaceString(string, (Player) null);
     }
 
     public String replaceString(String string, Player player, Placeholders... ignore) {

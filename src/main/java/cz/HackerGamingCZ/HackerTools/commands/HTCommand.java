@@ -7,6 +7,7 @@ import cz.HackerGamingCZ.HackerTools.CommandArgument;
 import cz.HackerGamingCZ.HackerTools.entities.InteractableEntity;
 import cz.HackerGamingCZ.HackerTools.managers.ChatManager;
 import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
+import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -90,17 +91,23 @@ public class HTCommand implements CommandExecutor {
             if (!(player instanceof Player)) {
                 return;
             }
+            HTPlayer htPlayer = HackerTools.getPlugin().getPlayerManager().getPlayer((Player) player);
             if (args.length < 2) {
-                HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.NOT_ENOUGH_ARGUMENTS);
+                if (htPlayer.isDebug()) {
+                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Placeholders.DEBUGPREFIX + "Debug was disabled for you!");
+                } else {
+                    HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Placeholders.DEBUGPREFIX + "Debug was enabled for you!");
+                }
+                htPlayer.setDebug(!htPlayer.isDebug());
                 return;
             }
             String action = args[1];
             if (action.equals("disable") || action.equals("off")) {
                 HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Placeholders.DEBUGPREFIX + "Debug was disabled for you!");
-                HackerTools.getPlugin().getPlayerManager().getPlayer((Player) player).setDebug(false);
+                htPlayer.setDebug(false);
             } else if (action.equals("enable") || action.equals("on")) {
                 HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Placeholders.DEBUGPREFIX + "Debug was enabled for you!");
-                HackerTools.getPlugin().getPlayerManager().getPlayer((Player) player).setDebug(true);
+                htPlayer.setDebug(true);
             } else {
                 HackerTools.getPlugin().getChatManager().sendPlayerMessage(player, Lang.WRONG_ARGUMENT);
             }

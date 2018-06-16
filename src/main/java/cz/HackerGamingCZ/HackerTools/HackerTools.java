@@ -120,8 +120,9 @@ public class HackerTools extends JavaPlugin {
     @Override
     public void onLoad() {
         plugin = this;
-        loggerManager = new LoggerManager();
         pdf = this.getDescription();
+        loggerManager = new LoggerManager();
+        placeholderManager = new PlaceholderManager();
         mechanics = new Mechanics();
         simpleConfigManager = new SimpleConfigManager(plugin);
         htConfigManager = new HTConfigManager();
@@ -130,7 +131,6 @@ public class HackerTools extends JavaPlugin {
         debugManager = new DebugManager();
         eventManager = new EventManager();
         commandManager = new CommandManager();
-        placeholderManager = new PlaceholderManager();
         chatManager = new ChatManager();
         if(minigame) {
             minigameManager = new MinigameManager();

@@ -1,6 +1,7 @@
 package cz.HackerGamingCZ.HackerTools.players;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
+import cz.HackerGamingCZ.HackerTools.config.SimpleConfig;
 import cz.HackerGamingCZ.HackerTools.enums.GameState;
 import cz.HackerGamingCZ.HackerTools.events.PlayerJoinTeamEvent;
 import cz.HackerGamingCZ.HackerTools.gui.GUI;
@@ -10,6 +11,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class HTPlayer {
 
     private Player player;
@@ -17,14 +21,28 @@ public class HTPlayer {
     private Team team;
     private Team previousTeam;
     private HTScoreboard board;
-    private boolean debug = true;
+    private boolean debug;
+    private SimpleConfig configFile;
 
     public HTPlayer(Player player) {
         this.player = player;
+        configFile = HackerTools.getPlugin().getSimpleConfigManager().getNewConfig("players/" + player.getName() + ".yml");
+        configFile.check("UUID", player.getUniqueId().toString());
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("y/M/d HH:mm");
+        configFile.check("first-connection", sdf.format(cal.getTime()));
+        configFile.set("last-connection", sdf.format(cal.getTime()));
+        configFile.check("debug", true);
+        this.debug = configFile.getBoolean("debug");
     }
 
     public Player getPlayer() {
         return player;
+    }
+
+    private void saveToConfig() {
+        configFile.set("debug", debug);
+        configFile.saveConfig();
     }
 
     public Team getTeam() {
@@ -104,9 +122,14 @@ public class HTPlayer {
 
     public void setDebug(boolean debug) {
         this.debug = debug;
+        saveToConfig();
     }
 
     public boolean isDebug() {
         return debug;
+    }
+
+    public SimpleConfig getConfigFile() {
+        return configFile;
     }
 }

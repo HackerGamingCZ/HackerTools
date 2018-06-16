@@ -59,7 +59,7 @@ public class SimpleConfigManager {
      *
      * @return - New file object
      */
-    private File getConfigFile(String file) {
+    public File getConfigFile(String file) {
 
         if (file == null || file.isEmpty()) {
             return null;
