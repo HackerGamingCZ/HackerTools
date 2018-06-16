@@ -111,6 +111,9 @@ public class HackerTools extends JavaPlugin {
         }, 20 * 5);
         schedulerManager.addScheduler("scoreboardupdator", Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, ()->{
             for(HTPlayer htPlayer : playerManager.getPlayers().values()){
+                if (!htPlayer.getPlayer().isOnline()) {
+                    continue;
+                }
                 htPlayer.updateScoreboard();
             }
         }, 20, 20));
