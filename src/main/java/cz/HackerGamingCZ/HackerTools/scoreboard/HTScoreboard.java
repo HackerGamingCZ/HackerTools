@@ -23,14 +23,14 @@ public class HTScoreboard {
     private Scoreboard scoreboard;
     private Objective objective;
     private ArrayList<ScoreboardLine> lines = new ArrayList<>();
-    private PlayerAction updater;
+    private HTScoreboardUpdater updater;
     private ChatColor primaryColor;
     private ChatColor secondaryColor;
     private HashMap<Team.Option, Team.OptionStatus> options = new HashMap<>();
     private Team playersTeam;
     private HTPlayer player;
 
-    public HTScoreboard setUpdater(PlayerAction updater) {
+    public HTScoreboard setUpdater(HTScoreboardUpdater updater) {
         this.updater = updater;
         return this;
     }
@@ -119,10 +119,17 @@ public class HTScoreboard {
         if (updater == null) {
             return;
         }
-        updater.execute(player);
+        updater.execute(player, this);
     }
 
     public Scoreboard getScoreboard() {
         return scoreboard;
     }
+
+    public interface HTScoreboardUpdater {
+
+        void execute(HTPlayer player, HTScoreboard htScoreboard);
+
+    }
+
 }
