@@ -160,6 +160,11 @@ public class ItemBuilder implements Registrable {
         return itemStack;
     }
 
+    public ItemBuilder giveItem(Inventory inv) {
+        inv.addItem(getItemStack());
+        return this;
+    }
+
     public ItemBuilder giveItem(Inventory inv, int position) {
         inv.setItem(position, getItemStack());
         return this;
