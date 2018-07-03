@@ -12,7 +12,7 @@ public class PlayerJoinTeamEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
     private Team team;
     private HTPlayer player;
-    private boolean cancelled;
+    private boolean cancelled = false;
 
     public PlayerJoinTeamEvent(Team team, HTPlayer player) {
         this.team = team;
