@@ -62,7 +62,7 @@ public class TeamManager {
                 continue;
             }
             if (!htPlayer.getPlayer().isOnline()) {
-                return;
+                continue;
             }
             for (Team team : teams) {
                 if(team == HackerTools.getPlugin().getSpectatorTeam()){
