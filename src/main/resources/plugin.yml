@@ -1,6 +1,6 @@
 main: cz.HackerGamingCZ.HackerTools.HackerTools
 author: HackerGamingCZ
-version: 0.0.1
+version: 1.0.0
 name: HackerTools
 commands:
   hackertools:
