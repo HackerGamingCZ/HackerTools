@@ -27,10 +27,15 @@ public class TeamListener implements Listener {
         if (htVictim.getTeam() == null || htDamager.getTeam() == null) {
             return;
         }
-        if (htDamager.getTeam() == htVictim.getTeam() && !HackerTools.getPlugin().getTeamManager().isTeamDamage()) {
-            e.setCancelled(true);
-            TeamDamageEvent event = new TeamDamageEvent();
+        if (htDamager.getTeam() == htVictim.getTeam()) {
+            if (!HackerTools.getPlugin().getTeamManager().isTeamDamage()) {
+                e.setCancelled(true);
+            }
+            TeamDamageEvent event = new TeamDamageEvent(htDamager, htVictim);
             Bukkit.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                e.setCancelled(true);
+            }
         }
     }
 
