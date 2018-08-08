@@ -10,6 +10,7 @@ import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -47,6 +48,28 @@ public class HTCommand implements CommandExecutor {
                 }
                 i[0]--;
             }, 0, 20);
+        });
+        arguments.put("colors", (player, args) -> {
+            ArrayList<String> text = new ArrayList<>();
+            for (ChatColor color : ChatColor.values()) {
+                if (color.isFormat()) {
+                    continue;
+                }
+                text.add(color + "&" + color.getChar() + "§7 - " + color + "example text of ChatColor." + color.name());
+            }
+
+            HackerTools.getPlugin().getChatManager().sendBorderedMessage(player, "■", true, text);
+        });
+        arguments.put("formats", (player, args) -> {
+            ArrayList<String> text = new ArrayList<>();
+            for (ChatColor color : ChatColor.values()) {
+                if (color.isColor()) {
+                    continue;
+                }
+                text.add(color + "█ &" + color.getChar() + " §7- " + color + " example text of ChatColor." + color.name());
+            }
+
+            HackerTools.getPlugin().getChatManager().sendBorderedMessage(player, "■", true, text);
         });
         arguments.put("entities", (player, args) -> {
             if (args.length <= 1 || args[1].equalsIgnoreCase("list")) {
