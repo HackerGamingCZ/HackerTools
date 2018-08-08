@@ -20,6 +20,10 @@ public interface Team extends Registrable {
 
     String getName();
 
+    default String getCodeName() {
+        return getName();
+    }
+
     Location getTeamSpawn();
 
     default boolean isIngameTeam() {

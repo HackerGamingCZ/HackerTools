@@ -21,6 +21,11 @@ public class SpectatorTeam implements Team {
     }
 
     @Override
+    public String getCodeName() {
+        return getName().toLowerCase();
+    }
+
+    @Override
     public byte getData() {
         return 8;
     }
