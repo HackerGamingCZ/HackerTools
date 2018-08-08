@@ -3,6 +3,7 @@ package cz.HackerGamingCZ.HackerTools.listeners;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import javafx.scene.layout.Priority;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -29,6 +30,20 @@ public class Spectator implements Listener {
         }
         Player player = (Player) e.getDamager();
         if (isSpectator(player)) {
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onItemPickup(EntityDamageByEntityEvent e) {
+        if (!(e.getEntity() instanceof Player)) {
+            return;
+        }
+        Player victim = (Player) e.getEntity();
+        if (!isSpectator(victim)) {
+            return;
+        }
+        if (e.getDamager() instanceof Arrow) {
             e.setCancelled(true);
         }
     }
