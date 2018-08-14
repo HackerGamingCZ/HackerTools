@@ -1,6 +1,5 @@
 package cz.HackerGamingCZ.HackerTools.managers;
 
-import cz.HackerGamingCZ.HackerTools.HackerTools;
 import org.bukkit.Bukkit;
 
 import java.util.logging.Level;

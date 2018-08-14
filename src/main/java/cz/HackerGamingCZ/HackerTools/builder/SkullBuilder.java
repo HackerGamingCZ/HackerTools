@@ -2,7 +2,6 @@ package cz.HackerGamingCZ.HackerTools.builder;
 
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 public class SkullBuilder extends ItemBuilder {

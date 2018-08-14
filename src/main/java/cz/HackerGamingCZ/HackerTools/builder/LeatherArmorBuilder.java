@@ -2,11 +2,8 @@ package cz.HackerGamingCZ.HackerTools.builder;
 
 import org.bukkit.Color;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

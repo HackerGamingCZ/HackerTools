@@ -1,10 +1,10 @@
 package cz.HackerGamingCZ.HackerTools.listeners;
 
+import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.PlayerAction;
 import cz.HackerGamingCZ.HackerTools.builder.ItemBuilder;
 import cz.HackerGamingCZ.HackerTools.builder.ItemProperty;
 import cz.HackerGamingCZ.HackerTools.gui.GUI;
-import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -12,8 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-
-import java.util.Properties;
 
 public class InventoryClick implements Listener {
 

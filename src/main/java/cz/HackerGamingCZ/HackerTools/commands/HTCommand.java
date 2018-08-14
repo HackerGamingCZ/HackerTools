@@ -1,9 +1,9 @@
 package cz.HackerGamingCZ.HackerTools.commands;
 
+import cz.HackerGamingCZ.HackerTools.CommandArgument;
 import cz.HackerGamingCZ.HackerTools.HackerTools;
 import cz.HackerGamingCZ.HackerTools.Lang;
 import cz.HackerGamingCZ.HackerTools.Permissions;
-import cz.HackerGamingCZ.HackerTools.CommandArgument;
 import cz.HackerGamingCZ.HackerTools.entities.InteractableEntity;
 import cz.HackerGamingCZ.HackerTools.managers.ChatManager;
 import cz.HackerGamingCZ.HackerTools.placeholders.Placeholders;
@@ -55,18 +55,18 @@ public class HTCommand implements CommandExecutor {
                 if (color.isFormat()) {
                     continue;
                 }
-                text.add(color + "&" + color.getChar() + "§7 - " + color + "example text of ChatColor." + color.name());
+                text.add(color + "█&" + color.getChar() + "§7 - " + color + "example text of ChatColor." + color.name());
             }
 
             HackerTools.getPlugin().getChatManager().sendBorderedMessage(player, "■", true, text);
         });
         arguments.put("formats", (player, args) -> {
             ArrayList<String> text = new ArrayList<>();
-            for (ChatColor color : ChatColor.values()) {
-                if (color.isColor()) {
+            for (ChatColor format : ChatColor.values()) {
+                if (format.isColor()) {
                     continue;
                 }
-                text.add(color + "█ &" + color.getChar() + " §7- " + color + " example text of ChatColor." + color.name());
+                text.add(format + "&" + format.getChar() + " §7- " + format + " example text of ChatColor." + format.name());
             }
 
             HackerTools.getPlugin().getChatManager().sendBorderedMessage(player, "■", true, text);

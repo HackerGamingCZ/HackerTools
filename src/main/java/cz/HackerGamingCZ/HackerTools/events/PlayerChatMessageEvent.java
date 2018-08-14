@@ -1,7 +1,6 @@
 package cz.HackerGamingCZ.HackerTools.events;
 
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
-import org.bukkit.ChatColor;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

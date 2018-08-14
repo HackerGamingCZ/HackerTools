@@ -1,7 +1,9 @@
 package cz.HackerGamingCZ.HackerTools.scoreboard;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
-import cz.HackerGamingCZ.HackerTools.scoreboard.linetype.*;
+import cz.HackerGamingCZ.HackerTools.scoreboard.linetype.CustomLineType;
+import cz.HackerGamingCZ.HackerTools.scoreboard.linetype.EmptyLineType;
+import cz.HackerGamingCZ.HackerTools.scoreboard.linetype.LineType;
 
 public class ScoreboardLine {
 

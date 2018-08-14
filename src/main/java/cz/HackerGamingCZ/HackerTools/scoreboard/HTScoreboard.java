@@ -1,20 +1,18 @@
 package cz.HackerGamingCZ.HackerTools.scoreboard;
 
 import cz.HackerGamingCZ.HackerTools.HackerTools;
-import cz.HackerGamingCZ.HackerTools.PlayerAction;
-import cz.HackerGamingCZ.HackerTools.Registrable;
 import cz.HackerGamingCZ.HackerTools.placeholders.PlaceholderManager;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import cz.HackerGamingCZ.HackerTools.scoreboard.linetype.CustomLineType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class HTScoreboard {
@@ -54,17 +52,16 @@ public class HTScoreboard {
         return this;
     }
 
-    public HTScoreboard addLine(ScoreboardLine line) {
-        lines.add(line);
+    public HTScoreboard addLine(ScoreboardLine... line) {
+        lines.addAll(Arrays.asList(line));
         return this;
     }
 
-    public HTScoreboard addLine(ScoreboardLine... line) {
-        for (ScoreboardLine scoreboardLine : line) {
-            lines.add(scoreboardLine);
-        }
+    public HTScoreboard addLine(ArrayList<ScoreboardLine> line) {
+        lines.addAll(line);
         return this;
     }
+
 
     public void createScoreboard() {
         for (ScoreboardLine scoreboardLine : lines) {

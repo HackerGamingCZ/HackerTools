@@ -4,7 +4,6 @@ import cz.HackerGamingCZ.HackerTools.placeholders.Placeholder;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 
 public class PlayerNamePlaceholder implements Placeholder {
 

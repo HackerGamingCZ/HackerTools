@@ -1,10 +1,8 @@
 package cz.HackerGamingCZ.HackerTools.listeners;
 
-import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;

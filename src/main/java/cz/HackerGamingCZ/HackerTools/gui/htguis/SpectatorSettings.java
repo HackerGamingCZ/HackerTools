@@ -6,7 +6,6 @@ import cz.HackerGamingCZ.HackerTools.gui.GUI;
 import cz.HackerGamingCZ.HackerTools.players.HTPlayer;
 import org.bukkit.Material;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SpectatorSettings implements GUI {
