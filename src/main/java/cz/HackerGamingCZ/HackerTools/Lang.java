@@ -11,6 +11,7 @@ public class Lang {
     public static String HACKERTOOLS_PREFIX = "§6§lHackerTools §8>> §7";
     public static String ERROR_PREFIX = "§4§lERROR §8>>§7 ";
     public static String CONSOLE_ERROR = "ERROR >> ";
+    public static String PUNISHMENT_PREFIX = "§4§lPUNISHMENT §8>>§7 ";
 
     public static String DEBUG_DOESNT_EXIST;
     public static String JOINTYPE_NOBODY_KICK_MESSAGE;
@@ -31,11 +32,12 @@ public class Lang {
     public static String SUCCESSFULY_SET_SPEED = Placeholders.HTPREFIX + "Successfully set your speed.";
     public static String FORCESTART_EXECUTED = Placeholders.HTPREFIX + "Starting the game...";
     public static String PLAYER_NOT_FOUND = Placeholders.ERRORPREFIX + "Players wasn't found.";
-    public static String SUCCESSFULY_KICKED_PLAYER = Placeholders.HTPREFIX + "You have successfully kicked a player.";
+    public static String SUCCESSFULY_KICKED_PLAYER = Placeholders.PUNISHMENTPREFIX + "You have successfully kicked a player.";
     public static String NO_ENTITIES_FOUND = Placeholders.ERRORPREFIX + "No entities found. :(";
     public static String PLUGIN_RELOADED = Placeholders.HTPREFIX + "Plugin §e" + Placeholders.PLUGINNAME + " §7reloaded!";
-    public static String SUCCESSFULY_KICKED_ALL_PLAYERS = Placeholders.HTPREFIX + "You have kicked §eall players §7except those with §ebypass §7permission!";
+    public static String SUCCESSFULY_KICKED_ALL_PLAYERS = Placeholders.PUNISHMENTPREFIX + "You have kicked §call players §7except those with §cbypass §7permission!";
     public static String WRONG_ARGUMENT = Placeholders.ERRORPREFIX + "Sorry, I don't know that argument. :(";
+    public static String PLAYER_HAS_KICK_PROTECTION = Placeholders.ERRORPREFIX + "Sorry, but this player has protection. If you really want to kick him, add §c\"-op\" §7modificator.";
 
     public static String get(String string, Player player) {
         return HackerTools.getPlugin().getPlaceholderManager().replaceString(string, player);

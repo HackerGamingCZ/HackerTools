@@ -16,9 +16,9 @@ public class ServerManager {
                 continue;
             }
             if (reason != null && reason.length() > 0) {
-                p.kickPlayer("§6You have been kicked by system. Reason: §e" + reason);
+                p.kickPlayer("§cYou have been kicked by system. Reason: §d" + reason);
             } else {
-                p.kickPlayer("§6You have been kicked by system.");
+                p.kickPlayer("§cYou have been kicked by system.");
             }
         }
     }
