@@ -22,6 +22,7 @@ import cz.HackerGamingCZ.HackerTools.updater.Updater;
 import cz.HackerGamingCZ.HackerTools.updater.UpdaterPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
@@ -167,7 +168,9 @@ public class HackerTools extends JavaPlugin {
     }
 
     private void registerCommands() {
-        getCommand("hackertools").setExecutor(new HTCommand());
+        HTCommand htCommand = new HTCommand();
+        getCommand("hackertools").setExecutor(htCommand);
+        Bukkit.getPluginCommand("vote").setTabCompleter(htCommand);
         getCommand("debug").setExecutor(new DebugCommand());
     }
 

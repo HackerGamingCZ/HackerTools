@@ -16,13 +16,15 @@ import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class HTCommand implements CommandExecutor {
+public class HTCommand implements CommandExecutor, TabCompleter {
 
     private HashMap<String, CommandArgument> arguments = new HashMap<>();
 
@@ -319,5 +321,13 @@ public class HTCommand implements CommandExecutor {
         lines.add(manager.getTooltippedTextPerformingCommand(player, "§7/ht entities - §cshows list of all entities spawned using §4" + Placeholders.PLUGINNAME, "ht entities", "§7Click to perform §c/ht entities"));
         lines.add(manager.getTooltippedTextSuggestingCommand(player, "§7/ht entities remove <id> - §c", "ht entities remove ", "§7Click to suggest §c/ht entities remove"));
         HackerTools.getPlugin().getChatManager().sendBorderedMessage(player, "■", lines);
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+        if (!(sender instanceof Player)) {
+            return null;
+        }
+        return new ArrayList<>(arguments.keySet());
     }
 }
