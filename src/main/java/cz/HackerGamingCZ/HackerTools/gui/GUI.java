@@ -52,6 +52,15 @@ public interface GUI extends Registrable {
             return null;
         }
         for (ItemBuilder item : getItems(player).values()) {
+            if(item == null){
+                continue;
+            }
+            if(!item.build().hasItemMeta()){
+                continue;
+            }
+            if(!item.build().getItemMeta().hasDisplayName()){
+                continue;
+            }
             if (item.build().getItemMeta().getDisplayName().equals(is.getItemMeta().getDisplayName())) {
                 return item;
             }
