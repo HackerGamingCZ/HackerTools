@@ -43,12 +43,18 @@ public class HTScoreboard {
         this.objective = scoreboard.registerNewObjective("main", "dummy");
         this.primaryColor = primaryColor;
         this.player = player;
-        this.secondaryColor = ChatColor.GRAY;
+        this.secondaryColor = secondaryColor;
         playersTeam = scoreboard.registerNewTeam("playerTeam");
     }
 
     public HTScoreboard addTeamOption(Team.Option option, Team.OptionStatus status) {
         options.put(option, status);
+        return this;
+    }
+
+
+    public HTScoreboard addLine(ScoreboardLine line) {
+        lines.add(line);
         return this;
     }
 

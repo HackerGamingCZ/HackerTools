@@ -49,6 +49,9 @@ public class TeamListener implements Listener {
         Team team = htPlayer.getTeam();
         PlayerChatMessageEvent event = new PlayerChatMessageEvent(htPlayer, e.getMessage());
         Bukkit.getPluginManager().callEvent(event);
+        if(event.isCancelled()){
+            return;
+        }
         if (team == null || HackerTools.getPlugin().getGameState() != GameState.INGAME || !HackerTools.getPlugin().getTeamManager().isTeamChat()) {
             e.setFormat(event.getPrefix() + "%s §8» §7" + event.getSuffix() + "%s");
             return;

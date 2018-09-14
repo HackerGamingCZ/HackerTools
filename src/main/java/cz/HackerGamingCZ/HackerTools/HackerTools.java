@@ -170,7 +170,7 @@ public class HackerTools extends JavaPlugin {
     private void registerCommands() {
         HTCommand htCommand = new HTCommand();
         getCommand("hackertools").setExecutor(htCommand);
-        Bukkit.getPluginCommand("vote").setTabCompleter(htCommand);
+        Bukkit.getPluginCommand("hackertools").setTabCompleter(htCommand);
         getCommand("debug").setExecutor(new DebugCommand());
     }
 
