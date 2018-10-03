@@ -9,8 +9,5 @@
         <module name="HackerTools" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="HackerTools" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

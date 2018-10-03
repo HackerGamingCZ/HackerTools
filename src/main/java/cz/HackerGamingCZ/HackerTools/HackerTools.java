@@ -85,7 +85,7 @@ public class HackerTools extends JavaPlugin {
                 .setPlayerAction(player -> player.getPlayer().performCommand("ht forcestart"));
         spectatorSettingsItem = new ItemBuilder(Material.PAPER)
                 .setGlowing(true)
-                .setDisplayName("§7§Settings")
+                .setDisplayName("§7§lSettings")
                 .addLore("")
                 .addLore("§c§lSettings of spectator mode")
                 .setPlayerAction(player -> player.openGUI(spectatorSettings));
