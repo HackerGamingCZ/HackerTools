@@ -1,4 +1,4 @@
-package cz.HackerGamingCZ.HackerTools;
+package cz.HackerGamingCZ.HackerTools.commands;
 
 import org.bukkit.command.CommandSender;
 
